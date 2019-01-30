@@ -1,0 +1,81 @@
+{% extends 'base/base_main.html' %}
+{% load static %}
+{% load my_tags %}
+{% block content %}
+<div class="layui-container">
+    <div class="layui-row layui-col-space20" style="margin-top: 20px">
+        <!--文章内容-->
+        <div class="layui-col-md8">
+        {% load pagination_tags %}
+        {% autopaginate blogs %}
+            {% for blog in blogs %}
+                <div class="item-list">
+                <div class="layui-row article-border">
+                    <div class="my-article">
+                        <div><a href="{% url 'blog:read_blog' %}?blogid={{ blog.id }}"><h2>{{ blog.title }}</h2></a></div>
+                        <!--头像 作者 时间 分类标签-->
+                        <div class="my-article-info">
+                            <a href="#"><img src="/media/{{ blog.uid.icon }}" alt="文章" style="width: 30px; height: 30px;
+                            border-radius: 50%; border: 1px solid black"></a>
+                            <span>作者:</span>
+                            <span>{{ blog.uid.username}}</span>
+                            <span>发布时间:</span>
+                            <span>{{ blog.create_time | date:"Y-m-d" }}</span>
+                            <span></span>
+                            <span>分类:</span>
+                            <span><a href="#">{{ blog.categoryid.name }}</a></span>
+                            <span>标签:</span>
+                            {% for tag in blog.tags.all %}
+                                <span><a href="#">{{ tag.name }}</a></span>
+                            {% endfor %}
+                        </div>
+                        <!--文章内容取签115字-->
+                        <div class="blo_content">
+                            {% autoescape off %}
+                            {{ blog.content|truncatechars_html:115 }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+                <div >
+                    <h1 style="color: red">没有查到相关博客</h1>
+                </div>
+            {% endfor %}
+            <div class="page">
+                   {% paginate using 'pagination/my_pagination.html' %}
+                </div>
+            </div>
+        <!--右侧信息栏-->
+        <div class="layui-col-md4">
+            <div class="top_blog" style="background-color: white; margin-top: 20px; padding: 10px 10px">
+                <h3><i class="layui-icon layui-icon-fire"style="font-size: 20px; color: red;margin-right: 5px" ></i>阅读排行</h3>
+                <hr class="layui-bg-black">
+                <div>
+                    <ul >
+                        {% get_top_blog %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="random_blog" style="background-color: white;margin-top: 20px; padding: 10px 10px">
+                <h3><i class="layui-icon layui-icon-read"style="font-size: 20px;margin-right: 5px; color:#FF5722"></i>随机推荐</h3>
+                <hr class="layui-bg-black">
+                <div>
+                    <ul>
+                        {% get_random_blog %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extJS %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $('.layui-nav-item').eq(2).addClass('layui-this');
+    </script>
+{% endblock %}

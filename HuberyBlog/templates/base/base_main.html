@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load my_tags %}
+{% block extCSS %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'blog/css/base_main.css' %}">
+{% endblock %}
+{% block header %}
+    <!--顶部导航-->
+<div class="layui-header my-header">
+    <div class="layui-container">
+        <ul class="layui-nav layui-bg-cyan">
+            <li class="layui-nav-item"><a href="{% url 'home' %}">首页</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:void(0);">分类</a>
+                <dl class="layui-nav-child" id="category">
+                    <dd><a href="">{% get_categories %}</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="{% url 'blog:get_all_blog' %}">博客</a></li>
+{#            <li class="layui-nav-item">#}
+{#                <a href="javascript: void(0);">解决方案</a>#}
+{#                <dl class="layui-nav-child">#}
+{#                    <dd><a href="">移动模块</a></dd>#}
+{#                    <dd><a href="">后台模版</a></dd>#}
+{#                    <dd class="layui-this"><a href="">选中项</a></dd>#}
+{#                    <dd><a href="">电商平台</a></dd>#}
+{#                </dl>#}
+{#            </li>#}
+{#            <li class="layui-nav-item"><a href="">社区</a></li>#}
+        </ul>
+
+        <ul class="layui-nav layui-layout-right layui-bg-cyan">
+{#            <li class="layui-nav-item">#}
+{#                <a href="javascript:void(0);">#}
+{#                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">#}
+{#                    贤心#}
+{#                </a>#}
+{#                <dl class="layui-nav-child">#}
+{#                    <dd><a href="">基本资料</a></dd>#}
+{#                    <dd><a href="">安全设置</a></dd>#}
+{#                </dl>#}
+{#            </li>#}
+{#            <li class="layui-nav-item"><a href="">退了</a></li>#}
+        </ul>
+    </div>
+</div>
+    <a href="javascript:void(0)" class="return_top">
+        <i class="layui-icon layui-icon-top"></i>
+    </a>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+{% block extJS %}
+    {{ block.super }}
+    <script src="{% static 'blog/js/base_main.js' %}"></script>
+{% endblock %}

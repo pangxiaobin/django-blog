@@ -1,0 +1,62 @@
+.my-header {
+    background-color: #2F4056;
+}
+
+/*文章列表*/
+.item-list {
+    margin-top: 15px;
+}
+
+.item-list .article-border {
+    background-color: white;
+    padding: 20px 10px
+}
+
+
+.item-list .article-border .my-article {
+    height: 150px;
+    padding: 0 10px
+}
+
+.item-list .article-border .my-article > div:nth-child(2) {
+    margin-top: 5px;
+}
+
+.item-list .article-border .my-article .blo_content {
+    margin-top: 5px;
+}
+.item-list .article-border .my-article .my-article-info {
+    color: #919898;
+    height: 33px;
+    line-height: 33px;
+}
+.item-list .article-border .my-article .my-article-info > span {
+    margin-left: 10px;
+}
+
+.page {
+    background-color: white;
+    margin-top: 10px;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+}
+
+/*返回顶部*/
+.return_top {
+    position: fixed;
+    display: none;
+    bottom: 80px;
+    right: 0;
+    width: 70px;
+    height: 70px;
+    background-color: #393D49;
+    text-align: center;
+    border-radius: 50%;
+    z-index: 999
+}
+
+.return_top i {
+    font-size: 60px;
+    color: white;
+}

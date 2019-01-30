@@ -1,0 +1,162 @@
+{% extends 'base/base_main.html' %}
+{% load static %}
+{% load my_tags %}
+{# 导入评论库模块的模版标签 #}
+{% load comments %}
+{% block extCSS %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'blog/css/read_blog.css' %}">
+{% endblock %}
+{% block content %}
+<div class="layui-container">
+    <div class="layui-row layui-col-space20" style="margin-top: 20px">
+    <!--博文-->
+    <div class="layui-col-md8">
+        <div style="background-color: white; padding-top: 10px">
+            <div style="text-align: center; font-size: 22px;font-weight: bold;">
+                {{ blog.title }}
+            </div>
+            {# 橙色分割线#}
+            <hr class="layui-bg-orange">
+            <div class="blog_info">
+                <ul>
+                    <li><a href="#"><img src="/media/{{ blog.uid.icon }}" alt="文章" style="width: 30px; height: 30px;
+                            border-radius: 50%; border: 1px solid black"></a></li>
+                    <li>作者：{{ blog.uid.username }}</li>
+                    <li>发布时间：{{ blog.create_time | date:"Y-m-d" }}</li>
+                    <li>阅读数：{{ blog.read_num }}</li>
+{#                    <li>点赞数：{{ blog.appreciate}}</li>#}
+                    <li>分类：{{ blog.categoryid.name }}</li>
+                    <li>标签：
+                        {% for tag in blog.tags.all %}
+                            <a href="#">{{ tag.name }}</a>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+            <hr class="layui-bg-orange">
+            <div class="blog_content" style="padding: 10px 20px">
+                {% autoescape off %}
+                    {{ blog.content }}
+                {% endautoescape %}
+            </div>
+            <div class="up_down_blog">
+                <p>
+                    {% if pre_blog %}
+                        <a href="{%url 'blog:read_blog'%}?blogid={{ pre_blog.id }}">上一篇：{{pre_blog.title}}</a>
+                    {% else %}
+                        <a href="javascript:viod(0)">上一篇：没有了</a>
+                    {% endif %}
+                </p>
+                <p>
+                    {% if next_blog %}
+                        <a href="{%url 'blog:read_blog'%}?blogid={{ next_blog.id }}">下一篇：{{next_blog.title}}</a>
+                    {% else %}
+                        <a href="javascript:viod(0)">下一篇：没有了</a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="comment_list">
+            <div class="layui-card">
+                 <div class="layui-card-header">评论列表</div>
+                 <div class="layui-card-body">
+                     {% get_comment_list for blog as comments %}
+                     {% for comment in comments %}
+                         <div class="layui-card-body" name="{{comment.id}}">
+                            <i class="layui-icon layui-icon-user"></i>&nbsp;&nbsp;{{ comment.submit_date|date:"Y-m-d H:i"}}@{{ comment.user_name }}：
+                             <br>
+                             &nbsp;&nbsp;&nbsp;&nbsp;{{ comment.comment }}
+                        </div>
+{#                         <hr class="layui-bg-black">#}
+                     {% empty %}
+                         <span>暂无评论</span>
+                    {% endfor %}
+                 </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+          <div class="layui-card">
+            <div class="layui-card-header">新的评论</div>
+            <div class="layui-card-body">
+              {% get_comment_form for blog as blog_form %}
+
+        <form id="comment_form" class="layui-form" action="{% comment_form_target %}" method="post">
+            {% csrf_token %}
+            {# 必须的字段 #}
+            {{ blog_form.object_pk }}
+            {{ blog_form.content_type }}
+            {{ blog_form.timestamp }}
+            {{ blog_form.site }}
+            {{ blog_form.submit_date }}
+            {{ blog_form.security_hash }}
+
+            {# 用户名字段，这个后面会修改为登录用户评论，无需填这个 #}
+              <div class="layui-form-item">
+                <label class="layui-form-label" for="id_name">名称：</label>
+                <div class="layui-input-block">
+                  <input type="text" name="name" id="id_name"  required  lay-verify="required" placeholder="请输入您的用户名" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+             <div class="layui-form-item">
+                <label class="layui-form-label" for="id_email">邮箱：</label>
+                <div class="layui-input-block">
+                  <input type="email" name="email" id="id_email"  required  lay-verify="required" placeholder="请输入您的邮箱地址" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+            {# 评论内容 #}
+            <a name="newcomment" id="newcomment"></a>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">内容：</label>
+                <div class="layui-input-block">
+                  <textarea name="comment" id="id_comment"  placeholder="请输入内容" class="layui-textarea"></textarea>
+                </div>
+           </div>
+
+            {# 防垃圾评论 #}
+            <p style="display:none;">
+                <label for="id_honeypot">如果你在该字段中输入任何内容，你的评论就会被视为垃圾评论。</label>
+                <input type="text" name="honeypot" id="id_honeypot">
+            </p>
+
+            {# 表单按钮 #}
+            <div class="layui-input-block">
+                <input type="hidden" name="next" value="{%url 'blog:read_blog'%}?blogid={{ blog.id }}"/>
+                <button class="layui-btn" type="submit" name="submit">立即提交</button>
+            </div>
+         </form>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!--展示栏-->
+    <div class="layui-col-md4">
+        <div class="top_blog" style="background-color: white; padding: 10px 10px">
+            <h3><i class="layui-icon layui-icon-fire"style="font-size: 20px; color: red;margin-right: 5px" ></i>阅读排行</h3>
+            <hr class="layui-bg-black">
+            <div>
+                <ul >
+                    {% get_top_blog %}
+                </ul>
+            </div>
+        </div>
+        <div class="random_blog" style="background-color: white;margin-top: 20px; padding: 10px 10px">
+            <h3><i class="layui-icon layui-icon-read"style="font-size: 20px;margin-right: 5px; color:#FF5722"></i>随机推荐</h3>
+            <hr class="layui-bg-black">
+            <div>
+                <ul>
+                    {% get_random_blog %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block extJS %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $('.layui-nav-item').eq(2).addClass('layui-this');
+    </script>
+{% endblock %}

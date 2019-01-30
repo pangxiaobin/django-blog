@@ -1,0 +1,149 @@
+{% extends 'base/base_main.html' %}
+{% load static %}
+{% load my_tags %}
+{% block extCSS %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'blog/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="layui-container">
+    <div class="layui-row layui-col-space20" style="margin-top: 20px">
+        <!--轮播-->
+        <div class="layui-col-md8">
+            <div class="layui-carousel" id="test1">
+                <div carousel-item>
+                    {% for wheel in wheels %}
+                        <div><img src="/media/{{ wheel.image }}" alt="{{ whell.name }}" width="100%" height="100%"></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!--个人信息-->
+        <div class="layui-col-md4">
+            <div class="my-cart">
+                <div class="my-icon">
+                    <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop">
+                        <img src="{% static 'image/my-icon.jpg' %}" alt="头像">
+                    </div>
+                    <br>
+                    <h2>Hubery</h2>
+                </div>
+                <hr>
+                <div class="my-info">
+                    my info
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row layui-col-space20">
+        <!--文章内容-->
+        <div class="layui-col-md8">
+        {% load pagination_tags %}
+        {% autopaginate blogs %}
+            {% for blog in blogs %}
+                <div class="item-list">
+                <div class="layui-row article-border">
+                    <div class="my-article">
+                        <div><a href="{% url 'blog:read_blog' %}?blogid={{ blog.id }}"><h2>{{ blog.title }}</h2></a></div>
+                        <!--头像 作者 时间 分类标签-->
+                        <div class="my-article-info">
+                            <a href="#"><img src="/media/{{ blog.uid.icon }}" alt="文章" style="width: 30px; height: 30px;
+                            border-radius: 50%; border: 1px solid black"></a>
+                            <span>作者:</span>
+                            <span>{{ blog.uid.username}}</span>
+                            <span>发布时间:</span>
+                            <span>{{ blog.create_time | date:"Y-m-d" }}</span>
+                            <span></span>
+                            <span>分类:</span>
+                            <span><a href="#">{{ blog.categoryid.name }}</a></span>
+                            <span>标签:</span>
+                            {% for tag in blog.tags.all %}
+                                <span><a href="#">{{ tag.name }}</a></span>
+                            {% endfor %}
+                        </div>
+                        <!--文章内容取签115字-->
+                        <div class="blo_content">
+                            {% autoescape off %}
+                            {{ blog.content|truncatechars_html:115 }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="page">
+               {% paginate using 'pagination/my_pagination.html' %}
+            </div>
+        </div>
+        <!--右侧信息栏-->
+        <div class="layui-col-md4">
+            <form action="{% url 'blog:search_blog' %}" method="post" name="form" >
+                {% csrf_token %}
+                <div class="my-search" >
+                    <input type="text" name="key_word" autocomplete="off" placeholder="请输入搜索内容" class="search-input">
+                    <i class="layui-icon layui-icon-search search-btn" onclick='javascript:form.submit()'></i>
+                </div>
+            </form>
+
+             <div class="tag_yun" style="background-color: white;margin-top: 20px; padding: 10px 10px">
+                <h3><i class="layui-icon layui-icon-snowflake"style="font-size: 20px; color: #1b9dec;margin-right: 5px" ></i>标签云</h3>
+                <hr class="layui-bg-black">
+                <div id="tagscloud">
+                    {% for tag in tags %}
+                        <a href="{% url 'blog:get_tags' %}?tag_id={{ tag.id }}">{{ tag.name }}&nbsp;({{ tag.blog_set.all.count }})</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="top_blog" style="background-color: white; margin-top: 20px; padding: 10px 10px;">
+                <h3><i class="layui-icon layui-icon-fire"style="font-size: 20px; color: red;margin-right: 5px" ></i>阅读排行</h3>
+                <hr class="layui-bg-black">
+                <div>
+                    <ul >
+                        {% get_top_blog %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="random_blog" style="background-color: white;margin-top: 20px; padding: 10px 10px">
+                <h3><i class="layui-icon layui-icon-read"style="font-size: 20px;margin-right: 5px; color:#FF5722"></i>随机推荐</h3>
+                <hr class="layui-bg-black">
+                <div>
+                    <ul>
+                        {% get_random_blog %}
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extJS %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'blog/js/home.js' %}"></script>
+    <script>
+        $('.layui-nav-item').eq(0).addClass('layui-this');
+            layui.use(['carousel', 'laypage'], function () {
+                var carousel = layui.carousel;
+                //建造实例
+                carousel.render({
+                    elem: '#test1'
+                    , width: '100%' //设置容器宽度
+                    , arrow: 'hover' //始终显示箭头
+                });
+        });
+        $('.my-icon > div > img ').on({
+            mouseenter: function () {
+                var othis = $(this).parent(), anim = othis.data('anim');
+                othis.addClass(anim);
+            },
+            mouseleave: function () {
+                var othis = $(this).parent(), anim = othis.data('anim');
+                othis.removeClass(anim);
+            }
+        });
+    </script>
+{% endblock %}

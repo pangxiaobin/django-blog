@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+
+    <script type="text/javascript" src="../layui/layui.js"></script>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <!--<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>-->
+    <!--<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>-->
+    <![endif]-->
+    <style>
+        body {
+            background-color: #dddddd;
+        }
+        
+        .my-header {
+            background-color: #2F4056;
+        }
+
+        /*个人信息*/
+        .my-cart {
+            height: 260px;
+            background-color: white;
+            padding: 10px 20px
+        }
+
+        .my-cart .my-icon {
+            text-align: center;
+        }
+
+        .my-cart .my-icon > div > img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            border: 1px solid red
+        }
+
+        /*文章列表*/
+        .item-list {
+            margin-top: 15px;
+        }
+
+        .item-list .article-border {
+            background-color: white;
+            padding: 20px 10px
+        }
+
+        .item-list .article-border .my-article-img img {
+            height: 150px;
+            width: 100%
+        }
+
+        .item-list .article-border .my-article {
+            height: 150px;
+            padding-left: 20px
+        }
+
+        .item-list .article-border .my-article > div:nth-child(2), p {
+            margin-top: 5px;
+        }
+        .item-list .article-border .my-article .my-article-info {
+            color: #919898;
+            height: 33px;
+            line-height: 33px;
+        }
+        .item-list .article-border .my-article .my-article-info > span {
+            margin-left: 10px;
+        }
+
+        .my-search {
+            margin-top: 15px;
+            height: 70px;
+            background-color: white;
+            line-height: 70px;
+            vertical-align: middle;
+        }
+        .my-search .search-input {
+            padding: 6px 12px;
+            font-size: 14px;
+            width: 280px;
+            margin-left: 20px;
+            line-height: 1.42857143;
+            color: #555;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+
+        .my-search  .search-input:focus {
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+        }
+
+        .my-search  .search-btn {
+            position: absolute;
+            right: 65px;
+            cursor: pointer;
+            z-index: 33;
+        }
+    </style>
+</head>
+<body>
+<!--顶部导航-->
+<div class="layui-header my-header">
+    <div class="layui-container">
+        <ul class="layui-nav layui-bg-cyan">
+            <li class="layui-nav-item"><a href="">最新活动</a></li>
+            <li class="layui-nav-item layui-this">
+                <a href="javascript:;">产品</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">选项1</a></dd>
+                    <dd><a href="">选项2</a></dd>
+                    <dd><a href="">选项3</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">大数据</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript: void(0);">解决方案</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">移动模块</a></dd>
+                    <dd><a href="">后台模版</a></dd>
+                    <dd class="layui-this"><a href="">选中项</a></dd>
+                    <dd><a href="">电商平台</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">社区</a></li>
+        </ul>
+
+        <ul class="layui-nav layui-layout-right layui-bg-cyan">
+            <li class="layui-nav-item">
+                <a href="javascript:void(0);">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退了</a></li>
+        </ul>
+    </div>
+</div>
+<div class="layui-container">
+    <div class="layui-row layui-col-space20" style="margin-top: 20px">
+        <!--轮播-->
+        <div class="layui-col-md8">
+            <div class="layui-carousel" id="test1">
+                <div carousel-item>
+                    <div>条目1</div>
+                    <div>条目2</div>
+                    <div>条目3</div>
+                    <div>条目4</div>
+                    <div>条目5</div>
+                </div>
+            </div>
+        </div>
+        <!--个人信息-->
+        <div class="layui-col-md4">
+            <div class="my-cart">
+                <div class="my-icon">
+                    <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop">
+                        <img src="../image/my-icon.jpg" alt="头像">
+                    </div>
+                    <br>
+                    <h2>Hubery</h2>
+                </div>
+                <hr>
+                <div class="my-info">
+                    my info
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row layui-col-space20">
+        <!--文章内容-->
+        <div class="layui-col-md8">
+            <div class="item-list">
+                <div class="layui-row article-border">
+                    <!--文章图片-->
+                    <div class="layui-col-md4 my-article-img">
+                        <a href="#">
+                            <img src="../image/1.jpg" alt="图片">
+                        </a>
+                    </div>
+                    <!--文章标题和基本信息-->
+                    <div class="layui-col-md8 my-article">
+                        <div><a href="#"><h2>这是文章标题</h2></a></div>
+                        <!--头像 作者 时间 分类标签-->
+                        <div class="my-article-info">
+                            <a href="#"><img src="../image/my-icon.jpg" alt="文章" style="width: 33px; height: 33px;
+                            border-radius: 50%; border: 1px solid black"></a>
+                            <span>作者</span>
+                            <span>发布时间:</span>
+                            <span>2018-12-21 16:12:21</span>
+                            <span>分类:</span>
+                            <span>django开发</span>
+                        </div>
+                        <!--文章内容取签200字-->
+                        <p>
+                            爱打架埃里克森积分卡萨杰卡斯金坷垃啥课
+                            爱是飞洒发送
+                            啥打法是否打算而我却付付付付付付阿达分开来健身房哒哒哒哒
+                            哒哒多多多多多多多多多多多多多多多多多多多多多多多多多
+                            多多多多多多多多多多
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--右侧信息栏-->
+        <div class="layui-col-md4">
+            <div class="my-search" >
+                <input type="text" name="title" autocomplete="off" placeholder="请输入搜索内容" class="search-input">
+                <i class="layui-icon layui-icon-search search-btn"></i>
+            </div>
+            <div>
+                <h2>标签云</h2>
+            </div>
+            <br>
+            <div class="">
+                <h2>随机推荐</h2>
+            </div>
+            <br>
+            <div >
+                <h2>阅读排行</h2>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    layui.use(['element', 'carousel'], function () {
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+        //监听导航点击
+        element.on('nav(demo)', function (elem) {
+            //console.log(elem)
+            layer.msg(elem.text());
+        });
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#test1'
+            , width: '100%' //设置容器宽度
+            , arrow: 'hover' //始终显示箭头
+        });
+    });
+    $('.my-icon > div > img ').on({
+        mouseenter: function () {
+            var othis = $(this).parent(), anim = othis.data('anim');
+            othis.addClass(anim);
+        },
+        mouseleave: function () {
+            var othis = $(this).parent(), anim = othis.data('anim');
+            othis.removeClass(anim);
+        }
+    });
+</script>
+</html>

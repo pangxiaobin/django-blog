@@ -1,0 +1,29 @@
+/*文章详情*/
+.blog_info {
+    height: 30px;
+    line-height:30px ;
+}
+.blog_info ul li:first-child {
+    margin-left: 20px;
+}
+.blog_info ul li {
+    float: left;
+    margin-left: 10px;
+}
+.top_blog > div > ul >li {
+    margin-top: 10px;
+
+}
+.random_blog > div > ul > li {
+    margin-top: 10px;
+}
+/*上下文*/
+.up_down_blog {
+    padding: 20px 20px;
+}
+.up_down_blog p{
+    margin-top: 10px;
+}
+.up_down_blog > p >a{
+    color: #1b9dec;
+}
