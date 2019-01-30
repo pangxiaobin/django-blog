@@ -105,5 +105,4 @@ venv.bak/
 
 # add
 media/
-!media/
 .idea
