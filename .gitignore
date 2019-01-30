@@ -104,6 +104,6 @@ venv.bak/
 .mypy_cache/
 
 # add
-media/*
+media/
 !media/
 .idea
