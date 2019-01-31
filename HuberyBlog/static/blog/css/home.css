@@ -65,6 +65,15 @@
 .top_blog > div > ul >li {
     margin-top: 10px;
 }
+
+.top_blog a {
+    color: #01AAED;
+}
+
+.random_blog a {
+    color: #01AAED;
+}
+
 .random_blog > div > ul > li {
     margin-top: 10px;
 }

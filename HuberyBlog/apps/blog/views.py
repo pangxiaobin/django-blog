@@ -47,7 +47,7 @@ def create_blog(request):
     pass
 
 
-@page_cache(10)
+# @page_cache(10)
 def read_blog(request):
     """
     阅读博客

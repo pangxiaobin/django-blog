@@ -12,10 +12,16 @@
 }
 .top_blog > div > ul >li {
     margin-top: 10px;
-
 }
 .random_blog > div > ul > li {
     margin-top: 10px;
+}
+.top_blog a {
+    color: #01AAED;
+}
+
+.random_blog a {
+    color: #01AAED;
 }
 /*上下文*/
 .up_down_blog {
@@ -26,4 +32,9 @@
 }
 .up_down_blog > p >a{
     color: #1b9dec;
+}
+
+/*评论*/
+.comment_list a {
+    color: #009688;
 }

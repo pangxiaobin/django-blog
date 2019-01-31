@@ -73,6 +73,10 @@ class CommentAbstractModel(BaseCommentAbstractModel):
                                      help_text=_('Check this box if the comment is inappropriate. '
                                                  'A "This comment has been removed" message will '
                                                  'be displayed instead.'))
+    # replay fields
+    root_id = models.IntegerField(default=0)
+    reply_to = models.IntegerField(default=0)
+    reply_name = models.CharField(max_length=50, blank=True)
 
     # Manager
     objects = CommentManager()

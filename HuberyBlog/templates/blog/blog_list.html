@@ -2,6 +2,10 @@
 {% load static %}
 {% load my_tags %}
 {% block content %}
+{% block extCSS %}
+     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'blog/css/blog_list.css' %}">
+{% endblock %}
 <div class="layui-container">
     <div class="layui-row layui-col-space20" style="margin-top: 20px">
         <!--文章内容-->
@@ -49,7 +53,7 @@
             </div>
         <!--右侧信息栏-->
         <div class="layui-col-md4">
-            <div class="top_blog" style="background-color: white; margin-top: 20px; padding: 10px 10px">
+            <div class="top_blog" >
                 <h3><i class="layui-icon layui-icon-fire"style="font-size: 20px; color: red;margin-right: 5px" ></i>阅读排行</h3>
                 <hr class="layui-bg-black">
                 <div>
@@ -59,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="random_blog" style="background-color: white;margin-top: 20px; padding: 10px 10px">
+            <div class="random_blog">
                 <h3><i class="layui-icon layui-icon-read"style="font-size: 20px;margin-right: 5px; color:#FF5722"></i>随机推荐</h3>
                 <hr class="layui-bg-black">
                 <div>

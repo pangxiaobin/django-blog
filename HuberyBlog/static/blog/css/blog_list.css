@@ -1,0 +1,24 @@
+/*右边展示蓝*/
+.top_blog {
+    background-color: white;
+    margin-top: 20px;
+    padding: 10px 10px
+}
+.top_blog > div > ul >li {
+    margin-top: 10px;
+}
+.random_blog {
+    background-color: white;
+    margin-top: 20px;
+    padding: 10px 10px
+}
+.random_blog > div > ul > li {
+    margin-top: 10px;
+}
+.top_blog a {
+    color: #01AAED;
+}
+
+.random_blog a {
+    color: #01AAED;
+}

@@ -87,6 +87,8 @@ class BaseCommentNode(template.Node):
             content_type=ctype,
             object_pk=smart_text(object_pk),
             site__pk=site_id,
+            is_public=True,
+            root_id=0,
         )
 
         # The is_public and is_removed fields are implementation details of the
@@ -100,6 +102,16 @@ class BaseCommentNode(template.Node):
             qs = qs.filter(is_removed=False)
         if 'user' in field_names:
             qs = qs.select_related('user')
+        # add
+        for q in qs:
+            q.replies=self.comment_model.objects.filter(
+                content_type=ctype,
+                object_pk=smart_text(object_pk),
+                site__pk=site_id,
+                root_id=q.id,
+                is_public=True,
+                is_removed=False,).order_by('submit_date')
+
         return qs
 
     def get_target_ctype_pk(self, context):
