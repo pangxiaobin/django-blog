@@ -160,4 +160,4 @@ $(function () {
     $('#tagscloud a').each(function () {
         $(this).addClass(class_list[parseInt(Math.random()*5)]);
     })
-})
+});
