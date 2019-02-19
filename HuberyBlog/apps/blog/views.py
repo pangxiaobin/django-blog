@@ -1,4 +1,4 @@
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
@@ -7,7 +7,8 @@ from blog.models import Wheels, Blog, Tag, Category
 
 from blog.helper import page_cache
 
-
+from asynchronous_send_mail import send_mail
+# from django.core.mail import send_mail
 @page_cache(10)
 def home(request):
     """
@@ -133,3 +134,15 @@ def get_tags(request):
     return render(request, 'blog/blog_list.html', context=data)
 
 
+def test_email(request):
+    subject = '这是djiango邮件发送测试'
+    message = '这是测试内容'
+    frome_mail = '1456819312@qq.com'
+    recipient_list = ['2274858959@qq.com']
+    html = '<h1 style="color: red">没有查到相关博客</h1>'
+    try:
+        send_mail(subject, message, frome_mail, recipient_list, fail_silently=False, html_message=html)
+        return HttpResponse('发送成功')
+    except Exception as e:
+        print(e)
+        return HttpResponse('发送失败')

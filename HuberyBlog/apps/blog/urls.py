@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^get_all_blog/$', views.get_all_blog, name='get_all_blog'),
     url(r'^get_categories/$', views.get_categories, name='get_categories'),
     url(r'^get_tags/$', views.get_tags, name='get_tags'),
-    url(r'^search_blog/$', views.search_blog, name='search_blog')
+    url(r'^search_blog/$', views.search_blog, name='search_blog'),
+    url(r'^test_email/$', views.test_email)
 ]
 

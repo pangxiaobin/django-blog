@@ -273,14 +273,19 @@
                     data: $('#comment_form').serialize(),
                     url: "{% comment_form_target %}",
                     cache: false,
-                    dataType: "html",
-                    success: function (html, textStatus) {
-                        window.location.reload();
+                    dataType: "json",
+                    success: function (json, textStatus) {
+                        if(json['success']){
+                            window.location.reload();
+                        }else{
+                            layer.alert('评论出错，请刷新重试\n'+json['code'], {icon:2});
+                        }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         layer.alert("评论出错，" + errorThrown, {icon: 2});
                     }
                 });
+                return false
             });
             $('#reply_update_form').submit(function () {
                 $("#id_timestamp").val(event.timeStamp);
@@ -300,14 +305,19 @@
                     data: $('#reply_update_form').serialize(),
                     url: "{% comment_form_target %}",
                     cache: false,
-                    dataType: "html",
-                    success: function (html, textStatus) {
-                        window.location.reload();
+                    dataType: "json",
+                    success: function (json, textStatus) {
+                        if(json['success']){
+                            window.location.reload();
+                        }else{
+                            layer.alert('评论出错，请刷新重试\n'+json['code'], {icon:2});
+                        }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         layer.alert("评论回复，" + errorThrown, {icon: 2});
                     }
                 });
+                return false
             });
             });
             //点击回复按钮触发的事件

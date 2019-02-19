@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'dj_pagination',  # 分页
     'django_comments',  # 评论插件
     'django.contrib.sites',  # 评论插件
+    'asynchronous_send_mail',  # send_email
 ]
 SITE_ID = 1
 
@@ -167,6 +168,15 @@ AUTH_USER_MODEL = "user.UserInfo"
 # 分页设置
 PAGINATION_DEFAULT_WINDOW = 2  # 分页显示在当前页左右两边的页数
 PAGINATION_DEFAULT_PAGINATION = 10  # 每页显示的的数量
+
+
+# 邮箱配置
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+EMAIL_HOST_USER = '1456819312@qq.com'
+EMAIL_HOST_PASSWORD = 'bxawkqkncqcofejc'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # 日志
 BASE_LOG_DIR = os.path.join(BASE_DIR, 'log')
