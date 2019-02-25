@@ -28,8 +28,8 @@
 {#                </dl>#}
 {#            </li>#}
 {#            <li class="layui-nav-item"><a href="">社区</a></li>#}
+            <li class="layui-nav-item" id="div_time"></li>
         </ul>
-
         <ul class="layui-nav layui-layout-right layui-bg-cyan">
 {#            <li class="layui-nav-item">#}
 {#                <a href="javascript:void(0);">#}
@@ -58,5 +58,7 @@
 
 {% block extJS %}
     {{ block.super }}
+
     <script src="{% static 'blog/js/base_main.js' %}"></script>
+
 {% endblock %}

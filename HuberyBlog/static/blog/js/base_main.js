@@ -26,3 +26,24 @@ $(function () {
         $("html,body").animate({scrollTop: 0}, "fast");
     });
 });
+
+
+// 显示当前时间
+var weeks=["日","一","二","三","四","五","六"];
+setInterval(function(){
+    var date=new Date();
+    var y=date.getFullYear();
+    var m=date.getMonth()+1;
+    var d=date.getDate();
+    var w=date.getDay();
+    var h=date.getHours();
+    var mi=date.getMinutes();
+    var s=date.getSeconds();
+    var ms=m<10?"0"+m:m;
+    var ds=d<10?"0"+d:d;
+    var hs=h<10?"0"+h:h;
+    var mis=mi<10?"0"+mi:mi;
+    var ss=s<10?"0"+s:s;
+    var time=y+"年"+ms+"月"+ds+"日  "+hs+":"+mis+":"+ss+"  星期"+weeks[w];
+    document.getElementById("div_time").innerText=time;
+}, 1000);
