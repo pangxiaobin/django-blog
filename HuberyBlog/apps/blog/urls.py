@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^get_categories/$', views.get_categories, name='get_categories'),
     url(r'^get_tags/$', views.get_tags, name='get_tags'),
     url(r'^search_blog/$', views.search_blog, name='search_blog'),
-    url(r'^test_email/$', views.test_email)
+    # url(r'^test_email/$', views.test_email),
+    url(r'^web_nav/$', views.web_nav, name='web_nav'),
 ]
 

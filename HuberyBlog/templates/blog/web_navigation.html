@@ -1,0 +1,40 @@
+{% extends 'base/base_main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="right-nva">
+        <ul class="layui-nav layui-nav-tree layui-nav-side layui-bg-cyan" lay-filter="r-nva" style="top:60px; bottom: 20px">
+            <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+            {% for web_category in web_categories %}
+                <li class="layui-nav-item">
+                    <a href="javascript:;">{{ web_category.name }}</a>
+                    <dl class="layui-nav-child">
+                    {% for web in web_category.web_set.all %}
+                        <dd><a href="javascript:void(0);" my-href="{{ web.net_address }}" >{{ web.name }}</a></dd>
+                    {% endfor %}
+                     </dl>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="layui-body" style="top: 54px; bottom: 20px">
+        <iframe id="engine" src="https://www.baidu.com" frameborder="0" marginwidth="0" scrolling="yes" marginheight="0"
+        allowtransparency="true" style="background-color: whitesmoke; width: 100%; height: 98%; border: 0;margin-top: 10px"></iframe>
+    </div>
+{% endblock %}
+
+{% block extJS %}
+    {{ block.super }}
+    <script>
+        //JavaScript代码区域
+        layui.use('element', function () {
+            var element = layui.element;
+            element.on('nav(r-nva)', function(elem){
+                //得到当前点击的DOM对象
+                var my_href = elem.attr('my-href');
+                $('#engine').attr('src', my_href)
+            });
+            $('.layui-nav-item').eq(3).addClass('layui-this');
+        });
+    </script>
+{% endblock %}

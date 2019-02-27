@@ -70,3 +70,29 @@ class Blog(models.Model):
             return '%s...' % self.content[:90]
         else:
             return self.content
+
+
+class WebCategory(models.Model):
+    name = models.CharField(max_length=32, verbose_name='网站类别')
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
+
+    class Meta:
+        verbose_name = "网站类别"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
+
+class Web(models.Model):
+    name = models.CharField(max_length=32, verbose_name='网站名字')
+    net_address = models.CharField(max_length=128, verbose_name='网站地址')
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
+    web_category = models.ForeignKey(WebCategory, verbose_name='关联网站分类')
+
+    class Meta:
+        verbose_name = '网站'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name

@@ -7,7 +7,7 @@
 
 import xadmin
 from xadmin import views
-from blog.models import Blog, Wheels, Tag, Category
+from blog.models import Blog, Wheels, Tag, Category, WebCategory, Web
 
 
 class BlogAdmin(object):
@@ -28,15 +28,26 @@ class WheelsAdmin(object):
 
 
 class TagAdmin(object):
-    "标签"
+    """标签"""
     list_display = ['name']
     search_fields = ['name']
 
 
-
 class CategoryAdmin(object):
-    "分类"
+    """分类"""
     list_display = ['name', 'create_time']
+    search_fields = ['name']
+
+
+class WebCategoryAddmin(object):
+    """网站分类"""
+    list_display = ['name', 'create_time']
+    search_fields = ['name']
+
+
+class WebAdmin(object):
+    """网站地址"""
+    list_display = ['name', 'net_address', 'create_time', 'web_category']
     search_fields = ['name']
 
 
@@ -55,6 +66,8 @@ xadmin.site.register(Blog, BlogAdmin)
 xadmin.site.register(Wheels, WheelsAdmin)
 xadmin.site.register(Tag, TagAdmin)
 xadmin.site.register(Category, CategoryAdmin)
+xadmin.site.register(WebCategory, WebCategoryAddmin)
+xadmin.site.register(Web, WebAdmin)
 
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)
