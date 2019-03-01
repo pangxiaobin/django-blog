@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+<div id="Layer1" style="display: none; position: fixed; z-index: 100;"></div>
 <div class="layui-container">
     <div class="layui-row layui-col-space20" style="margin-top: 20px">
         <!--轮播-->
@@ -30,12 +31,23 @@
                     <h2>Hubery</h2>
                 </div>
                 <hr>
+                <br>
                 <div class="my-info">
-                    my info
+                    <span>一只90后python开发爱好者</span>
+                    <br/>
+                    <br/>
+                    <ul class="my-consultation">
+                        <li><a href="https://github.com/pangxiaobin" title="github" target="_blank"><i class="iconfont layui-extend-githup" ></i></a></li>
+                        <li><i class="layui-icon layui-icon-login-wechat" onmouseover="showPic(event, '{% static "image/wechart.jpg" %}')" onmouseleave="hiddenPic()"></i></li>
+                        <li><i class="layui-icon layui-icon-login-qq" title="qq:2274858959"></i> </li>
+                        <li> <a href="https://weibo.com/5049512278/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="微薄"><i class="layui-icon layui-icon-login-weibo"></i></a></li>
+                        <li> <a href="/xadmin/" target="_blank" title="后台系统"><i class="layui-icon layui-icon-console"></i></a> </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="layui-row layui-col-space20">
         <!--文章内容-->
         <div class="layui-col-md8">
@@ -119,6 +131,7 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block extJS %}
@@ -145,5 +158,20 @@
                 othis.removeClass(anim);
             }
         });
+        var layer1 = $('#Layer1');
+        function showPic(e,sUrl){
+            var x,y;
+            x = e.clientX;
+            y = e.clientY;
+            layer1.css('left', x -100 +"px");
+            layer1.css('top',  y + 20 + "px");
+            layer1.append("<img border='0' src="+ sUrl+ " style='width:200px' />");
+            layer1.css('display', 'block');
+            }
+
+            function hiddenPic(){
+            layer1.css('display', 'none');
+            layer1.empty();
+            }
     </script>
 {% endblock %}

@@ -24,7 +24,7 @@ from blog import views
 from HuberyBlog import settings
 
 urlpatterns = [
-    url(r'^xadmin/', xadmin.site.urls),
+    url(r'^xadmin/', xadmin.site.urls, name='xadmin'),
     url(r'^$', views.home, name='home'),
     url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'^ueditor/', include('DjangoUeditor.urls')),  # xadmin集成富文本编辑器

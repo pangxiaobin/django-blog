@@ -18,6 +18,22 @@
     border: 1px solid red
 }
 
+.my-cart .my-consultation li:first-child {
+    float: left;
+    margin-left: 10px;
+}
+.my-cart .my-consultation li {
+    float: left;
+    margin-left: 20px;
+}
+.my-cart .my-consultation li i {
+    font-size: 30px;
+}
+.my-cart .my-consultation li i:hover {
+    color: #1E9FFF;
+}
+
+
 .my-search {
     margin-top: 15px;
     height: 70px;

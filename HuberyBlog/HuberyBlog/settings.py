@@ -167,7 +167,7 @@ AUTH_USER_MODEL = "user.UserInfo"
 
 # 分页设置
 PAGINATION_DEFAULT_WINDOW = 2  # 分页显示在当前页左右两边的页数
-PAGINATION_DEFAULT_PAGINATION = 10  # 每页显示的的数量
+PAGINATION_DEFAULT_PAGINATION = 8  # 每页显示的的数量
 
 
 # 邮箱配置
