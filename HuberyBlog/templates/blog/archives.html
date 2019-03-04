@@ -1,0 +1,57 @@
+{% extends 'base/base_main.html' %}
+{% load static %}
+
+{% block extCSS %}
+    {{ block.super }}
+    <style>
+        .year-ul-list > ul >li {
+            list-style: none;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="layui-container" style="background-color: white; margin-top: 20px; padding-top: 20px;
+        padding-left: 30px">
+        <h2>文章归档</h2>
+        <hr class="layui-bg-red">
+        <ul class="layui-timeline">
+         {% regroup dates by create_time.year as year_blog_group  %}
+         {% for year in year_blog_group %}
+            <li class="layui-timeline-item">
+             <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+             <div class="layui-timeline-content layui-text year-ul-list">
+                 <h3 class="layui-timeline-title">{{ year.grouper }}年</h3>
+                 <ul class="layui-timeline">
+                     {% regroup year.list by create_time.month as month_blog_group %}
+                     {% for month in month_blog_group %}
+                        <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">{{ month.grouper }}月</h3>
+                            <ul>
+                                {% for blog in month.list%}
+                                    <li>
+                                        <a href="{% url 'blog:read_blog' %}?blogid={{ blog.id }}" target="_blank">
+                                            {{ blog.create_time|date:'m-d' }} -- {{ blog.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        </li>
+                     {% endfor %}
+
+                 </ul>
+             </div>
+            </li>
+         {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block extJS %}
+    {{ block.super }}
+    <script>
+        $('.layui-nav-item').eq(4).addClass('layui-this');
+    </script>
+{% endblock %}

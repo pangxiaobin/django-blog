@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^search_blog/$', views.search_blog, name='search_blog'),
     # url(r'^test_email/$', views.test_email),
     url(r'^web_nav/$', views.web_nav, name='web_nav'),
+    url(r'^archives/$', views.archives, name='archives'),
 ]
 

@@ -7,7 +7,9 @@ from blog.models import Wheels, Blog, Tag, Category, WebCategory
 
 from blog.helper import page_cache
 
-from asynchronous_send_mail import send_mail
+# from asynchronous_send_mail import send_mail
+
+
 # from django.core.mail import send_mail
 @page_cache(10)
 def home(request):
@@ -59,7 +61,7 @@ def read_blog(request):
         blog_id = request.GET.get('blogid')
         blog = Blog.objects.filter(pk=blog_id).first()
         pre_blog = Blog.objects.filter(id__lt=blog.id).order_by('-id')
-        next_blog= Blog.objects.filter(id__gt=blog.id).order_by('id')
+        next_blog = Blog.objects.filter(id__gt=blog.id).order_by('id')
         # 取第1条记录
         if pre_blog.count() > 0:
             pre_blog = pre_blog[0]
@@ -147,9 +149,28 @@ def get_tags(request):
 #         print(e)
 #         return HttpResponse('发送失败')
 def web_nav(request):
+    """
+    网站导航
+    :param request:
+    :return:
+    """
     web_categories = WebCategory.objects.all()
     data = {
         'title': '网站导航',
         'web_categories': web_categories
     }
     return render(request, 'blog/web_navigation.html', context=data)
+
+
+def archives(request):
+    """
+    文章归档
+    :param request:
+    :return:
+    """
+    dates = Blog.objects.all()
+    data = {
+        'title': '文章归档',
+        'dates': dates
+    }
+    return render(request, 'blog/archives.html', context=data)
