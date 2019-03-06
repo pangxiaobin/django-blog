@@ -184,7 +184,7 @@ def post_comment(request, next=None, using=None):
                 }
                 html_message = temp.render(data)
             else:
-                subject = '[Hubery的博客]博文回去'
+                subject = '[Hubery的博客]博文回复'
                 temp = loader.get_template('email/replay.html')
                 recipient_list.append(comment.user_email)
                 # 获取评论对象，找到回复对应的评论
@@ -193,6 +193,41 @@ def post_comment(request, next=None, using=None):
                     'comment_name': comment.user_name,
                     'blog_title': blog.title,
                     'blog_url': 'http://127.0.0.0:8000/blog/read/?blogid=%s' % blog.id,
+                    'comment_content': comment.comment
+
+                }
+                html_message = temp.render(data)
+            send_mail(subject, message, from_mail, recipient_list=recipient_list,
+                      fail_silently=False, html_message=html_message)
+        elif str(comment.content_type) == '留言':
+            subject = ''
+            message = ''
+            from_mail = settings.DEFAULT_FROM_EMAIL
+            recipient_list = []
+            html_message = ''
+            if int(comment.root_id) == 0:
+                subject = '[Hubery的博客]留言板评论'
+                temp = loader.get_template('email/comment.html')
+                recipient_list.append('2274858959@qq.com')
+                data = {
+                    'user_name': 'hubery',
+                    'comment_name': comment.user_name,
+                    'blog_title': '留言板',
+                    'blog_url': 'http://127.0.0.0:8000/blog/message_board/',
+                    'comment_content': comment.comment
+
+                }
+                html_message = temp.render(data)
+            else:
+                subject = '[Hubery的博客]博文回复'
+                temp = loader.get_template('email/replay.html')
+                recipient_list.append(comment.user_email)
+                # 获取评论对象，找到回复对应的评论
+                data = {
+                    'replay_name': comment.reply_name,
+                    'comment_name': comment.user_name,
+                    'blog_title': '留言评论',
+                    'blog_url': 'http://127.0.0.0:8000/blog/message_board/',
                     'comment_content': comment.comment
 
                 }

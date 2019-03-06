@@ -96,3 +96,16 @@ class Web(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class MessageBoard(models.Model):
+    id = models.IntegerField(default=1, primary_key=True,verbose_name='留言id')
+    name = models.CharField(max_length=32, verbose_name='留言')
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
+
+    class Meta:
+        verbose_name = '留言'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name

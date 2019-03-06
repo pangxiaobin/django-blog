@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from blog.models import Wheels, Blog, Tag, Category, WebCategory
+from blog.models import Wheels, Blog, Tag, Category, WebCategory, MessageBoard
 
 from blog.helper import page_cache
 
@@ -11,6 +11,8 @@ from blog.helper import page_cache
 
 
 # from django.core.mail import send_mail
+
+
 @page_cache(10)
 def home(request):
     """
@@ -168,9 +170,23 @@ def archives(request):
     :param request:
     :return:
     """
-    dates = Blog.objects.all()
+    dates = Blog.objects.all().order_by('-create_time')
     data = {
         'title': '文章归档',
         'dates': dates
     }
     return render(request, 'blog/archives.html', context=data)
+
+
+def message_board(request):
+    """
+    留言
+    :param request:
+    :return:
+    """
+    message = MessageBoard.objects.filter(id=1).first()
+    data = {
+        'title': '留言板',
+        'message': message
+    }
+    return render(request, 'blog/message_board.html', context=data)

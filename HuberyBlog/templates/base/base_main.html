@@ -30,6 +30,8 @@
 {#            <li class="layui-nav-item"><a href="">社区</a></li>#}
             <li class="layui-nav-item"><a href="{% url 'blog:web_nav' %}">网站导航</a></li>
             <li class="layui-nav-item"><a href="{% url 'blog:archives' %}">归档</a></li>
+            <li class="layui-nav-item"><a href="{% url 'blog:message_board' %}">留言板</a></li>
+
             <li class="layui-nav-item" id="div_time"></li>
         </ul>
         <ul class="layui-nav layui-layout-right layui-bg-cyan">
@@ -53,6 +55,9 @@
 {% endblock %}
 
 {% block footer %}
+        <br>
+        <br>
+        <br>
     <div style="background-color: #2F4056; position:fixed; bottom: 0; margin-top:10px;width: 100%">
         <div style="text-align: center; ">
             <font color="white">本站由django+layui设计</font>

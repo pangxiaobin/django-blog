@@ -17,5 +17,6 @@ urlpatterns = [
     # url(r'^test_email/$', views.test_email),
     url(r'^web_nav/$', views.web_nav, name='web_nav'),
     url(r'^archives/$', views.archives, name='archives'),
+    url(r'^message_board/$', views.message_board, name='message_board'),
 ]
 

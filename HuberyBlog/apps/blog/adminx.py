@@ -7,12 +7,12 @@
 
 import xadmin
 from xadmin import views
-from blog.models import Blog, Wheels, Tag, Category, WebCategory, Web
+from blog.models import Blog, Wheels, Tag, Category, WebCategory, Web, MessageBoard
 
 
 class BlogAdmin(object):
     """博客文章"""
-    list_display = ['title', 'contents', 'read_num', 'appreciate', 'create_time', 'show_all_tags', 'categoryid']
+    list_display = ['id','title', 'contents', 'read_num', 'appreciate', 'create_time', 'show_all_tags', 'categoryid']
     search_fields = ['title']
     readonly_fields = ['read_num']
     style_fields = {'content': 'ueditor'}
@@ -51,6 +51,12 @@ class WebAdmin(object):
     search_fields = ['name']
 
 
+class MessageBoardAdmin(object):
+    """网站地址"""
+    list_display = ['id', 'name', 'create_time']
+    search_fields = ['name']
+
+
 class BaseSetting(object):
     enable_themes = True  # 开启自定义主题
     use_bootswatch = True
@@ -68,6 +74,7 @@ xadmin.site.register(Tag, TagAdmin)
 xadmin.site.register(Category, CategoryAdmin)
 xadmin.site.register(WebCategory, WebCategoryAddmin)
 xadmin.site.register(Web, WebAdmin)
+xadmin.site.register(MessageBoard, MessageBoardAdmin)
 
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)
