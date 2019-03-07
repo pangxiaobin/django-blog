@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -8,6 +9,7 @@ from blog.models import Wheels, Blog, Tag, Category, WebCategory, MessageBoard
 from blog.helper import page_cache
 
 # from asynchronous_send_mail import send_mail
+from blog.tasks import increase_uv
 
 
 # from django.core.mail import send_mail
@@ -60,7 +62,7 @@ def read_blog(request):
     :return:
     """
     try:
-        blog_id = request.GET.get('blogid')
+        blog_id = int(request.GET.get('blogid', 1))
         blog = Blog.objects.filter(pk=blog_id).first()
         pre_blog = Blog.objects.filter(id__lt=blog.id).order_by('-id')
         next_blog = Blog.objects.filter(id__gt=blog.id).order_by('id')
@@ -74,20 +76,19 @@ def read_blog(request):
             next_blog = next_blog[0]
         else:
             next_blog = None
-        if not request.COOKIES.get('blog_%s_readed' % blog_id):
-            read_num = blog.read_num + 1
-            blog.read_num = read_num
-            blog.save()
         data = {
             'title': '博客详情',
             'blog': blog,
             'pre_blog': pre_blog,
             'next_blog': next_blog
         }
+        response = render(request, 'blog/read_blog.html', context=data)
+        if not request.COOKIES.get('blog_%s_readed' % blog_id):
+            increase_uv.delay(blog_id)  # 使用celery异步添加阅读数
+            response.set_cookie('blog_%s_readed' % blog_id, 'True')
+            return response
     except Blog.DoesNotExist:
         raise Http404
-    response = render(request, 'blog/read_blog.html', context=data)
-    response.set_cookie('blog_%s_readed' % blog_id, "True")
     return response
 
 
@@ -190,3 +191,7 @@ def message_board(request):
         'message': message
     }
     return render(request, 'blog/message_board.html', context=data)
+
+
+def about(request):
+    return render(request, 'blog/about.html', context={'title': '关于我'})

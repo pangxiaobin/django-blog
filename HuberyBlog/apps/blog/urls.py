@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^web_nav/$', views.web_nav, name='web_nav'),
     url(r'^archives/$', views.archives, name='archives'),
     url(r'^message_board/$', views.message_board, name='message_board'),
+    url(r'^about/$', views.about, name='about'),
 ]
 

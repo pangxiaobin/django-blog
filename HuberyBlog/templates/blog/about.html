@@ -1,0 +1,15 @@
+{% extends 'base/base_main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="layui-container" style="background-color: white; margin-top: 20px">
+        <h2>关于我...</h2>
+    </div>
+{% endblock %}
+
+{% block extJS %}
+    {{ block.super }}
+    <script>
+        $('.layui-nav-item').eq(6).addClass('layui-this');
+    </script>
+{% endblock %}

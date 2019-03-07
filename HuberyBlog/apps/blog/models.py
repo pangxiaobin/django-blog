@@ -109,3 +109,17 @@ class MessageBoard(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class VisitView(models.Model):
+    ip = models.CharField(max_length=32, verbose_name='访问者ip')
+    visit_num = models.IntegerField(default=0, verbose_name='访问次数')
+    first_visit_time = models.DateTimeField(auto_now_add=True, verbose_name='第一次访问时间')
+    last_visit_time = models.DateTimeField(auto_now=True, verbose_name='最后访问时间')
+
+    class Meta:
+        verbose_name = '访问统计'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.ip

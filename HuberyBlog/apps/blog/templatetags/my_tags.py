@@ -6,9 +6,11 @@
 # @Software: PyCharm
 
 from django import template
+from django.core.cache import cache
+from django.db.models import Sum
 from django.utils.html import format_html
 
-from blog.models import Category, Blog
+from blog.models import Category, Blog, VisitView
 
 register = template.Library()
 
@@ -45,6 +47,19 @@ def get_random_blog(except_id=0):
     for blog in rand_blogs:
         data_html += ' <li><strong><a href="/blog/read/?blogid={}">{}</a></strong>' \
                      '</li>'.format(blog.id, cut_char(blog.title))
+    return format_html(data_html)
+
+
+@register.assignment_tag()
+def get_get_online_ips():
+    """获取当前在线人数和历史访问人数"""
+    online_ips = cache.get("online_ips", [])
+    online_ips_num = 0
+    visits_nums = VisitView.objects.aggregate(Sum("visit_num")).get('visit_num__sum', 0)
+    if online_ips:
+        online_ips = cache.get_many(online_ips).keys()
+        online_ips_num = len(online_ips)
+    data_html = '历史总访问次数:%s &nbsp;&nbsp; 当前在线人数:%s' %(visits_nums, online_ips_num)
     return format_html(data_html)
 
 

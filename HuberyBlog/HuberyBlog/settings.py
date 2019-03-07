@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'dj_pagination',  # 分页
     'django_comments',  # 评论插件
     'django.contrib.sites',  # 评论插件
-    'asynchronous_send_mail',  # send_email
+    'asynchronous_send_mail',  # send_email,
+    'django_celery_results',  # celery
 ]
 SITE_ID = 1
 
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
+    'blog.pv_middleware.PvVisitViewMiddleware',  # 统计ip
 ]
 
 ROOT_URLCONF = 'HuberyBlog.urls'
@@ -177,6 +179,10 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = '1456819312@qq.com'
 EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# 配置celery
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
 
 # 日志
 BASE_LOG_DIR = os.path.join(BASE_DIR, 'log')
