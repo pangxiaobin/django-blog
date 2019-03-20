@@ -18,22 +18,12 @@
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="{% url 'blog:get_all_blog' %}">博客</a></li>
-{#            <li class="layui-nav-item">#}
-{#                <a href="javascript: void(0);">解决方案</a>#}
-{#                <dl class="layui-nav-child">#}
-{#                    <dd><a href="">移动模块</a></dd>#}
-{#                    <dd><a href="">后台模版</a></dd>#}
-{#                    <dd class="layui-this"><a href="">选中项</a></dd>#}
-{#                    <dd><a href="">电商平台</a></dd>#}
-{#                </dl>#}
-{#            </li>#}
-{#            <li class="layui-nav-item"><a href="">社区</a></li>#}
             <li class="layui-nav-item"><a href="{% url 'blog:web_nav' %}">网站导航</a></li>
             <li class="layui-nav-item"><a href="{% url 'blog:archives' %}">归档</a></li>
             <li class="layui-nav-item"><a href="{% url 'blog:message_board' %}">留言板</a></li>
             <li class="layui-nav-item"><a href="{% url 'blog:about' %}">关于我</a></li>
 
-            <li class="layui-nav-item" id="div_time"></li>
+            <li class="layui-nav-item" ><a href="javascript:void(0)" id="div_time"></a></li>
         </ul>
         <ul class="layui-nav layui-layout-right layui-bg-cyan">
 {#            <li class="layui-nav-item">#}
@@ -56,20 +46,21 @@
 {% endblock %}
 
 {% block footer %}
-        <br>
-        <br>
-        <br>
-    <div style="background-color: #2F4056; position:fixed; bottom: 0; margin-top:10px;width: 100%">
-        <div style="text-align: center; ">
-            <font color="white">本站由django+layui设计</font>
+        <footer class="my_footer" >
+        <div>
+            <a href="http://www.miitbeian.gov.cn" target="_blank">豫ICP备19007926号-1</a>
+            <span style="color: white">©2019 <a href="http://www.panglb.top/" target="_blank">panglb.top</a> </span>
+            <font color="white">Powered&nbsp;by&nbsp;<a href="https://www.djangoproject.com/" target="_blank">Django
+            </a>and&nbsp;<a href="https://www.layui.com/" target="_blank" style="color: #5FB878">&nbsp;layui</a></font>
+        </div>
+        <div >
             <span style="color: white">{% get_get_online_ips %}</span>
         </div>
-    </div>
+        </footer>
+
 {% endblock %}
 
 {% block extJS %}
     {{ block.super }}
-
     <script src="{% static 'blog/js/base_main.js' %}"></script>
-
 {% endblock %}

@@ -28,7 +28,7 @@ def home(request):
     blogs = Blog.objects.all().order_by('-create_time')
     tags = Tag.objects.all()
     data = {
-        'tittle': '首页',
+        'title': '首页|Hubery的个人博客',
         'wheels': wheels,
         'blogs': blogs,
         'tags': tags
