@@ -22,8 +22,6 @@
             <li class="layui-nav-item"><a href="{% url 'blog:archives' %}">归档</a></li>
             <li class="layui-nav-item"><a href="{% url 'blog:message_board' %}">留言板</a></li>
             <li class="layui-nav-item"><a href="{% url 'blog:about' %}">关于我</a></li>
-
-            <li class="layui-nav-item" ><a href="javascript:void(0)" id="div_time"></a></li>
         </ul>
         <ul class="layui-nav layui-layout-right layui-bg-cyan">
 {#            <li class="layui-nav-item">#}
@@ -54,6 +52,7 @@
             </a>and&nbsp;<a href="https://www.layui.com/" target="_blank" style="color: #5FB878">&nbsp;layui</a></font>
         </div>
         <div >
+            <span id="div_time" style="color: white"></span>
             <span style="color: white">{% get_get_online_ips %}</span>
         </div>
         </footer>

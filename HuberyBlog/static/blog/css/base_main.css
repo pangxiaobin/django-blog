@@ -82,6 +82,49 @@ body { min-height: 100%; box-sizing: border-box; padding-bottom: 60px; position:
     color: #5FB878;
 }
 
+/*搜索框的样式 */
+.my-search {
+margin-top: 15px;
+height: 70px;
+background-color: white;
+line-height: 70px;
+vertical-align: middle;
+}
+.my-search .search-input {
+    padding: 6px 12px;
+    font-size: 14px;
+    width: 280px;
+    margin-left: 20px;
+    line-height: 1.42857143;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.my-search  .search-input:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+.my-search button {
+    background-color: snow;
+    border: 0px;
+
+}
+
+.my-search  .search-btn {
+    position: absolute;
+    right: 65px;
+    cursor: pointer;
+    z-index: 33;
+}
 
 
 

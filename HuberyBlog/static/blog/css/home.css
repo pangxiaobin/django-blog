@@ -126,3 +126,14 @@
 #tagscloud a.tagc4{background:#FFB800;color:#fff;}
 #tagscloud a.tagc5{background:#5FB878;color:#fff;}
 #tagscloud a:hover{color:#fff;background:#0099ff;}
+
+/*日期插件大小*/
+#datatime {
+    margin-top: 20px;
+}
+
+#layui-laydate1 {
+    width: 100%;
+    padding-left: 50px;
+    padding-bottom: 5px;
+}

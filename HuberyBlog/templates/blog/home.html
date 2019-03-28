@@ -91,13 +91,17 @@
         </div>
         <!--右侧信息栏-->
         <div class="layui-col-md4">
-            <form action="{% url 'blog:search_blog' %}" method="post" name="form" >
-                {% csrf_token %}
-                <div class="my-search" >
-                    <input type="text" name="key_word" autocomplete="off" placeholder="请输入搜索内容" class="search-input">
-                    <i class="layui-icon layui-icon-search search-btn" onclick='javascript:form.submit()'></i>
-                </div>
-            </form>
+{#            <form action="{% url 'blog:haystack' %}" method="get" name="form" >#}
+{#                <div class="my-search" >#}
+{#                    <input type="text" name="q" autocomplete="off" placeholder="请输入搜索内容" class="search-input">#}
+{#                    <i class="layui-icon layui-icon-search search-btn" onclick='javascript:form.submit()'></i>#}
+{#                </div>#}
+{#            </form>#}
+            {% search %}
+
+            <div class="data-time">
+                <div id="datatime"></div>
+            </div>
 
              <div class="tag_yun" style="background-color: white;margin-top: 20px; padding: 10px 10px">
                 <h3><i class="layui-icon layui-icon-snowflake"style="font-size: 20px; color: #1b9dec;margin-right: 5px" ></i>标签云</h3>
@@ -140,7 +144,7 @@
     <script type="text/javascript" src="{% static 'blog/js/home.js' %}"></script>
     <script>
         $('.layui-nav-item').eq(0).addClass('layui-this');
-            layui.use(['carousel', 'laypage'], function () {
+            layui.use(['carousel', 'laypage', 'laydate'], function () {
                 var carousel = layui.carousel;
                 //建造实例
                 carousel.render({
@@ -148,6 +152,14 @@
                     , width: '100%' //设置容器宽度
                     , arrow: 'hover' //始终显示箭头
                 });
+                // 嵌套显示日期
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem: '#datatime'
+                    ,position: 'static'
+                    ,showBottom: false
+                    ,calendar: true
+                })
         });
         $('.my-icon > div > img ').on({
             mouseenter: function () {

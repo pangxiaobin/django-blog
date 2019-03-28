@@ -69,3 +69,12 @@ def cut_char(content):
         return '%s%s' % (content[:20], '...')
     else:
         return content
+
+
+@register.assignment_tag()
+def search():
+    """获取随机推荐"""
+    html = '<form action="/blog/search/" method="get" name="form" ><div class="my-search" >' \
+           '<input type="text" name="q" autocomplete="off" placeholder="请输入搜索内容" class="search-input">' \
+           '<i class="layui-icon layui-icon-search search-btn" onclick="javascript:form.submit()"></i></div></form>'
+    return format_html(html)

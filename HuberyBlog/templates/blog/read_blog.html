@@ -6,6 +6,23 @@
 {% block extCSS %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'blog/css/read_blog.css' %}">
+    <script type="text/javascript" src="{% static 'ueditor/third-party/SyntaxHighlighter/shCore.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'ueditor/third-party/SyntaxHighlighter/shCoreDefault.css' %}">
+    <script type="text/javascript">
+        SyntaxHighlighter.all();
+    </script>
+    <style>
+        .syntaxhighlighter{
+            border:1px solid #ccc !important;  /*代码块的边框*/
+            word-break:break-all;   /*代码自动换行*/
+        }
+        .syntaxhighlighter td.gutter .line {
+            padding: 0 0.5em 0 0 !important; /*行数位置*/
+        }
+        .syntaxhighlighter div {
+            margin: 0.8em 0 !important; /*代码行间距*/
+        }
+    </style>
 {% endblock %}
 {% block content %}
     <div class="layui-container">
@@ -44,15 +61,11 @@
                         <p>
                             {% if pre_blog %}
                                 <a href="{% url 'blog:read_blog' %}?blogid={{ pre_blog.id }}">上一篇：{{ pre_blog.title }}</a>
-                            {% else %}
-                                <a href="javascript:viod(0)">上一篇：没有了</a>
                             {% endif %}
                         </p>
                         <p>
                             {% if next_blog %}
                                 <a href="{% url 'blog:read_blog' %}?blogid={{ next_blog.id }}">下一篇：{{ next_blog.title }}</a>
-                            {% else %}
-                                <a href="javascript:viod(0)">下一篇：没有了</a>
                             {% endif %}
                         </p>
                     </div>
@@ -223,6 +236,11 @@
             </div>
             <!--展示栏-->
             <div class="layui-col-md4">
+                {# 搜索框 #}
+                <div style="margin-top: -15px; margin-bottom: 20px">
+                    {% search %}
+                </div>
+
                 <div class="top_blog" style="background-color: white; padding: 10px 10px">
                     <h3><i class="layui-icon layui-icon-fire" style="font-size: 20px; color: red;margin-right: 5px"></i>阅读排行
                     </h3>
@@ -233,7 +251,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="random_blog" style="background-color: white;margin-top: 20px; padding: 10px 10px">
+                <div class="random_blog" style="background-color: white;margin-top: 20px; padding: 10px 10px; margin-bottom: 20px">
                     <h3><i class="layui-icon layui-icon-read"
                            style="font-size: 20px;margin-right: 5px; color:#FF5722"></i>随机推荐</h3>
                     <hr class="layui-bg-black">

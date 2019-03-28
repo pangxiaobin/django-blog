@@ -2,6 +2,7 @@ from django.core.cache import cache
 from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
+
 from django.views.decorators.csrf import csrf_exempt
 
 from blog.models import Wheels, Blog, Tag, Category, WebCategory, MessageBoard
@@ -104,22 +105,6 @@ def get_categories(request):
     data = {
         'title': category_name,
         'blogs': blogs
-    }
-    return render(request, 'blog/blog_list.html', context=data)
-
-
-def search_blog(request):
-    """
-    搜索文章
-    :param request:
-    """
-    key_word = request.POST.get('key_word')
-    if key_word == '':
-        return redirect(reverse('blog:get_all_blog'))
-    search_blogs = Blog.objects.filter(title__contains=key_word).order_by('-create_time')
-    data = {
-        'title': '搜索结果',
-        'blogs': search_blogs
     }
     return render(request, 'blog/blog_list.html', context=data)
 

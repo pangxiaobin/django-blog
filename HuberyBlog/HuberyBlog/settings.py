@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',  # 评论插件
     'asynchronous_send_mail',  # send_email,
     'django_celery_results',  # celery
+    'haystack',  # 搜索
 ]
 SITE_ID = 1
 
@@ -185,6 +186,17 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # 配置celery
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 CELERY_RESULT_BACKEND = 'django-db'
+
+
+# 配置haystack搜索引擎
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'  # 更新文章时更新索引
 
 # 日志
 BASE_LOG_DIR = os.path.join(BASE_DIR, 'log')
