@@ -13,6 +13,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 
 import django_comments
+from HuberyBlog.settings import HOST
 from blog.models import Blog
 from django_comments import signals
 from django_comments.views.utils import next_redirect, confirmation_view
@@ -178,7 +179,7 @@ def post_comment(request, next=None, using=None):
                     'user_name': blog.uid.username,
                     'comment_name': comment.user_name,
                     'blog_title': blog.title,
-                    'blog_url': 'http://127.0.0.0:8000/blog/read/?blogid=%s' % blog.id,
+                    'blog_url': 'http://{}/blog/read/?blogid={}'.format(HOST, blog.id),
                     'comment_content': comment.comment
 
                 }
@@ -192,7 +193,7 @@ def post_comment(request, next=None, using=None):
                     'replay_name': comment.reply_name,
                     'comment_name': comment.user_name,
                     'blog_title': blog.title,
-                    'blog_url': 'http://127.0.0.0:8000/blog/read/?blogid=%s' % blog.id,
+                    'blog_url': 'http://{}/blog/read/?blogid={}'.format(HOST,blog.id),
                     'comment_content': comment.comment
 
                 }
@@ -213,7 +214,7 @@ def post_comment(request, next=None, using=None):
                     'user_name': 'hubery',
                     'comment_name': comment.user_name,
                     'blog_title': '留言板',
-                    'blog_url': 'http://127.0.0.0:8000/blog/message_board/',
+                    'blog_url': 'http://{}/blog/message_board/'.format(HOST),
                     'comment_content': comment.comment
 
                 }
@@ -227,7 +228,7 @@ def post_comment(request, next=None, using=None):
                     'replay_name': comment.reply_name,
                     'comment_name': comment.user_name,
                     'blog_title': '留言评论',
-                    'blog_url': 'http://127.0.0.0:8000/blog/message_board/',
+                    'blog_url': 'http://{}/blog/message_board/'.format(HOST),
                     'comment_content': comment.comment
 
                 }

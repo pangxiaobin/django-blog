@@ -200,6 +200,9 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'  # 更新
 # 不记录访问说量的地址
 EXCLUDE_URL = ['/xadmin/', '/blog/return_ip/', '/xadmin/jsi18n/']
 
+# 用与评论发邮件链接访问　写域名或服务器ip地址+端口号(使用８０端口则不用写)
+HOST = 'panglb.top'
+
 # 日志
 BASE_LOG_DIR = os.path.join(BASE_DIR, 'log')
 LOGGING = {
