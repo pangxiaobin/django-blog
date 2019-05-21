@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 
 import django_comments
-from HuberyBlog.settings import HOST
+from HuberyBlog.settings import HOST, DEFAULT_RECEIVE_EMAIL, DEFAULT_FROM_EMAIL
 from blog.models import Blog
 from django_comments import signals
 from django_comments.views.utils import next_redirect, confirmation_view
@@ -21,7 +21,6 @@ from django_comments.views.utils import next_redirect, confirmation_view
 # 添加这两个引用，为了返回json数据
 from django.http import HttpResponse
 import json
-from HuberyBlog import settings
 
 from asynchronous_send_mail import send_mail
 
@@ -168,13 +167,14 @@ def post_comment(request, next=None, using=None):
             blog = Blog.objects.filter(id=comment.object_pk).first()
             subject = ''
             message = ''
-            from_mail = settings.DEFAULT_FROM_EMAIL
+            from_mail = DEFAULT_FROM_EMAIL
             recipient_list = []
             html_message = ''
             if int(comment.root_id) == 0:
                 subject = '[Hubery的博客]博文评论'
                 temp = loader.get_template('email/comment.html')
-                recipient_list.append('2274858959@qq.com')
+                # 发送给自己
+                recipient_list.append(DEFAULT_RECEIVE_EMAIL)
                 data = {
                     'user_name': blog.uid.username,
                     'comment_name': comment.user_name,
@@ -187,8 +187,15 @@ def post_comment(request, next=None, using=None):
             else:
                 subject = '[Hubery的博客]博文回复'
                 temp = loader.get_template('email/replay.html')
-                recipient_list.append(comment.user_email)
                 # 获取评论对象，找到回复对应的评论
+                comment_model = django_comments.get_model()
+                cams = comment_model.objects.filter(id=comment.reply_to)
+                if cams:
+                    recipient_list.append(cams[0].user_email)
+                else:
+                    # 没有找到评论，就发给自己（可以修改其他邮箱）
+                    recipient_list.append(DEFAULT_RECEIVE_EMAIL)
+
                 data = {
                     'replay_name': comment.reply_name,
                     'comment_name': comment.user_name,
@@ -203,13 +210,14 @@ def post_comment(request, next=None, using=None):
         elif str(comment.content_type) == '留言':
             subject = ''
             message = ''
-            from_mail = settings.DEFAULT_FROM_EMAIL
+            from_mail = DEFAULT_FROM_EMAIL
             recipient_list = []
             html_message = ''
             if int(comment.root_id) == 0:
                 subject = '[Hubery的博客]留言板评论'
                 temp = loader.get_template('email/comment.html')
-                recipient_list.append('2274858959@qq.com')
+                # 发送给自己
+                recipient_list.append(DEFAULT_RECEIVE_EMAIL)
                 data = {
                     'user_name': 'hubery',
                     'comment_name': comment.user_name,
@@ -220,10 +228,16 @@ def post_comment(request, next=None, using=None):
                 }
                 html_message = temp.render(data)
             else:
-                subject = '[Hubery的博客]博文回复'
+                subject = '[Hubery的博客]留言回复'
                 temp = loader.get_template('email/replay.html')
-                recipient_list.append(comment.user_email)
                 # 获取评论对象，找到回复对应的评论
+                comment_model = django_comments.get_model()
+                cams = comment_model.objects.filter(id=comment.reply_to)
+                if cams:
+                    recipient_list.append(cams[0].user_email)
+                else:
+                    # 没有找到评论，就发给自己（可以修改其他邮箱）
+                    recipient_list.append(DEFAULT_RECEIVE_EMAIL)
                 data = {
                     'replay_name': comment.reply_name,
                     'comment_name': comment.user_name,
