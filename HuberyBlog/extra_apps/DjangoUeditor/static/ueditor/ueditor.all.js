@@ -23917,7 +23917,6 @@ UE.plugin.register('autosave', function (){
             },
 
             'contentchange': function () {
-
                 if ( !saveKey ) {
                     return;
                 }

@@ -180,3 +180,11 @@ def message_board(request):
 
 def about(request):
     return render(request, 'blog/about.html', context={'title': '关于我'})
+
+
+def return_ip(request):
+    if 'HTTP_X_FORWARDED_FOR' in request.META:
+        ip = request.META.get('HTTP_X_FORWARDED_FOR')
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return HttpResponse('%s'% ip)

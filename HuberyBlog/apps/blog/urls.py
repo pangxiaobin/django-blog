@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^archives/$', views.archives, name='archives'),
     url(r'^message_board/$', views.message_board, name='message_board'),
     url(r'^about/$', views.about, name='about'),
+    url('^return_ip/$', views.return_ip),
 
 ]
 

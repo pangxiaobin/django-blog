@@ -6,18 +6,21 @@
 # @Software: PyCharm
 from django.core.cache import cache
 from django.utils.deprecation import MiddlewareMixin
+
+from HuberyBlog.settings import EXCLUDE_URL
 from blog.tasks import increase_pv
 
 
 class PvVisitViewMiddleware(MiddlewareMixin):
     """统计在线人数和用户访问"""
     def process_request(self, request):
-        ip = get_ip(request)
-        online_ips = cache.get("online_ips", [])
-        cache.set(ip, 0, 1 * 60)
-        if ip not in online_ips:
-            online_ips.append(ip)
-        cache.set("online_ips", online_ips)
+        if request.path not in EXCLUDE_URL:
+            ip = get_ip(request)
+            online_ips = cache.get("online_ips", [])
+            cache.set(ip, 0, 1 * 60)
+            if ip not in online_ips:
+                online_ips.append(ip)
+            cache.set("online_ips", online_ips)
 
     def process_response(self, request, response):
         ip = get_ip(request)

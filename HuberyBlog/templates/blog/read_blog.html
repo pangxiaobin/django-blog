@@ -12,6 +12,15 @@
         SyntaxHighlighter.all();
     </script>
     <style>
+        .blog_content ul li {
+            list-style: disc outside none !important;
+            margin-left: 10px;
+
+        }
+        .blog_content p {
+            margin-bottom: 10px !important;
+
+        }
         .syntaxhighlighter{
             border:1px solid #ccc !important;  /*代码块的边框*/
             word-break:break-all;   /*代码自动换行*/
@@ -21,6 +30,9 @@
         }
         .syntaxhighlighter div {
             margin: 0.8em 0 !important; /*代码行间距*/
+        }
+        .blog_content > button, dd, div, dl, dt, form, h1, h2, h3, h4, h5, h6, input, li, ol, p, pre, td, textarea, th, ul {
+            clear: none;
         }
     </style>
 {% endblock %}
@@ -52,7 +64,7 @@
                         </ul>
                     </div>
                     <hr class="layui-bg-orange">
-                    <div class="blog_content" style="padding: 10px 20px">
+                    <div class="blog_content" style="padding: 10px 20px; overflow: hidden">
                         {% autoescape off %}
                             {{ blog.content }}
                         {% endautoescape %}

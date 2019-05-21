@@ -49,8 +49,8 @@ class Blog(models.Model):
     """博客文章"""
     uid = models.ForeignKey(UserInfo, verbose_name='关联作者')
     title = models.CharField(max_length=64, verbose_name="标题")
-    content = UEditorField(verbose_name="博客内容", width=700, height=400, imagePath="blog/ueditor/%Y/%M",
-                           filePath="blog/ueditor/%Y/%M", default='')
+    content = UEditorField(verbose_name="博客内容", width=700, height=400, imagePath="blog/ueditor/%(basename)s_%(datetime)s.%(extname)s",
+                           filePath="blog/ueditor/%(basename)s_%(datetime)s.%(extname)s", default='')
     read_num = models.IntegerField(default=0, verbose_name="阅读次数")
     appreciate = models.IntegerField(default=0, verbose_name="点赞次数")
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")

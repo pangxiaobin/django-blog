@@ -7,6 +7,10 @@
     margin-top: 15px;
 }
 
+.item-list .my-article {
+    overflow: hidden;
+}
+
 .item-list .article-border {
     background-color: white;
     padding: 20px 10px
@@ -90,10 +94,11 @@ background-color: white;
 line-height: 70px;
 vertical-align: middle;
 }
+
 .my-search .search-input {
     padding: 6px 12px;
     font-size: 14px;
-    width: 280px;
+    width: 300px;
     margin-left: 20px;
     line-height: 1.42857143;
     color: #555;
@@ -121,9 +126,19 @@ vertical-align: middle;
 
 .my-search  .search-btn {
     position: absolute;
-    right: 65px;
+    left: 320px;
     cursor: pointer;
     z-index: 33;
+}
+
+@media (max-width: 1280px){
+    .my-search .search-input {
+        width: 250px;
+        margin-left: 15px;
+    }
+    .my-search  .search-btn {
+        left: 277px;
+    }
 }
 
 

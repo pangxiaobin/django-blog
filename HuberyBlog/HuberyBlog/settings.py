@@ -27,7 +27,6 @@ SECRET_KEY = 'fekukruj0n15v9e_zhe$si+^0p!p$hi0m^0fqo#tgot20))a5s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -104,7 +103,7 @@ DATABASES = {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'blog',
 #         'USER': 'root',
-#         'PASSWORD': 'hubery1204',
+#         'PASSWORD': '',
 #         'HOST': 'localhost',
 #         'PORT': 3306,
 #     }
@@ -197,6 +196,9 @@ HAYSTACK_CONNECTIONS = {
 }
 
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'  # 更新文章时更新索引
+
+# 不记录访问说量的地址
+EXCLUDE_URL = ['/xadmin/', '/blog/return_ip/', '/xadmin/jsi18n/']
 
 # 日志
 BASE_LOG_DIR = os.path.join(BASE_DIR, 'log')

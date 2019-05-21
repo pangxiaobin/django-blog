@@ -1,6 +1,11 @@
 {% extends 'base/base_main.html' %}
 {% load static %}
 {% load my_tags %}
+{% block header %}
+    {{ block.super }}
+{#    百度网站验证#}
+    <meta name="baidu-site-verification" content="pztzMIdK5q" />
+{% endblock %}
 {% block extCSS %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'blog/css/home.css' %}">
@@ -91,13 +96,13 @@
         </div>
         <!--右侧信息栏-->
         <div class="layui-col-md4">
-{#            <form action="{% url 'blog:haystack' %}" method="get" name="form" >#}
-{#                <div class="my-search" >#}
-{#                    <input type="text" name="q" autocomplete="off" placeholder="请输入搜索内容" class="search-input">#}
-{#                    <i class="layui-icon layui-icon-search search-btn" onclick='javascript:form.submit()'></i>#}
-{#                </div>#}
-{#            </form>#}
-            {% search %}
+            <form action="{% url 'blog:haystack' %}" method="get" name="form" >
+                <div class="my-search" >
+                    <input type="text" name="q" autocomplete="off" placeholder="请输入搜索内容" class="search-input">
+                    <i class="layui-icon layui-icon-search search-btn" onclick='javascript:form.submit()'></i>
+                </div>
+            </form>
+{#            {% search %}#}
 
             <div class="data-time">
                 <div id="datatime"></div>
