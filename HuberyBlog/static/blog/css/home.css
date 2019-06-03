@@ -34,7 +34,29 @@
 }
 
 
+.top_blog {
+    background-color: white;
+    margin-top: 20px;
+    padding: 10px 10px
+}
 .top_blog > div > ul >li {
+    margin-top: 10px;
+}
+.random_blog {
+    background-color: white;
+    margin-top: 20px;
+    padding: 10px 10px
+}
+.random_blog > div > ul > li {
+    margin-top: 10px;
+}
+
+.friends_blog {
+    background-color: white;
+    margin-top: 20px;
+    padding: 10px 10px
+}
+.friends_blog > div > ul >li {
     margin-top: 10px;
 }
 
@@ -46,11 +68,18 @@
     color: #01AAED;
 }
 
-.random_blog > div > ul > li {
-    margin-top: 10px;
+.friends_blog a {
+    color: #01AAED;
 }
 
 /*标签云*/
+
+.tag_yun {
+    background-color: white;
+    margin-top: 20px;
+    padding: 10px 10px;
+}
+
 #tagscloud {
     width:250px;
     height:260px;

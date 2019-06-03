@@ -7,7 +7,7 @@
 
 import xadmin
 from xadmin import views
-from blog.models import Blog, Wheels, Tag, Category, WebCategory, Web, MessageBoard, VisitView
+from blog.models import Blog, Wheels, Tag, Category, WebCategory, Web, MessageBoard, VisitView, FriendsBlog
 
 
 class BlogAdmin(object):
@@ -64,6 +64,12 @@ class VisitViewAdmin(object):
     readonly_fields = ['visit_num']
 
 
+class FriendsBlogAdmin(object):
+    """友情链接"""
+    list_display = ['id', 'name', 'address', 'status', 'create_time']
+    search_fields = ['name']
+
+
 class BaseSetting(object):
     enable_themes = True  # 开启自定义主题
     use_bootswatch = True
@@ -83,6 +89,7 @@ xadmin.site.register(WebCategory, WebCategoryAddmin)
 xadmin.site.register(Web, WebAdmin)
 xadmin.site.register(MessageBoard, MessageBoardAdmin)
 xadmin.site.register(VisitView, VisitViewAdmin)
+xadmin.site.register(FriendsBlog, FriendsBlogAdmin)
 
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)

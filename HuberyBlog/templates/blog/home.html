@@ -108,7 +108,7 @@
                 <div id="datatime"></div>
             </div>
 
-             <div class="tag_yun" style="background-color: white;margin-top: 20px; padding: 10px 10px">
+             <div class="tag_yun">
                 <h3><i class="layui-icon layui-icon-snowflake"style="font-size: 20px; color: #1b9dec;margin-right: 5px" ></i>标签云</h3>
                 <hr class="layui-bg-black">
                 <div id="tagscloud">
@@ -117,7 +117,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="top_blog" style="background-color: white; margin-top: 20px; padding: 10px 10px;">
+            <div class="top_blog">
                 <h3><i class="layui-icon layui-icon-fire"style="font-size: 20px; color: red;margin-right: 5px" ></i>阅读排行</h3>
                 <hr class="layui-bg-black">
                 <div>
@@ -127,12 +127,26 @@
                 </div>
             </div>
 
-            <div class="random_blog" style="background-color: white;margin-top: 20px; padding: 10px 10px">
+            <div class="random_blog" >
                 <h3><i class="layui-icon layui-icon-read"style="font-size: 20px;margin-right: 5px; color:#FF5722"></i>随机推荐</h3>
                 <hr class="layui-bg-black">
                 <div>
                     <ul>
                         {% get_random_blog %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="friends_blog" >
+                <h3><i class="layui-icon layui-icon-face-smile-fine"style="font-size: 20px;margin-right: 5px; color:#FF5722"></i>友情链接</h3>
+                <hr class="layui-bg-black">
+                <div>
+                    <ul>
+                        {% for friend_blog in friends_blog %}
+                            <li><strong><a href="{{ friend_blog.address }}" target="_blank">{{ friend_blog.name }}</a></strong></li>
+                        {% empty %}
+                            <li><a href="javascript:volid(0);" style="color: red">暂未添加</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>

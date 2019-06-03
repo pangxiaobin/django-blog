@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from django.views.decorators.csrf import csrf_exempt
 
-from blog.models import Wheels, Blog, Tag, Category, WebCategory, MessageBoard
+from blog.models import Wheels, Blog, Tag, Category, WebCategory, MessageBoard, FriendsBlog
 
 from blog.helper import page_cache
 
@@ -27,12 +27,14 @@ def home(request):
     if wheels.count() >= 4:
         wheels = wheels[:4]
     blogs = Blog.objects.all().order_by('-create_time')
+    friends_blog = FriendsBlog.objects.all().filter(status=1)
     tags = Tag.objects.all()
     data = {
         'title': '首页|Hubery的个人博客',
         'wheels': wheels,
         'blogs': blogs,
-        'tags': tags
+        'tags': tags,
+        'friends_blog': friends_blog
     }
     return render(request, 'blog/home.html', context=data)
 
