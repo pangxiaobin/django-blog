@@ -10,6 +10,8 @@ from __future__ import absolute_import, unicode_literals
 from celery import shared_task
 
 from django.db.models import F
+
+from blog.helper import get_ip_address
 from blog.models import Blog, VisitView
 
 
@@ -28,7 +30,8 @@ def increase_pv(ip):
     """如果获取到了对于ip 就在这个基础上加一,没有新建一个"""
     visits = VisitView.objects.filter(ip=ip)
     if visits.count() == 0:
-        visit_ = VisitView.objects.create(ip=ip, visit_num=1)
+        ip_address = get_ip_address(ip)
+        visit_ = VisitView.objects.create(ip=ip, visit_num=1, ip_address=ip_address)
         return 'success create %s' % ip
     visit = visits.first()
     visit.visit_num += 1

@@ -114,6 +114,7 @@ class MessageBoard(models.Model):
 
 class VisitView(models.Model):
     ip = models.CharField(max_length=32, verbose_name='访问者ip')
+    ip_address = models.CharField(max_length=128, verbose_name='访问地址', null=True, blank=True)
     visit_num = models.IntegerField(default=0, verbose_name='访问次数')
     first_visit_time = models.DateTimeField(auto_now_add=True, verbose_name='第一次访问时间')
     last_visit_time = models.DateTimeField(auto_now=True, verbose_name='最后访问时间')

@@ -59,7 +59,7 @@ class MessageBoardAdmin(object):
 
 class VisitViewAdmin(object):
     """访问统计"""
-    list_display = ['id', 'ip', 'visit_num', 'first_visit_time', 'last_visit_time']
+    list_display = ['id', 'ip', 'ip_address', 'visit_num', 'first_visit_time', 'last_visit_time']
     search_fields = ['ip']
     readonly_fields = ['visit_num']
 
