@@ -5,272 +5,278 @@
 {% block extCSS %}
     {{ block.super }}
     <style>
-    /*评论*/
-    .comment_list a {
-        color: #009688;
-    }
+        /*评论*/
+        .comment_list a {
+            color: #009688;
+        }
     </style>
 {% endblock %}
 
 {% block content %}
-<div class="layui-container" style="background-color: white; margin-top: 20px">
-    <!--留言提交-->
-    <div >
-        <div class="layui-card">
-            {% get_comment_form for message as message_form %}
-            <div class="comment_blok">
-                <div class="layui-card-header"> <h3>新的留言</h3> </div>
-                <div class="layui-card-body">
-                    <form id="comment_form" class="layui-form" action="{% comment_form_target %}" method="post">
-                        {% csrf_token %}
-                        {# 必须的字段 #}
-                        {{ message_form.object_pk }}
-                        {{ message_form.content_type }}
-                        {{ message_form.timestamp }}
-                        {{ message_form.site }}
-                        {{ message_form.submit_date }}
-                        {{ message_form.security_hash }}
-
-                        {# 用户名字段，这个后面会修改为登录用户评论，无需填这个 #}
-                        <div class="layui-form-item">
-                            <label class="layui-form-label" for="id_name">名称：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="name" id="id_name" required lay-verify="required"
-                                       placeholder="请输入您的用户名" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label" for="id_email">邮箱：</label>
-                            <div class="layui-input-block">
-                                <input type="email" name="email" id="id_email" required lay-verify="required"
-                                       placeholder="本网站开启了邮箱回复通知,想及时看到回复,请填写有效邮箱地址" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        {# 评论内容 #}
-                        <a name="newcomment" id="newcomment"></a>
-                        <div class="layui-form-item layui-form-text">
-                            <label class="layui-form-label">内容：</label>
-                            <div class="layui-input-block">
-                                <textarea name="comment" id="id_comment" placeholder="请输入内容"
-                                          class="layui-textarea"></textarea>
-                            </div>
-                        </div>
-
-                        {# 防垃圾评论 #}
-                        <p style="display:none;">
-                            <label for="id_honeypot">如果你在该字段中输入任何内容，你的评论就会被视为垃圾评论。</label>
-                            <input type="text" name="honeypot" id="id_honeypot">
-                        </p>
-
-                        {# 表单按钮 #}
-                        <div class="layui-input-block">
-                            <input type="hidden" name="next"
-                                   value="{% url 'blog:message_board' %}"/>
-                            <button class="layui-btn" type="submit" name="submit">立即提交</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="reply_blok" style="display: none">
-                <div class="layui-card-header">
-                    <span class="reply_detail" style="font-weight: bold"></span>
-                    <span style="float: right"><button class="layui-btn cancel_reply">取消回复</button></span>
-                </div>
-                <div class="layui-card-body">
-                    <form action="{% comment_form_target %}" class="layui-form" method="post" id="reply_update_form">
-                        {% csrf_token %}
-                        {{ message_form.object_pk }}
-                        {{ message_form.content_type }}
-                        {{ message_form.timestamp }}
-                        {{ message_form.site }}
-                        {{ message_form.submit_date }}
-                        {{ message_form.security_hash }}
-                        <input type="hidden" name="next"
-                               value="{% url 'blog:message_board' %}"/>
-                        <input id="reply_to" type="hidden" name="reply_to" value="0"/>
-                        <input id="root_id" type="hidden" name="root_id" value="0"/>
-                        <input id="reply_name" type="hidden" name="reply_name" value="">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label" for="id_name">名称：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="name" id="id_name" required lay-verify="required"
-                                       placeholder="请输入您的用户名" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label" for="id_email">邮箱：</label>
-                            <div class="layui-input-block">
-                                <input type="email" name="email" id="id_email" required
-                                       lay-verify="required" placeholder="本网站开启了邮箱回复通知,想及时看到回复,请填写有效邮箱地址" autocomplete="off"
-                                       class="layui-input">
-                            </div>
-                        </div>
-                        {# 评论内容 #}
-                        <a name="newcomment" id="newcomment"></a>
-                        <div class="layui-form-item layui-form-text">
-                            <label class="layui-form-label">内容：</label>
-                            <div class="layui-input-block">
-                                <textarea name="comment" id="id_comment_reply" placeholder="请输入内容"
-                                          class="layui-textarea"></textarea>
-                            </div>
-                        </div>
-
-                        {# 防垃圾评论 #}
-                        <p style="display:none;">
-                            <label for="id_honeypot_reply">如果你在该字段中输入任何内容，你的评论就会被视为垃圾评论。</label>
-                            <input type="text" name="honeypot" id="id_honeypot_reply">
-                        </p>
-
-                        {# 表单按钮 #}
-                        <div class="layui-input-block">
-                            <input type="hidden" name="next"
-                                   value="{% url 'blog:message_board' %}"/>
-                            <button class="layui-btn" type="submit" name="submit">立即提交</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--评论列表-->
-    <div>
-         <div class="comment_list">
+    <div class="layui-container" style="background-color: white; margin-top: 20px">
+        <!--留言提交-->
+        <div>
             <div class="layui-card">
-                <div class="layui-card-header"><h3>留言列表</h3> </div>
-                <div class="layui-card-body">
-                    {% get_comment_list for message as comments %}
-                    {% load pagination_tags %}
-                    {% autopaginate comments %}
-                    {% for comment in comments %}
-                        <hr class="layui-bg-black">
-                        <div class="layui-card-body" name="{{ comment.id }}">
-                            <i class="layui-icon layui-icon-user"></i><i>&nbsp;&nbsp;{{ comment.user_name }}
-                            ({{ comment.submit_date|date:"Y-m-d H:i" }})：</i>
-                            <span class="reply" style="float: right">
-                                <a href="javascript:void(0)" class="reply_button"
-                                                   root="{{ comment.id }}"
-                                                   role='{{comment.id}}'
-                                                   base='{{comment.user_name}}'>回复</a>
-                                <input type="hidden" value="{{ comment.user_name }}">
-                            </span>
-                            <br>
-                            <b >
-                                &nbsp;&nbsp;&nbsp;&nbsp;{{ comment.comment }}
-                            </b>
-                        </div>
-                         {% for reply in comment.replies %}
-                         <div class="layui-card-body" style="margin-left: 20px">
-                                {% if reply.reply_name%}
-                                    <div>
-                                        <i>{{ reply.user_name }}({{ reply.submit_date|date:"Y-m-d H:i" }})</i>
-                                        <strong>回复</strong>
-                                        <i>{{ reply.reply_name }}:</i>
-                                        <a href="javascript:void(0)" class="reply_button" style="float:right;margin-right: 20px"
-                                           root="{{ comment.id }}" role='{{reply.id}}' base='{{reply.user_name}}'>
-                                            回复
-                                        </a>
-                                        <input type="hidden" value="{{ reply.user_name }}">
-                                        <br>
-                                        <b>{{ reply.comment }}</b>
-                                    </div>
-                                {% endif %}
-                         </div>
-                         {% endfor %}
-{#                        <hr class="layui-bg-black">#}
-                    {% empty %}
-                        <span>优秀的你不评论一下咩！！</span>
-                    {% endfor %}
-                    <div class="page">
-                    {% paginate using 'pagination/my_pagination.html' %}
+                {% get_comment_form for message as message_form %}
+                <div class="comment_blok">
+                    <div class="layui-card-header"><h3>新的留言</h3></div>
+                    <div class="layui-card-body">
+                        <form id="comment_form" class="layui-form" action="{% comment_form_target %}" method="post">
+                            {% csrf_token %}
+                            {# 必须的字段 #}
+                            {{ message_form.object_pk }}
+                            {{ message_form.content_type }}
+                            {{ message_form.timestamp }}
+                            {{ message_form.site }}
+                            {{ message_form.submit_date }}
+                            {{ message_form.security_hash }}
+
+                            {# 用户名字段，这个后面会修改为登录用户评论，无需填这个 #}
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" for="id_name"><font color="red">*</font>名称：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="name" id="id_name" placeholder="请输入您的用户名" required
+                                           lay-verify="requerd"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" for="id_email">邮箱：</label>
+                                <div class="layui-input-block">
+                                    <input type="email" name="email" id="id_email"
+                                           placeholder="如需接收回复，请填写正确邮箱，否则可不填" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            {# 评论内容 #}
+                            <a name="newcomment" id="newcomment"></a>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label"><font color="red">*</font>内容：</label>
+                                <div class="layui-input-block">
+                                <textarea name="comment" id="id_comment" placeholder="请输入内容" required
+                                          lay-verify="requerd"
+                                          class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+
+                            {# 防垃圾评论 #}
+                            <p style="display:none;">
+                                <label for="id_honeypot">如果你在该字段中输入任何内容，你的评论就会被视为垃圾评论。</label>
+                                <input type="text" name="honeypot" id="id_honeypot">
+                            </p>
+
+                            {# 表单按钮 #}
+                            <div class="layui-input-block">
+                                <input type="hidden" name="next"
+                                       value="{% url 'blog:message_board' %}"/>
+                                <button class="layui-btn" type="submit" name="submit">立即提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="reply_blok" style="display: none">
+                    <div class="layui-card-header">
+                        <span class="reply_detail" style="font-weight: bold"></span>
+                        <span style="float: right"><button class="layui-btn cancel_reply">取消回复</button></span>
+                    </div>
+                    <div class="layui-card-body">
+                        <form action="{% comment_form_target %}" class="layui-form" method="post"
+                              id="reply_update_form">
+                            {% csrf_token %}
+                            {{ message_form.object_pk }}
+                            {{ message_form.content_type }}
+                            {{ message_form.timestamp }}
+                            {{ message_form.site }}
+                            {{ message_form.submit_date }}
+                            {{ message_form.security_hash }}
+                            <input type="hidden" name="next"
+                                   value="{% url 'blog:message_board' %}"/>
+                            <input id="reply_to" type="hidden" name="reply_to" value="0"/>
+                            <input id="root_id" type="hidden" name="root_id" value="0"/>
+                            <input id="reply_name" type="hidden" name="reply_name" value="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" for="id_name"><font color="red">*</font>名称：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="name" id="id_name" required lay-verify="requerd"
+                                           placeholder="请输入您的用户名" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" for="id_email">邮箱：</label>
+                                <div class="layui-input-block">
+                                    <input type="email" name="email" id="id_email" placeholder="如需接收回复，请填写正确邮箱，否则可不填"
+                                           autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            {# 评论内容 #}
+                            <a name="newcomment" id="newcomment"></a>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label"><font color="red">*</font>内容：</label>
+                                <div class="layui-input-block">
+                                <textarea name="comment" id="id_comment_reply" placeholder="请输入内容" required
+                                          lay-verify="requerd"
+                                          class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+
+                            {# 防垃圾评论 #}
+                            <p style="display:none;">
+                                <label for="id_honeypot_reply">如果你在该字段中输入任何内容，你的评论就会被视为垃圾评论。</label>
+                                <input type="text" name="honeypot" id="id_honeypot_reply">
+                            </p>
+
+                            {# 表单按钮 #}
+                            <div class="layui-input-block">
+                                <input type="hidden" name="next"
+                                       value="{% url 'blog:message_board' %}"/>
+                                <button class="layui-btn" type="submit" name="submit">立即提交</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!--评论列表-->
+        <div>
+            <div class="comment_list">
+                <div class="layui-card">
+                    <div class="layui-card-header"><h3>留言列表</h3></div>
+                    <div class="layui-card-body">
+                        {% get_comment_list for message as comments %}
+                        {% load pagination_tags %}
+                        {% autopaginate comments %}
+                        {% for comment in comments %}
+                            <hr class="layui-bg-black">
+                            <div class="layui-card-body" name="{{ comment.id }}">
+                                <i class="layui-icon layui-icon-user"></i><i>&nbsp;&nbsp;{{ comment.user_name }}
+                                ({{ comment.submit_date|date:"Y-m-d H:i" }})：</i>
+                                <span class="reply" style="float: right">
+                                <a href="javascript:void(0)" class="reply_button"
+                                   root="{{ comment.id }}"
+                                   role='{{ comment.id }}'
+                                   base='{{ comment.user_name }}'>回复</a>
+                                <input type="hidden" value="{{ comment.user_name }}">
+                            </span>
+                                <br>
+                                <b>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;{{ comment.comment }}
+                                </b>
+                            </div>
+                            {% for reply in comment.replies %}
+                                <div class="layui-card-body" style="margin-left: 20px">
+                                    {% if reply.reply_name %}
+                                        <div>
+                                            <i>{{ reply.user_name }}({{ reply.submit_date|date:"Y-m-d H:i" }})</i>
+                                            <strong>回复</strong>
+                                            <i>{{ reply.reply_name }}:</i>
+                                            <a href="javascript:void(0)" class="reply_button"
+                                               style="float:right;margin-right: 20px"
+                                               root="{{ comment.id }}" role='{{ reply.id }}'
+                                               base='{{ reply.user_name }}'>
+                                                回复
+                                            </a>
+                                            <input type="hidden" value="{{ reply.user_name }}">
+                                            <br>
+                                            <b>{{ reply.comment }}</b>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            {#                        <hr class="layui-bg-black">#}
+                        {% empty %}
+                            <span>优秀的你不评论一下咩！！</span>
+                        {% endfor %}
+                        <div class="page">
+                            {% paginate using 'pagination/my_pagination.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
-
-
-</div>
 {% endblock %}
 
 {% block extJS %}
     {{ block.super }}
-    <script type="text/javascript" >
+    <script type="text/javascript">
         $('.layui-nav-item').eq(5).addClass('layui-this');
         $(function () {
             layui.use(['layer'], function () {
-            var layer = layui.layer;
-            $('#comment_form').submit(function () {
-                var $id_comment = $("#id_comment");
-                if ($('#id_honeypot').val().length !== 0) {
-                    layer.alert('垃圾评论', {icon: 2});
-                    return false
-                }
-                if ($id_comment.val().length === 0) {
-                    layer.alert('ERROR:请输入您的评论', {icon: 2});
-                    $id_comment.focus();
-                    return false;
-                }
-                $("#id_timestamp").value = event.timeStamp;
-                //评论的提交
-                $.ajax({
-                    type: "POST",
-                    data: $('#comment_form').serialize(),
-                    url: "{% comment_form_target %}",
-                    cache: false,
-                    dataType: "json",
-                    success: function (json, textStatus) {
-                        if(json['success']){
-                            window.location.reload();
-                        }else{
-                            layer.alert('评论出错，请刷新重试\n'+json['code'], {icon:2});
-                        }
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        layer.alert("评论出错，" + errorThrown, {icon: 2});
+                var layer = layui.layer;
+                $('#comment_form').submit(function () {
+                    var $id_comment = $("#id_comment");
+                    if ($('#id_honeypot').val().length !== 0) {
+                        layer.alert('垃圾评论', {icon: 2});
+                        return false
                     }
-                });
-                return false
-            });
-            $('#reply_update_form').submit(function () {
-                $("#id_timestamp").val(event.timeStamp);
-                var $id_comment_reply = $("#id_comment_reply");
-                if ($('#id_honeypot_reply').val().length !== 0) {
-                    layer.alert('垃圾评论', {icon: 2});
-                    return false
-                }
-                if ($id_comment_reply.val().length === 0) {
-                    layer.alert('ERROR:请输入您的回复内容', {icon: 2});
-                    $id_comment_reply.focus();
-                    return false;
-                }
-                //回复的提交
-                $.ajax({
-                    type: "POST",
-                    data: $('#reply_update_form').serialize(),
-                    url: "{% comment_form_target %}",
-                    cache: false,
-                    dataType: "json",
-                    success: function (json, textStatus) {
-                        if(json['success']){
-                            window.location.reload();
-                        }else{
-                            layer.alert('评论出错，请刷新重试\n'+json['code'], {icon:2});
-                        }
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        layer.alert("评论回复，" + errorThrown, {icon: 2});
+                    if ($id_comment.val().length === 0) {
+                        layer.alert('ERROR:请输入您的评论', {icon: 2});
+                        $id_comment.focus();
+                        return false;
                     }
+                    $("#id_timestamp").value = event.timeStamp;
+                    //评论的提交
+                    $.ajax({
+                        type: "POST",
+                        data: $('#comment_form').serialize(),
+                        url: "{% comment_form_target %}",
+                        cache: false,
+                        dataType: "json",
+                        success: function (json, textStatus) {
+                            if (json['success']) {
+                                window.location.reload();
+                            } else {
+                                layer.alert('评论出错，请刷新重试\n' + json['code'], {icon: 2});
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            layer.alert("评论出错，" + errorThrown, {icon: 2});
+                        }
+                    });
+                    return false
                 });
-                return false
-            });
+                $('#reply_update_form').submit(function () {
+                    $("#id_timestamp").val(event.timeStamp);
+                    var $id_comment_reply = $("#id_comment_reply");
+                    if ($('#id_honeypot_reply').val().length !== 0) {
+                        layer.alert('垃圾评论', {icon: 2});
+                        return false
+                    }
+                    if ($id_comment_reply.val().length === 0) {
+                        layer.alert('ERROR:请输入您的回复内容', {icon: 2});
+                        $id_comment_reply.focus();
+                        return false;
+                    }
+                    //回复的提交
+                    $.ajax({
+                        type: "POST",
+                        data: $('#reply_update_form').serialize(),
+                        url: "{% comment_form_target %}",
+                        cache: false,
+                        dataType: "json",
+                        success: function (json, textStatus) {
+                            if (json['success']) {
+                                window.location.reload();
+                            } else {
+                                layer.alert('评论出错，请刷新重试\n' + json['code'], {icon: 2});
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            layer.alert("评论回复，" + errorThrown, {icon: 2});
+                        }
+                    });
+                    return false
+                });
             });
             //点击回复按钮触发的事件
             $(document).on('click', '.reply_button', function () {
                 var reply_button = $(this);
-                var root=reply_button.attr("root");
-                var role=reply_button.attr("role");
-                var base=reply_button.attr("base");
+                var root = reply_button.attr("root");
+                var role = reply_button.attr("role");
+                var base = reply_button.attr("base");
                 var name = reply_button.next().val();
                 $('.reply_detail').text('回复:' + name);
                 $('.comment_blok').hide();

@@ -50,25 +50,27 @@ def get_random_blog(except_id=0):
     return format_html(data_html)
 
 
-@register.assignment_tag()
-def get_get_online_ips():
-    """获取当前在线人数和历史访问人数"""
-    online_ips = cache.get("online_ips", [])
-    online_ips_num = 0
-    visits_nums = VisitView.objects.aggregate(Sum("visit_num")).get('visit_num__sum', 0)
-    if online_ips:
-        online_ips = cache.get_many(online_ips).keys()
-        online_ips_num = len(online_ips)
-    data_html = '历史总访问次数:%s &nbsp;&nbsp; 当前在线人数:%s' %(visits_nums, online_ips_num)
-    return format_html(data_html)
+# 为了完成首页缓存，这个地方不用了，改为接口的形式了
+# @register.assignment_tag()
+# def get_get_online_ips():
+#     """获取当前在线人数和历史访问人数"""
+#     online_ips = cache.get("online_ips", [])
+#     online_ips_num = 0
+#     visits_nums = VisitView.objects.aggregate(Sum("visit_num")).get('visit_num__sum', 0)
+#     if online_ips:
+#         online_ips_num = len(online_ips)
+#     data_html = '历史总访问次数:%s &nbsp;&nbsp; 当前在线人数:%s' %(visits_nums, online_ips_num)
+#     return format_html(data_html)
 
 
+@register.filter
 def cut_char(content):
     """只显示前20个字符"""
-    if len(content) >= 20:
-        return '%s%s' % (content[:20], '...')
+    content_ = content.replace('\n', '').replace('&nbsp;', '').replace('\t', '')
+    if len(content_) >= 130:
+        return '%s%s' % (content_[:130], '  ...')
     else:
-        return content
+        return content_
 
 
 @register.assignment_tag()

@@ -1,19 +1,44 @@
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
+    <meta name="keywords" content="Hubery,个人博客,Django,Python">
+    <meta name="description" content="记录个人学习笔记的博客小站，主要涉及python,Django等">
+
     <link rel="icon" href="{% static 'image/hubery.icon' %}">
+    {% compress css file base %}
     <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+
     <link rel="stylesheet" href="{% static 'layui/css/modules/layui-icon-extend/iconfont.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <script type="text/javascript" src="{% static 'layui/layui.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    {% endcompress %}
+
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        if (!window.jQuery) {
+            var script = document.createElement('script');
+            script.src = "{% static 'js/jquery.js' %}";
+            document.head.appendChild(script);
+        }
+    </script>
+     <script src="//layui.hcwl520.com.cn/layui-v2.5.3/layui.js?v=201906040202"></script>
+
+    {#    <script type="text/javascript" src="{% static 'layui/layui.js' %}"></script>#}
+    <script>
+        if (typeof layui === 'undefined') {
+            var sc = document.createElement('script');
+            sc.src = "{% static 'layui/layui.js' %}";
+            document.head.appendChild(sc);
+        }
+    </script>
+
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
-{#    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>#}
-{#    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>#}
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     {% block extCSS %}
 

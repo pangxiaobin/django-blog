@@ -53,7 +53,7 @@
         </div>
         <div >
             <span id="div_time" style="color: white"></span>
-            <span style="color: white">{% get_get_online_ips %}</span>
+            <span style="color: white" id="visit_ips"></span>
         </div>
         </footer>
 
@@ -62,4 +62,13 @@
 {% block extJS %}
     {{ block.super }}
     <script src="{% static 'blog/js/base_main.js' %}"></script>
+    <script>
+        $(function () {
+            $.getJSON('{% url "blog:get_onlines_ips" %}', function(data){
+                if(data['code']==='200'){
+                    $('#visit_ips').html(data['data_html'])
+                }
+            })
+        })
+    </script>
 {% endblock %}
