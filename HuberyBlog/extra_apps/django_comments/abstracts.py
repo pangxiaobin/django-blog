@@ -57,9 +57,9 @@ class CommentAbstractModel(BaseCommentAbstractModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('user'),
                              blank=True, null=True, related_name="%(class)s_comments",
                              on_delete=models.SET_NULL)
-    user_name = models.CharField(_("user's name"), max_length=50, blank=True)
-    user_email = models.EmailField(_("user's email address"), blank=True)
-    user_url = models.URLField(_("user's URL"), blank=True)
+    user_name = models.CharField(_("user's name"), max_length=50, blank=True, null=True)
+    user_email = models.EmailField(_("user's email address"), blank=True, null=True)
+    user_url = models.URLField(_("user's URL"), blank=True, null=True)
 
     comment = models.TextField(_('comment'), max_length=COMMENT_MAX_LENGTH)
 

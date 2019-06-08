@@ -1,11 +1,13 @@
-from django.core.cache import cache
+# from django.core.cache import cache
+from django.db.models import Sum
 from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.core.cache import cache
+# from django.urls import reverse
 
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
 
-from blog.models import Wheels, Blog, Tag, Category, WebCategory, MessageBoard, FriendsBlog
+from blog.models import Wheels, Blog, Tag, Category, WebCategory, MessageBoard, FriendsBlog, VisitView
 
 from blog.helper import page_cache
 
@@ -16,7 +18,7 @@ from blog.tasks import increase_uv
 # from django.core.mail import send_mail
 
 
-@page_cache(10)
+@page_cache(60*60*24)
 def home(request):
     """
      首页
@@ -57,7 +59,7 @@ def create_blog(request):
     pass
 
 
-# @page_cache(10)
+@page_cache(60*60*24)
 def read_blog(request):
     """
     阅读博客
@@ -152,6 +154,7 @@ def web_nav(request):
     return render(request, 'blog/web_navigation.html', context=data)
 
 
+@page_cache(60*60*24)
 def archives(request):
     """
     文章归档
@@ -166,6 +169,7 @@ def archives(request):
     return render(request, 'blog/archives.html', context=data)
 
 
+@page_cache(60*6*24)
 def message_board(request):
     """
     留言
@@ -182,6 +186,21 @@ def message_board(request):
 
 def about(request):
     return render(request, 'blog/about.html', context={'title': '关于我'})
+
+
+def get_online_ips(request):
+    """
+    返回在线人数
+    :param request:
+    :return:
+    """
+    online_ips = cache.get("online_ips", [])
+    online_ips_num = 0
+    visits_nums = VisitView.objects.aggregate(Sum("visit_num")).get('visit_num__sum', 0)
+    if online_ips:
+        online_ips_num = len(online_ips)
+    data_html = '历史总访问次数:%s &nbsp;&nbsp; 当前在线人数:%s' % (visits_nums, online_ips_num)
+    return JsonResponse({'code':'200', 'data_html': data_html})
 
 
 def return_ip(request):

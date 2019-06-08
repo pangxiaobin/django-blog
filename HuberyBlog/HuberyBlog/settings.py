@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'asynchronous_send_mail',  # send_email,
     'django_celery_results',  # celery
     'haystack',  # 搜索
+    'compressor',  # 压缩css js
 ]
 SITE_ID = 1
 
@@ -63,6 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
     'blog.pv_middleware.PvVisitViewMiddleware',  # 统计ip
+    'blog.pv_middleware.CleanCacheMiddleware',  # 监听admin　清除缓存
 ]
 
 ROOT_URLCONF = 'HuberyBlog.urls'
@@ -162,6 +164,17 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+# 压缩js css
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'compressor.finders.CompressorFinder'
+)
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
 

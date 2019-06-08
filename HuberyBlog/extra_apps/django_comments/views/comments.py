@@ -191,7 +191,8 @@ def post_comment(request, next=None, using=None):
                 comment_model = django_comments.get_model()
                 cams = comment_model.objects.filter(id=comment.reply_to)
                 if cams:
-                    recipient_list.append(cams[0].user_email)
+                    # 如果邮箱为空,发给博主本人
+                    recipient_list.append(cams[0].user_email if cams[0].user_email else DEFAULT_RECEIVE_EMAIL)
                 else:
                     # 没有找到评论，就发给自己（可以修改其他邮箱）
                     recipient_list.append(DEFAULT_RECEIVE_EMAIL)
@@ -234,7 +235,7 @@ def post_comment(request, next=None, using=None):
                 comment_model = django_comments.get_model()
                 cams = comment_model.objects.filter(id=comment.reply_to)
                 if cams:
-                    recipient_list.append(cams[0].user_email)
+                    recipient_list.append(cams[0].user_email if cams[0].user_email else DEFAULT_RECEIVE_EMAIL)
                 else:
                     # 没有找到评论，就发给自己（可以修改其他邮箱）
                     recipient_list.append(DEFAULT_RECEIVE_EMAIL)
