@@ -16,12 +16,19 @@ Including another URLconf
 from django.conf.urls import url, include
 # from django.contrib import admin
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
 
 import xadmin
-from django.views.static import serve
+# from django.views.static import serve
 
 from blog import views
 from HuberyBlog import settings
+from blog.blog_sitemap import BlogSitemap
+
+sitemaps = {
+    'Blog': BlogSitemap
+}
+
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls, name='xadmin'),
@@ -30,6 +37,7 @@ urlpatterns = [
     url(r'^ueditor/', include('DjangoUeditor.urls')),  # xadmin集成富文本编辑器
     # url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),  # 配置上传文件的访问处理函数
     url(r'^comments/', include('django_comments.urls')),  # 评论。
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='sitemap',)
 ]
 
 if settings.DEBUG:

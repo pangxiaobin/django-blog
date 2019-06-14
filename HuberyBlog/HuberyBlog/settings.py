@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_celery_results',  # celery
     'haystack',  # 搜索
     'compressor',  # 压缩css js
+    'django.contrib.sitemaps',  # 站点地图
 ]
 SITE_ID = 1
 
