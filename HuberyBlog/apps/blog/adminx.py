@@ -4,6 +4,7 @@
 # @Author  : Hubery
 # @File    : adminx.py
 # @Software: PyCharm
+from django.contrib.sites.models import Site
 
 import xadmin
 from xadmin import views
@@ -70,6 +71,13 @@ class FriendsBlogAdmin(object):
     search_fields = ['name']
 
 
+class SiteAdmin(object):
+    """
+    用于修改站点地图里面的域名
+    """
+    list_display = ['id', 'domain']
+
+
 class BaseSetting(object):
     enable_themes = True  # 开启自定义主题
     use_bootswatch = True
@@ -81,6 +89,7 @@ class GlobalSettings(object):
     menu_style = "accordion"
 
 
+
 xadmin.site.register(Blog, BlogAdmin)
 xadmin.site.register(Wheels, WheelsAdmin)
 xadmin.site.register(Tag, TagAdmin)
@@ -90,6 +99,7 @@ xadmin.site.register(Web, WebAdmin)
 xadmin.site.register(MessageBoard, MessageBoardAdmin)
 xadmin.site.register(VisitView, VisitViewAdmin)
 xadmin.site.register(FriendsBlog, FriendsBlogAdmin)
+xadmin.site.register(Site, SiteAdmin)
 
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)

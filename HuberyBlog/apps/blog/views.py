@@ -82,7 +82,7 @@ def read_blog(request):
         else:
             next_blog = None
         data = {
-            'title': '博客详情',
+            'title': blog.title,
             'blog': blog,
             'pre_blog': pre_blog,
             'next_blog': next_blog
