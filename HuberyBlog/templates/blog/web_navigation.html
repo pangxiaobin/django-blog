@@ -10,7 +10,9 @@
                     <a href="javascript:;">{{ web_category.name }}</a>
                     <dl class="layui-nav-child">
                     {% for web in web_category.web_set.all %}
-                        <dd><a href="javascript:void(0);" my-href="{{ web.net_address }}" >{{ web.name }}</a></dd>
+                        {% ifequal web.status 1 %}
+                            <dd><a href="javascript:void(0);" my-href="{{ web.net_address }}" >{{ web.name }}</a></dd>
+                        {% endifequal %}
                     {% endfor %}
                      </dl>
                 </li>
@@ -33,9 +35,17 @@
             element.on('nav(r-nva)', function(elem){
                 //得到当前点击的DOM对象
                 var my_href = elem.attr('my-href');
-                $('#engine').attr('src', my_href)
+                if (my_href){
+                    var pat = /https/i;
+                    if (pat.test(my_href)){
+                        $('#engine').attr('src', my_href);
+                    }else{
+                        window.open(my_href, '_black')
+                    }
+                }
+                $('.layui-nav-item').eq(3).addClass('layui-this');
             });
-            $('.layui-nav-item').eq(3).addClass('layui-this');
+
         });
     </script>
 {% endblock %}

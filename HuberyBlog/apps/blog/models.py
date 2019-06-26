@@ -23,7 +23,7 @@ class Wheels(models.Model):
 
 class Tag(models.Model):
     """标签"""
-    name = models.CharField(max_length=16, unique=True, verbose_name='标签')
+    name = models.CharField(max_length=32, unique=True, verbose_name='标签')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     class Meta:
@@ -35,7 +35,7 @@ class Tag(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=16, null=True, blank=True, unique=True, verbose_name="分类名称")
+    name = models.CharField(max_length=64, null=True, blank=True, unique=True, verbose_name="分类名称")
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     class Meta:
@@ -49,7 +49,7 @@ class Category(models.Model):
 class Blog(models.Model):
     """博客文章"""
     uid = models.ForeignKey(UserInfo, verbose_name='关联作者')
-    title = models.CharField(max_length=64, verbose_name="标题")
+    title = models.CharField(max_length=128, verbose_name="标题")
     content = UEditorField(verbose_name="博客内容", width=700, height=400, imagePath="blog/ueditor/%(basename)s_%(datetime)s.%(extname)s",
                            filePath="blog/ueditor/%(basename)s_%(datetime)s.%(extname)s", default='')
     read_num = models.IntegerField(default=0, verbose_name="阅读次数")
@@ -74,7 +74,7 @@ class Blog(models.Model):
 
 
 class WebCategory(models.Model):
-    name = models.CharField(max_length=32, verbose_name='网站类别')
+    name = models.CharField(max_length=64, verbose_name='网站类别')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     class Meta:
@@ -86,10 +86,15 @@ class WebCategory(models.Model):
 
 
 class Web(models.Model):
-    name = models.CharField(max_length=32, verbose_name='网站名字')
+    STATUS = (
+        (0, '无效'),
+        (1, '有效')
+    )
+    name = models.CharField(max_length=64, verbose_name='网站名字')
     net_address = models.CharField(max_length=128, verbose_name='网站地址')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     web_category = models.ForeignKey(WebCategory, verbose_name='关联网站分类')
+    status = models.SmallIntegerField(choices=STATUS, default=1, verbose_name='是否有效')
 
     class Meta:
         verbose_name = '网站'
