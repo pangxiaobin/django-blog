@@ -19,12 +19,12 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks()
 
-# app.conf.update(
-#     CELERYBEAT_SCHEDULE= {
-#         'sum-task': {
-#             'task': 'blog.tasks.get_all_visit_num',  # 定时任务 获取在线人数
-#             'schedule':  crontab(),
-#             'args': (),
-#         }
-#     }
-# )
+app.conf.update(
+    CELERYBEAT_SCHEDULE= {
+        '定时获取热榜': {
+            'task': 'hot.tasks.run_crawler',  # 定时任务 获取在线人数
+            'schedule':  crontab(minute='*/30'),
+            'args': (),
+        }
+    }
+)

@@ -80,3 +80,8 @@ def search():
            '<input type="text" name="q" autocomplete="off" placeholder="请输入搜索内容" class="search-input">' \
            '<i class="layui-icon layui-icon-search search-btn" onclick="javascript:form.submit()"></i></div></form>'
     return format_html(html)
+
+
+@register.filter
+def eval_data(content):
+    return eval(content)

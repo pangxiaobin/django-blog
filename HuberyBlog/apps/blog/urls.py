@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^archives/$', views.archives, name='archives'),
     url(r'^message_board/$', views.message_board, name='message_board'),
     url(r'^about/$', views.about, name='about'),
-    url(r'get_online_ips/$', views.get_online_ips, name='get_onlines_ips'),
+    url(r'^get_online_ips/$', views.get_online_ips, name='get_onlines_ips'),
     url('^return_ip/$', views.return_ip),
 
 ]

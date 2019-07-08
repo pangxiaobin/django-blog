@@ -1,9 +1,297 @@
 {% extends 'base/base_main.html' %}
 {% load static %}
 
+{% block extCSS %}
+    {{ block.super }}
+    <style>
+        ul li {
+            list-style-type: disc;
+        }
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --select-text-bg-color: #B5D6FC;
+            --select-text-font-color: auto;
+            --monospace: "Lucida Console", Consolas, "Courier", monospace;
+        }
+
+        a.url {
+            word-break: break-all;
+        }
+
+        a:active, a:hover {
+            outline: 0px;
+        }
+
+
+        #write {
+            margin: 0px auto;
+            height: auto;
+            width: inherit;
+            word-break: normal;
+            overflow-wrap: break-word;
+            position: relative;
+            white-space: normal;
+            overflow-x: visible;
+            padding-top: 40px;
+        }
+        #write.first-line-indent li {
+            margin-left: 2em;
+        }
+
+        .for-image #write {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        #write li > figure:last-child {
+            margin-bottom: 0.5rem;
+        }
+
+        #write ol, #write ul {
+            position: relative;
+        }
+
+
+        h3 {
+            break-after: avoid-page;
+            break-inside: avoid;
+            orphans: 2;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+        }
+        a {
+            cursor: pointer;
+        }
+        sup.md-footnote a, sup.md-footnote a:hover {
+            color: inherit;
+            text-transform: inherit;
+            text-decoration: inherit;
+        }
+
+        #write input[type="checkbox"] {
+            cursor: pointer;
+            width: inherit;
+            height: inherit;
+        }
+
+        figure {
+            overflow-x: auto;
+            margin: 1.2em 0px;
+            max-width: calc(100% + 16px);
+            padding: 0px;
+        }
+
+
+        tr {
+            break-inside: avoid;
+            break-after: auto;
+        }
+
+        .CodeMirror pre {
+            padding: 0px 4px;
+        }
+
+        #write pre {
+            white-space: pre-wrap;
+        }
+
+        #write.fences-no-line-wrapping pre {
+            white-space: pre;
+        }
+
+        li div {
+            padding-top: 0px;
+        }
+
+        blockquote {
+            margin: 1rem 0px;
+        }
+
+
+        li {
+            margin: 0px;
+            position: relative;
+        }
+
+        blockquote > :last-child {
+            margin-bottom: 0px;
+        }
+
+        blockquote > :first-child, li > :first-child {
+            margin-top: 0px;
+        }
+
+        a img, img a {
+            cursor: pointer;
+        }
+
+
+        [contenteditable="true"]:active, [contenteditable="true"]:focus {
+            outline: 0px;
+            box-shadow: none;
+        }
+
+        .md-task-list-item > input {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            margin-left: -1.2em;
+            margin-top: calc(1em - 10px);
+            border: none;
+        }
+
+
+        .md-toc-item a {
+            text-decoration: none;
+        }
+
+        .footnote-line a:not(.reversefootnote) {
+            color: inherit;
+        }
+
+        code, pre, samp, tt {
+            font-family: var(--monospace);
+        }
+
+        kbd {
+            margin: 0px 0.1em;
+            padding: 0.1em 0.6em;
+            font-size: 0.8em;
+            color: rgb(36, 39, 41);
+            background: rgb(255, 255, 255);
+            border: 1px solid rgb(173, 179, 185);
+            border-radius: 3px;
+            box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+
+        .md-diagram-panel > svg {
+            max-width: 100%;
+        }
+
+        [lang="mermaid"] svg, [lang="flow"] svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        [lang="mermaid"] .node text {
+            font-size: 1rem;
+        }
+
+        .highlight td, .highlight tr {
+            border: 0px;
+        }
+
+        :root {
+            --side-bar-bg-color: #fafafa;
+            --control-text-color: #777;
+        }
+
+        body {
+            font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: rgb(51, 51, 51);
+            line-height: 1.6;
+        }
+
+        #write {
+            max-width: 860px;
+            margin: 0px auto;
+            padding: 30px 30px 100px;
+        }
+
+        #write > ul:first-child, #write > ol:first-child {
+            margin-top: 30px;
+        }
+
+        a {
+            color: rgb(65, 131, 196);
+        }
+
+        h3 {
+            position: relative;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            line-height: 1.4;
+            cursor: text;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            line-height: 1.43;
+        }
+
+        p {
+            margin: 0.8em 0px;
+        }
+       #write > ul:nth-child(2) > li:nth-child(2) > ul > li:nth-child(4) > ul > li  {
+            margin: 0.8em 0px;
+        }
+        ul, ol {
+            padding-left: 30px;
+        }
+
+        @media print {
+            html {
+                font-size: 13px;
+            }
+            pre {
+                overflow-wrap: break-word;
+            }
+        }
+
+    </style>
+{% endblock %}
+
 {% block content %}
-    <div class="layui-container" style="background-color: white; margin-top: 20px; height: 100%">
-        <h2>关于我...待补充</h2>
+    <div class="layui-container" style="background-color: white; height: 100%">
+        <div id='write' class='is-node'><h3><a name="%E5%85%B3%E4%BA%8E%E5%8D%9A%E5%AE%A2%EF%BC%9A"
+                                               class="md-header-anchor"></a><span>关于博客：</span></h3>
+            <ul>
+                <li><p><span>这里是Hubery的个人博客，用于记录平常的生活和迫于一些技术学过不常使用很快就忘记，这里简单做下记录，便于以后用到时查看。</span></p></li>
+                <li><p><span>博客驱动</span></p>
+                    <ul>
+                        <li><p><span>后端使用</span><a href='https://docs.djangoproject.com/en/1.11/' target="_blank"><span>Django</span></a>
+                        </p></li>
+                        <li><p><span>前端UI使用</span><a href='https://www.layui.com/'
+                                                     target="_blank"><span>layui</span></a></p></li>
+                        <li><p><span>数据库Mysql+Redis</span></p></li>
+                        <li><p><span>涉及插件</span></p>
+                            <ul>
+                                <li><span>后台管理使用Xadmin</span></li>
+                                <li><span>搜索使用haystack，搜索引擎使用Whoosh，分词使用Jieba</span></li>
+                                <li><span>分页使用的是</span><a href='https://dj-pagination.readthedocs.io/en/latest/'
+                                                          target="_blank"><span>dj_pagination</span></a></li>
+                                <li><span>异步任务和定时任务使用</span><a href='http://docs.jinkan.org/docs/celery/index.html'
+                                                               target="_blank"><span>celery</span></a></li>
+                                <li><span>评论插件使用</span><a
+                                        href='https://django-contrib-comments.readthedocs.io/en/latest/'
+                                        target="_blank"><span>django_comments</span></a><a
+                                        href='http://yshblog.com/blog/46' target="_blank"><span>参考文章</span></a></li>
+                                <li><span>后台编辑使用</span><a href='https://github.com/zhangfisher/DjangoUeditor'><span>DjangoUeditor</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <h3><a name="%E5%85%B3%E4%BA%8E%E5%8D%9A%E4%B8%BB" class="md-header-anchor"></a><span>关于博主</span></h3>
+            <p>
+                <span>		</span><span>一名90后程序员，主要做web后端开发，目前主要使用的框架是由Python语言写的Django。迫于工作原因，前端了解HTML, CSS, JS等。</span>
+            </p>
+            <p><span>		</span><span>本博客文章如有转载，请注明出处。</span></p>
+            <h3><a name="%E8%81%94%E7%B3%BB%E6%88%91" class="md-header-anchor"></a><span>联系我</span></h3>
+            <ul>
+                <li><span>邮箱： </span><a href='mailto:xiaobin0727@gmail.com' target='_blank' class='url'>xiaobin0727@gmail.com</a>
+                </li>
+                <li><span>GitHub： </span><a href='https://github.com/pangxiaobin' target='_blank' class='url'>https://github.com/pangxiaobin</a>
+                </li>
+            </ul>
+        </div>
     </div>
 {% endblock %}
 

@@ -169,7 +169,7 @@ def archives(request):
     return render(request, 'blog/archives.html', context=data)
 
 
-@page_cache(60*6*24)
+@page_cache(60*60*24)
 def message_board(request):
     """
     留言
@@ -184,6 +184,7 @@ def message_board(request):
     return render(request, 'blog/message_board.html', context=data)
 
 
+@page_cache(60*60*24)
 def about(request):
     return render(request, 'blog/about.html', context={'title': '关于我'})
 

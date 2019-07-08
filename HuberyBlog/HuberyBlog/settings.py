@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'user',
+    'hot',
     'xadmin',  # 后台
     'crispy_forms',  # 后台
     'DjangoUeditor',  # 富文本编辑器
@@ -200,6 +201,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # 评论和留言接收的邮箱
 DEFAULT_RECEIVE_EMAIL = '2274858959@qq.com'
 
+
 # 配置celery
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 CELERY_RESULT_BACKEND = 'django-db'
@@ -266,6 +268,7 @@ BASE_HEADERS = {
     'Accept-Encoding': 'gzip, deflate, sdch',
     'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
     'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1'
 }
 
 
