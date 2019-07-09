@@ -169,7 +169,7 @@ def archives(request):
     return render(request, 'blog/archives.html', context=data)
 
 
-@page_cache(60*60*24)
+# @page_cache(60*60*24)
 def message_board(request):
     """
     留言

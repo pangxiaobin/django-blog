@@ -9,9 +9,26 @@
 {% block extCSS %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'blog/css/home.css' %}">
+    <style>
+    #particles-js{
+        width: 100%;
+        height: 100%;
+        background-color: #f2f2f2;
+        background-image: url('');
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    </style>
 {% endblock %}
 
 {% block content %}
+<div id="particles-js"></div>
 <div id="Layer1" style="display: none; position: fixed; z-index: 100;"></div>
 <div class="layui-container" style="margin-top: 20px">
     <div class="layui-row layui-col-space20">
@@ -162,6 +179,7 @@
 {% block extJS %}
     {{ block.super }}
     <script type="text/javascript" src="{% static 'blog/js/home.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/background.js' %}"></script>
     <script>
         $('.layui-nav-item').eq(0).addClass('layui-this');
             layui.use(['carousel', 'laypage', 'laydate'], function () {

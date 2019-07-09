@@ -45,7 +45,6 @@ def crawler_zhi_hu():
     content_list = []
     try:
         response_html = get_text(url, options=headers)
-        print(response_html.json())
         data_list = response_html.json().get('data', '')
         # print(data_list)
         if data_list:
@@ -165,7 +164,6 @@ def crawler_github():
         response_html = get_text(url, options=headers)
         tree = etree.HTML(response_html.text)
         article_list = tree.xpath("//article[@class='Box-row']")
-        print(article_list.__len__())
         for article in article_list:
             title = article.xpath('string(./h1/a)').strip()
             href = 'https://github.com/%s' % article.xpath('./h1/a/@href')[0]
