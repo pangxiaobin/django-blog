@@ -16,7 +16,7 @@ from HuberyBlog.settings import BASE_HEADERS
 def page_cache(timeout):
     def wrapper1(view_func):
         def wrapper2(request):
-            key = 'PageCache-%s-%s' % (request.session.session_key, request.get_full_path())
+            key = 'PageCache-%s' % request.get_full_path()
             response = cache.get(key)
             if response is None:
                 response = view_func(request)

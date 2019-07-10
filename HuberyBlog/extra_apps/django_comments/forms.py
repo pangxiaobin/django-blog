@@ -99,7 +99,7 @@ class CommentDetailsForm(CommentSecurityForm):
     Handles the specific details of the comment (name, comment, etc.).
     """
     name = forms.CharField(label=pgettext_lazy("Person name", "Name"), max_length=50)
-    email = forms.EmailField(label=_("Email address"))
+    email = forms.EmailField(label=_("Email address"), required=False)
     url = forms.URLField(label=_("URL"), required=False)
     # Translators: 'Comment' is a noun here.
     comment = forms.CharField(label=_('Comment'), widget=forms.Textarea,

@@ -106,3 +106,6 @@ venv.bak/
 # add
 media/
 .idea
+collectstatic/
+apps/**/migrations/*
+!apps/**/migrations/__init__.py
