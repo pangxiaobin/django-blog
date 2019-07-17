@@ -1,0 +1,64 @@
+{% extends 'base/base_main.html' %}
+{% load static %}
+{% block content %}
+    <div class="layui-container">
+        <div class="layui-tab layui-tab-brief" style="background-color: white; min-height: 83vh">
+          <ul class="layui-tab-title">
+            {% for web_category in web_categories %}
+               {% if forloop.first %}
+                   <li class="layui-this">{{ web_category.name }}</li>
+               {% else %}
+                   <li>{{ web_category.name }}</li>
+               {% endif %}
+            {% endfor %}
+          </ul>
+          <div class="layui-tab-content">
+              {% for web_category in web_categories %}
+                  {% if forloop.first %}
+                      <div class="layui-tab-item layui-show">
+                      <table class="layui-table">
+                        <tbody>
+                            {% for web in web_category.web_set.all %}
+                                <tr>
+                                <td><a href="{{ web.net_address }}" target="_blank">
+                                    {{ forloop.counter }}.&nbsp;{{ web.name }}</a></td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                <td>no data</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                      </div>
+                  {% else %}
+                      <div class="layui-tab-item">
+                      <table class="layui-table">
+                        <tbody>
+                            {% for web in web_category.web_set.all %}
+                                <tr>
+                                <td><a href="{{ web.net_address }}" target="_blank">
+                                    {{ forloop.counter }}.&nbsp;{{ web.name }}</a></td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                <td>no data</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                      </div>
+                  {% endif %}
+              {% endfor %}
+          </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extJS %}
+    {{ block.super }}
+    <script>
+        $('.layui-nav-item').eq(3).addClass('layui-this');
+    </script>
+
+{% endblock %}

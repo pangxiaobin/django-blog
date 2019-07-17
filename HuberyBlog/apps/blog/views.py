@@ -151,7 +151,7 @@ def web_nav(request):
         'title': '网站导航',
         'web_categories': web_categories
     }
-    return render(request, 'blog/web_navigation.html', context=data)
+    return render(request, 'blog/web_nav.html', context=data)
 
 
 @page_cache(60*60*24)
