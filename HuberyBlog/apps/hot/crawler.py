@@ -5,7 +5,6 @@
 # @File    : crawler.py
 # @Software: PyCharm
 
-import logging
 from lxml import etree
 from hot.helper import get_text
 
@@ -18,7 +17,7 @@ def crawler_wei_bo():
     url = 'https://s.weibo.com/top/summary?cate=realtimehot'
     response_html = get_text(url)
     content_list = []
-    try:
+    if response_html:
         tree = etree.HTML(response_html.text)
         tr_list = tree.xpath('//table/tbody/tr')[1:]
         for tr in tr_list:
@@ -26,8 +25,6 @@ def crawler_wei_bo():
             title = tr.xpath('./td[2]/a/text()')[0]
             href = 'https://s.weibo.com%s' % tr.xpath('./td[2]/a/@href')[0]
             content_list.append({'title': title, 'href': href})
-    except Exception as e:
-        logging.exception(e)
     return {'hot_name': '新浪微博', 'content': content_list}
 
 
@@ -43,8 +40,8 @@ def crawler_zhi_hu():
         'x-requested-with': 'fetch',
     }
     content_list = []
-    try:
-        response_html = get_text(url, options=headers)
+    response_html = get_text(url, options=headers)
+    if response_html:
         data_list = response_html.json().get('data', '')
         # print(data_list)
         if data_list:
@@ -52,8 +49,6 @@ def crawler_zhi_hu():
                 title = data.get('target').get('title_area').get('text', '')
                 href = data.get('target').get('link').get('url', '')
                 content_list.append({'title': title, 'href': href})
-    except Exception as e:
-        logging.exception(e)
     return {'hot_name': '知乎热榜', 'content': content_list}
 
 
@@ -69,15 +64,13 @@ def crawler_v2ex():
     }
     response_html = get_text(url, options=headers)
     content_list = []
-    try:
+    if response_html:
         tree = etree.HTML(response_html.text)
         span_list = tree.xpath("//div[@class='box']/div[@class='cell item']/table/tr/td[3]/span[1]")
         for span in span_list:
             title = span.xpath('./a/text()')[0]
             href = 'https://www.v2ex.com%s' % span.xpath('./a/@href')[0]
             content_list.append({'title': title, 'href': href})
-    except Exception as e:
-        logging.exception(e)
     return {'hot_name': 'V2EX', 'content': content_list}
 
 
@@ -88,15 +81,13 @@ def crawler_tie_ba():
     """
     url = 'http://tieba.baidu.com/hottopic/browse/topicList'
     content_list = []
-    try:
-        response_html = get_text(url=url)
+    response_html = get_text(url=url)
+    if response_html:
         req_json = response_html.json()
         for i in req_json.get('data').get('bang_topic').get('topic_list'):
             title = i.get('topic_name')
             href = i.get('topic_url').replace('amp;', '')
             content_list.append({'title': title, 'href': href})
-    except Exception as e:
-        logging.exception(e)
     return {'hot_name': '贴吧', 'content': content_list}
 
 
@@ -112,15 +103,13 @@ def crawler_dou_ban():
     }
     response_html = get_text(url, options=headers)
     content_list = []
-    try:
+    if response_html:
         tree = etree.HTML(response_html.text)
         h3_list = tree.xpath("//div[@class='channel-item']/div[@class='bd']/h3")
         for h3 in h3_list:
             title = h3.xpath('./a/text()')[0]
             href = h3.xpath('./a/@href')[0]
             content_list.append({'title': title, 'href': href})
-    except Exception as e:
-        logging.exception(e)
     return {'hot_name': '豆瓣', 'content': content_list}
 
 
@@ -135,7 +124,7 @@ def crawler_tian_ya():
     }
     response_html = get_text(url, options=headers)
     content_list = []
-    try:
+    if response_html:
         tree = etree.HTML(response_html.text)
         # print(response_html)
         tbody_list = tree.xpath("//div[@class='mt5']/table/tbody")[1:]
@@ -144,8 +133,6 @@ def crawler_tian_ya():
                 title = tr.xpath("./td[@class='td-title']/a/text()")[0]
                 href = 'http://bbs.tianya.cn' + tr.xpath("./td[@class='td-title']/a/@href")[0]
                 content_list.append({'title': title, 'href': href})
-    except Exception as e:
-        logging.exception(e)
     return {'hot_name': '天涯', 'content': content_list}
 
 
@@ -159,9 +146,9 @@ def crawler_github():
         'Host': 'github.com',
         'Referer': 'https://github.com/explore'
     }
+    response_html = get_text(url, options=headers)
     content_list = []
-    try:
-        response_html = get_text(url, options=headers)
+    if response_html:
         tree = etree.HTML(response_html.text)
         article_list = tree.xpath("//article[@class='Box-row']")
         for article in article_list:
@@ -169,8 +156,6 @@ def crawler_github():
             href = 'https://github.com/%s' % article.xpath('./h1/a/@href')[0]
             describe = article.xpath('string(./p)').strip()
             content_list.append({'title':'%s---%s' % (title, describe), 'href': href})
-    except Exception as e:
-        logging.exception(e)
     return {'hot_name': 'GitHub', 'content': content_list}
 
 
@@ -185,33 +170,31 @@ def crawler_wang_yi():
         'referer': 'https://music.163.com/',
 
     }
+    response_html = get_text(url, options=headers)
     content_list = []
-    try:
-        response_html = get_text(url, options=headers)
+    if response_html:
         tree = etree.HTML(response_html.text)
         ul_list = tree.xpath('//div[@id="song-list-pre-cache"]/ul[@class="f-hide"]/li')
         for li in ul_list:
             title = li.xpath('./a/text()')[0]
             href = 'https://music.163.com/#%s' % li.xpath('./a/@href')[0]
             content_list.append({'title': title, 'href': href})
-    except Exception as e:
-        logging.exception(e)
     return {'hot_name': '云音乐飙升榜', 'content': content_list}
 
 
 if __name__ == '__main__':
-    pass
-    # a = crawler_wei_bo()
-    # print(a)
-    c = crawler_zhi_hu()
-    print(c)
-    # get_v2ex()
-    # get_tieba()
-    # e = crawler_dou_ban()
-    # print(e)
-    # crawler_tian_ya()
-    # d = crawler_github()
-    # print(d)
-    # c = crawler_zhi_hu()
-    # print(c)
-    # crawler_wang_yi()
+    # wei_bo = crawler_wei_bo()
+    # print(wei_bo)
+    # zhi_hu = crawler_zhi_hu()
+    # print(zhi_hu)
+    # v2ex = crawler_v2ex()
+    # print(v2ex)
+    # tie_ba = crawler_tie_ba()
+    # print(tie_ba)
+    # dou_ban = crawler_dou_ban()
+    # print(dou_ban)
+    # tian_ya = crawler_tian_ya()
+    # print(tian_ya)
+    github = crawler_github()
+    print(github)
+    # wang_yi = crawler_wang_yi()
