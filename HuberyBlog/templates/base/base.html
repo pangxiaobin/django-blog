@@ -5,9 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <meta name="keywords" content="Hubery,个人博客,Django,Python">
     <meta name="description" content="记录个人学习笔记的博客小站，主要涉及python,Django等">
-
+    {% block meta %}
+    {% endblock %}
     <link rel="icon" href="{% static 'image/hubery.icon' %}">
     {% compress css file base %}
     <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">

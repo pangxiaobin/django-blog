@@ -8,13 +8,13 @@
 {% block header %}
     <!--顶部导航-->
 <div class="layui-header my-header">
-    <div class="layui-container">
+    <div class="layui-container" style="padding: 0 0">
         <ul class="layui-nav layui-bg-cyan">
             <li class="layui-nav-item"><a href="{% url 'home' %}">首页</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:void(0);">分类</a>
                 <dl class="layui-nav-child" id="category">
-                    <dd><a href="">{% get_categories %}</a></dd>
+                    {% get_categories %}
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="{% url 'blog:get_all_blog' %}">博客</a></li>
@@ -23,6 +23,12 @@
             <li class="layui-nav-item"><a href="{% url 'blog:message_board' %}">留言板</a></li>
             <li class="layui-nav-item"><a href="{% url 'blog:about' %}">关于我</a></li>
             <li class="layui-nav-item"><a href="{% url 'hot' %}">热点聚合</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:void(0);">个人实验室</a>
+                <dl class="layui-nav-child" >
+                    <dd><a href="https://www.panglb.top/lab/" target="_blank">Game</a></dd>
+                </dl>
+            </li>
         </ul>
         <ul class="layui-nav layui-layout-right layui-bg-cyan">
 {#            <li class="layui-nav-item">#}

@@ -1,10 +1,11 @@
 {% extends 'base/base_main.html' %}
 {% load static %}
 {% load my_tags %}
-{% block header %}
-    {{ block.super }}
-{#    百度网站验证#}
+{% block meta %}
+      {#    百度网站验证#}
     <meta name="baidu-site-verification" content="pztzMIdK5q" />
+    {#  搜狗验证  #}
+    <meta name="sogou_site_verification" content="ObQz3swg8n"/>
 {% endblock %}
 {% block extCSS %}
     {{ block.super }}

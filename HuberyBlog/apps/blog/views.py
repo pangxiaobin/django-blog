@@ -32,7 +32,7 @@ def home(request):
     friends_blog = FriendsBlog.objects.all().filter(status=1)
     tags = Tag.objects.all()
     data = {
-        'title': '首页|Hubery的个人博客',
+        'title': 'Hubery的个人博客 | 首页',
         'wheels': wheels,
         'blogs': blogs,
         'tags': tags,
@@ -49,7 +49,7 @@ def get_all_blog(request):
     """
     blogs = Blog.objects.all().order_by('-create_time')
     data = {
-        'title': '全部博客',
+        'title': '全部博客 | Hubery',
         'blogs': blogs
     }
     return render(request, 'blog/blog_list.html', context=data)
@@ -67,7 +67,7 @@ def read_blog(request):
     :return:
     """
     try:
-        blog_id = int(request.GET.get('blogid', 1))
+        blog_id = request.GET.get('blogid', 1)
         blog = Blog.objects.filter(pk=blog_id).first()
         pre_blog = Blog.objects.filter(id__lt=blog.id).order_by('-id')
         next_blog = Blog.objects.filter(id__gt=blog.id).order_by('id')
@@ -82,7 +82,7 @@ def read_blog(request):
         else:
             next_blog = None
         data = {
-            'title': blog.title,
+            'title': '%s | Hubery' % blog.title,
             'blog': blog,
             'pre_blog': pre_blog,
             'next_blog': next_blog
@@ -107,7 +107,7 @@ def get_categories(request):
     category = Category.objects.filter(name=category_name).first()
     blogs = category.blog_set.all().order_by('-create_time')
     data = {
-        'title': category_name,
+        'title': '%s | Hubery' % category_name,
         'blogs': blogs
     }
     return render(request, 'blog/blog_list.html', context=data)
@@ -122,7 +122,7 @@ def get_tags(request):
     tag = Tag.objects.filter(pk=tag_id).first()
     blogs = tag.blog_set.all()
     data = {
-        'title': tag.name,
+        'title': '%s | Hubery' % tag.name,
         'blogs': blogs
     }
     return render(request, 'blog/blog_list.html', context=data)
@@ -148,7 +148,7 @@ def web_nav(request):
     """
     web_categories = WebCategory.objects.all()
     data = {
-        'title': '网站导航',
+        'title': '网站导航 | Hubery',
         'web_categories': web_categories
     }
     return render(request, 'blog/web_nav.html', context=data)
@@ -163,7 +163,7 @@ def archives(request):
     """
     dates = Blog.objects.all().order_by('-create_time')
     data = {
-        'title': '文章归档',
+        'title': '文章归档 | Hubery',
         'dates': dates
     }
     return render(request, 'blog/archives.html', context=data)
@@ -178,7 +178,7 @@ def message_board(request):
     """
     message = MessageBoard.objects.filter(id=1).first()
     data = {
-        'title': '留言板',
+        'title': '留言板 | Hubery',
         'message': message
     }
     return render(request, 'blog/message_board.html', context=data)
@@ -186,7 +186,7 @@ def message_board(request):
 
 @page_cache(60*60*24)
 def about(request):
-    return render(request, 'blog/about.html', context={'title': '关于我'})
+    return render(request, 'blog/about.html', context={'title': '关于我 | Hubery'})
 
 
 def get_online_ips(request):

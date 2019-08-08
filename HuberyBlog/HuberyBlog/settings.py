@@ -272,7 +272,7 @@ BASE_HEADERS = {
 }
 
 
-# 日志g
+# 日志
 BASE_LOG_DIR = os.path.join(BASE_DIR, 'log')
 LOGGING = {
     'version': 1,

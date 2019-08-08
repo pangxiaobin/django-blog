@@ -3,6 +3,11 @@
 {% load my_tags %}
 {# 导入评论库模块的模版标签 #}
 {% load comments %}
+{% block meta %}
+    <meta name="keywords"  content="{{ blog.categoryid.name}}" />
+    <meta name="description"  content="{{ blog.title}}" />
+
+{% endblock %}
 {% block extCSS %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'blog/css/read_blog.css' %}">

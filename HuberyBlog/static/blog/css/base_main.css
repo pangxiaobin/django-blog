@@ -1,5 +1,6 @@
 .my-header {
     background-color: #2F4056;
+    height: auto !important;
 }
 
 /*文章列表*/
@@ -18,7 +19,7 @@
 
 
 .item-list .article-border .my-article {
-    height: 150px;
+    /*height: 150px;*/
     padding: 0 10px
 }
 
@@ -31,7 +32,7 @@
 }
 .item-list .article-border .my-article .my-article-info {
     color: #919898;
-    height: 33px;
+    /*height: 33px;*/
     line-height: 33px;
 }
 .item-list .article-border .my-article .my-article-info > span {
@@ -71,7 +72,7 @@ body { min-height: 100%; box-sizing: border-box; padding-bottom: 60px; position:
 
 .my_footer {
     background-color: #2F4056;
-    line-height: 25px;
+    /*line-height: 25px;*/
     padding: 5px 0;
     position: absolute;
     left: 0;

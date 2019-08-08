@@ -22,7 +22,7 @@ app.autodiscover_tasks()
 app.conf.update(
     CELERYBEAT_SCHEDULE= {
         '定时获取热榜': {
-            'task': 'hot.tasks.run_crawler',  # 定时任务 获取在线人数
+            'task': 'hot.tasks.run_crawler',  # 定时任务
             'schedule':  crontab(minute='*/30'),
             'args': (),
         }

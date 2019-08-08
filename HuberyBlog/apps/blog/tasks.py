@@ -7,6 +7,8 @@
 
 from __future__ import absolute_import, unicode_literals
 
+import datetime
+
 from celery import shared_task
 
 from django.db.models import F
@@ -35,6 +37,7 @@ def increase_pv(ip):
         return 'success create %s' % ip
     visit = visits.first()
     visit.visit_num += 1
+    visit.last_visit_time = datetime.datetime.now()
     visit.save()
     return 'success save %s' % ip
 
