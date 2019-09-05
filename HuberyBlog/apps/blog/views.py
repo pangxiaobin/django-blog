@@ -67,8 +67,15 @@ def read_blog(request):
     :return:
     """
     try:
-        blog_id = request.GET.get('blogid', 1)
-        blog = Blog.objects.filter(pk=blog_id).first()
+        blog_id = request.GET.get('blogid', '1')
+        if not blog_id:
+            return redirect('/')
+        try:
+            blog = Blog.objects.filter(pk=blog_id).first()
+        except Exception:
+            return redirect('/')
+        if not blog:
+            return redirect('/')
         pre_blog = Blog.objects.filter(id__lt=blog.id).order_by('-id')
         next_blog = Blog.objects.filter(id__gt=blog.id).order_by('id')
         # 取第1条记录
@@ -105,7 +112,10 @@ def get_categories(request):
     """
     category_name = request.GET.get('category_name')
     category = Category.objects.filter(name=category_name).first()
-    blogs = category.blog_set.all().order_by('-create_time')
+    if category:
+        blogs = category.blog_set.all().order_by('-create_time')
+    else:
+        blogs = None
     data = {
         'title': '%s | Hubery' % category_name,
         'blogs': blogs

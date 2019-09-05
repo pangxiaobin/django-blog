@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.template import loader
 from django.template.loader import render_to_string
 from django.utils.html import escape
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.views.decorators.http import require_POST
 
 import django_comments
@@ -43,7 +43,7 @@ class CommentPostBadRequest(http.HttpResponseBadRequest):
             self.content = render_to_string("comments/400-debug.html", {"why": why})
 
 
-@csrf_protect
+@csrf_exempt
 @require_POST
 def post_comment(request, next=None, using=None):
     """

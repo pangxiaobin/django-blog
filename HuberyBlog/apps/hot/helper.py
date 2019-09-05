@@ -24,7 +24,7 @@ def retry(max_tries=3, wait=5):
             for i in range(max_tries):
                 result = fun(*args, **kwargs)
                 if result is None:
-                    print('retry%s' %s)
+                    print('retry%s' %i)
                     time.sleep(wait)
                     continue
                 else:
