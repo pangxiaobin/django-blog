@@ -59,22 +59,21 @@ def create_blog(request):
     pass
 
 
-@page_cache(60*60*24)
 def read_blog(request):
     """
     阅读博客
     :param request:
     :return:
     """
-    try:
-        blog_id = request.GET.get('blogid', '1')
-        if not blog_id:
-            return redirect('/')
+    blog_id = request.GET.get('blogid', '1')
+    if not blog_id:
+        return redirect('/')
+    key = 'PageCache-%s' % request.get_full_path()
+    response = cache.get(key)
+    if response is None:
         try:
-            blog = Blog.objects.filter(pk=blog_id).first()
-        except Exception:
-            return redirect('/')
-        if not blog:
+            blog = Blog.objects.get(pk=blog_id)
+        except Blog.DoesNotExist:
             return redirect('/')
         pre_blog = Blog.objects.filter(id__lt=blog.id).order_by('-id')
         next_blog = Blog.objects.filter(id__gt=blog.id).order_by('id')
@@ -95,12 +94,10 @@ def read_blog(request):
             'next_blog': next_blog
         }
         response = render(request, 'blog/read_blog.html', context=data)
-        if not request.COOKIES.get('blog_%s_readed' % blog_id):
-            increase_uv.delay(blog_id)  # 使用celery异步添加阅读数
-            response.set_cookie('blog_%s_readed' % blog_id, 'True')
-            return response
-    except Blog.DoesNotExist:
-        raise Http404
+        cache.set(key, response, 60*60*24)
+    if not request.COOKIES.get('blog_%s_readed' % blog_id):
+        increase_uv.delay(blog_id)  # 使用celery异步添加阅读数
+        response.set_cookie('blog_%s_readed' % blog_id, 'True')
     return response
 
 

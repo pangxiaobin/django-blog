@@ -49,5 +49,5 @@ def get_ip_address(ip):
         else:
             return ''
     except Exception as e:
-        print('请求淘宝地址失败, 失败失败原因{}'.format(e))
+        print('请求淘宝地址失败, 失败原因{}'.format(e))
         return None
