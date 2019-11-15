@@ -18,7 +18,7 @@ from blog.tasks import increase_uv
 # from django.core.mail import send_mail
 
 
-# @page_cache(60*60*24)
+@page_cache(60*60*24)
 def home(request):
     """
      首页
