@@ -8,7 +8,7 @@ from django.contrib.sites.models import Site
 
 import xadmin
 from xadmin import views
-from blog.models import Blog, Wheels, Tag, Category, WebCategory, Web, MessageBoard, VisitView, FriendsBlog
+from blog.models import Blog, Wheels, Tag, Category, WebCategory, Web, MessageBoard, VisitView, FriendsBlog, Soul
 
 
 class BlogAdmin(object):
@@ -71,6 +71,10 @@ class FriendsBlogAdmin(object):
     search_fields = ['name']
 
 
+class SoulAdmin(object):
+    list_display = ['id', 'title', 'hits']
+
+
 class SiteAdmin(object):
     """
     用于修改站点地图里面的域名
@@ -99,6 +103,7 @@ xadmin.site.register(Web, WebAdmin)
 xadmin.site.register(MessageBoard, MessageBoardAdmin)
 xadmin.site.register(VisitView, VisitViewAdmin)
 xadmin.site.register(FriendsBlog, FriendsBlogAdmin)
+xadmin.site.register(Soul, SoulAdmin )
 xadmin.site.register(Site, SiteAdmin)
 
 xadmin.site.register(views.BaseAdminView, BaseSetting)

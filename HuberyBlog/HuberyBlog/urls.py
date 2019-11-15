@@ -39,7 +39,8 @@ urlpatterns = [
     # url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),  # 配置上传文件的访问处理函数
     url(r'^comments/', include('django_comments.urls')),  # 评论。
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='sitemap',),
-    url(r'^hot/$', hot_views.hot, name='hot')
+    url(r'^hot/$', hot_views.hot, name='hot'),
+    url(r'^get_soul/$', views.get_soul, name='get_soul'),
 ]
 
 if settings.DEBUG:

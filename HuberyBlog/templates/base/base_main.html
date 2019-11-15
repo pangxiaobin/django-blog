@@ -26,7 +26,8 @@
             <li class="layui-nav-item">
                 <a href="javascript:void(0);">个人实验室</a>
                 <dl class="layui-nav-child" >
-                    <dd><a href="https://www.panglb.top/lab/" target="_blank">Game</a></dd>
+                  <dd><a href="https://www.panglb.top/lab/" target="_blank">Game</a></dd>
+                  <dd><a href="javascript:void(0);" id="soul">毒鸡汤</a></dd>
                 </dl>
             </li>
         </ul>
@@ -64,7 +65,21 @@
             <span style="color: white" id="visit_ips"></span>
         </div>
         </footer>
+        <div id="soulCard" style="display: none; padding: 30px 30px">
+  <fieldset class="layui-elem-field" >
+    <legend>毒鸡汤</legend>
+      <br>
+      <div class="layui-field-box" id="soulTitle" style="font-size: 20px; font-weight: bolder">
+      </div>
+      <br>
+    </fieldset>
+          <br>
+          <br>
+    <div style="text-align: center;">
+       <button type="button" class="layui-btn" id="oneMore">再来一碗</button>
+    </div>
 
+</div>
 {% endblock %}
 
 {% block extJS %}
@@ -77,6 +92,31 @@
                     $('#visit_ips').html(data['data_html'])
                 }
             })
-        })
+        });
+       function getSoulFromServer(){
+           var soulTitle = $('#soulTitle');
+           $.get('/get_soul/', function (data) {
+              var title = data['title'];
+              soulTitle.text(title)
+           });
+       }
+       layui.use(['layer'], function () {
+           $("#soul").on('click', function () {
+           getSoulFromServer();
+           var layer = layui.layer;
+            layer.open({
+              type: 1,
+              content:$("#soulCard"),
+              title: ['少侠请喝掉这碗鸡汤再走！', 'background-color: #009688;text-align:center;' +
+              'font-size:16px; color: white;font-weight: bold;'],
+              id: 1,
+              area: ['700px', '360px'],
+              shadeClose: true, //点击遮罩关
+          });
+        });
+       });
+      $('#oneMore').on('click', function () {
+          getSoulFromServer();
+      })
     </script>
 {% endblock %}

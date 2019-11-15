@@ -7,7 +7,7 @@ from django.core.cache import cache
 
 # from django.views.decorators.csrf import csrf_exempt
 
-from blog.models import Wheels, Blog, Tag, Category, WebCategory, MessageBoard, FriendsBlog, VisitView
+from blog.models import Wheels, Blog, Tag, Category, WebCategory, MessageBoard, FriendsBlog, VisitView, Soul
 
 from blog.helper import page_cache
 
@@ -18,7 +18,7 @@ from blog.tasks import increase_uv
 # from django.core.mail import send_mail
 
 
-@page_cache(60*60*24)
+# @page_cache(60*60*24)
 def home(request):
     """
      首页
@@ -176,7 +176,7 @@ def archives(request):
     return render(request, 'blog/archives.html', context=data)
 
 
-# @page_cache(60*60*24)
+@page_cache(60*60*24)
 def message_board(request):
     """
     留言
@@ -217,3 +217,13 @@ def return_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return HttpResponse('%s'% ip)
+
+
+def get_soul(request):
+    """
+    随机返回一条毒鸡汤
+    :param request:
+    :return:
+    """
+    soul = Soul.objects.values().order_by('?').first()
+    return JsonResponse(soul)

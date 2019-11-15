@@ -218,7 +218,7 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'  # 更新文章时更新索引
 
 # 不记录访问说量的地址
-EXCLUDE_URL = ['/xadmin/', '/blog/return_ip/', '/xadmin/jsi18n/']
+EXCLUDE_URL = ['/xadmin/', '/blog/return_ip/', '/xadmin/jsi18n/', '/get_soul/']
 
 
 # 用与评论发邮件链接访问　写域名或服务器ip地址+端口号(使用８０端口则不用写)

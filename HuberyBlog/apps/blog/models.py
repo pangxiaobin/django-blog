@@ -150,3 +150,17 @@ class FriendsBlog(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Soul(models.Model):
+    """毒鸡汤"""
+    title = models.CharField('内容', max_length=512, null=True)
+    hits = models.CharField('伤害值', max_length=100, null=True)
+
+    class Meta:
+        verbose_name = '毒鸡汤'
+        db_table = 'soul'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.title
