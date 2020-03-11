@@ -2,121 +2,154 @@
 {% load static %}
 {% load my_tags %}
 {% block extCSS %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static 'blog/css/base_main.css' %}">
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'blog/css/base_main.css' %}">
 {% endblock %}
 {% block header %}
-    <!--顶部导航-->
-<div class="layui-header my-header">
+  <!--顶部导航-->
+  <div class="layui-header my-header">
     <div class="layui-container" style="padding: 0 0">
-        <ul class="layui-nav layui-bg-cyan">
-            <li class="layui-nav-item"><a href="{% url 'home' %}">首页</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:void(0);">分类</a>
-                <dl class="layui-nav-child" id="category">
-                    {% get_categories %}
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="{% url 'blog:get_all_blog' %}">博客</a></li>
-            <li class="layui-nav-item"><a href="{% url 'blog:web_nav' %}">网站导航</a></li>
-            <li class="layui-nav-item"><a href="{% url 'blog:archives' %}">归档</a></li>
-            <li class="layui-nav-item"><a href="{% url 'blog:message_board' %}">留言板</a></li>
-            <li class="layui-nav-item"><a href="{% url 'blog:about' %}">关于我</a></li>
-            <li class="layui-nav-item"><a href="{% url 'hot' %}">热点聚合</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:void(0);">个人实验室</a>
-                <dl class="layui-nav-child" >
-                  <dd><a href="javascript:void(0);" id="soul">毒鸡汤</a></dd>
-                  <dd><a href="https://www.panglb.top/lab/" target="_blank">Game</a></dd>
-                </dl>
-            </li>
-        </ul>
-        <ul class="layui-nav layui-layout-right layui-bg-cyan">
-{#            <li class="layui-nav-item">#}
-{#                <a href="javascript:void(0);">#}
-{#                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">#}
-{#                    贤心#}
-{#                </a>#}
-{#                <dl class="layui-nav-child">#}
-{#                    <dd><a href="">基本资料</a></dd>#}
-{#                    <dd><a href="">安全设置</a></dd>#}
-{#                </dl>#}
-{#            </li>#}
-{#            <li class="layui-nav-item"><a href="">退了</a></li>#}
-        </ul>
+      <ul class="layui-nav layui-bg-cyan">
+        <li class="layui-nav-item"><a href="{% url 'home' %}">首页</a></li>
+        <li class="layui-nav-item">
+          <a href="javascript:void(0);">分类</a>
+          <dl class="layui-nav-child" id="category">
+            {% get_categories %}
+          </dl>
+        </li>
+        <li class="layui-nav-item"><a href="{% url 'blog:get_all_blog' %}">博客</a></li>
+        <li class="layui-nav-item"><a href="{% url 'blog:web_nav' %}">网站导航</a></li>
+        <li class="layui-nav-item"><a href="{% url 'blog:archives' %}">归档</a></li>
+        <li class="layui-nav-item"><a href="{% url 'blog:message_board' %}">留言板</a></li>
+        <li class="layui-nav-item"><a href="{% url 'blog:about' %}">关于我</a></li>
+        <li class="layui-nav-item"><a href="{% url 'hot' %}">热点聚合</a></li>
+        <li class="layui-nav-item">
+          <a href="javascript:void(0);">个人实验室</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:void(0);" id="soul">毒鸡汤</a></dd>
+            <dd><a href="https://www.panglb.top/lab/" target="_blank">Game</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:void(0);">优惠购</a>
+          <dl class="layui-nav-child">
+            <dd><a href="http://nl8.szem7.cn/?mi=ZC3CMX9" target="_blank">优惠购</a></dd>
+            <dd><a href="javascript:void(0);" id="buy">优惠购app下载</a></dd>
+          </dl>
+        </li>
+      </ul>
+      <ul class="layui-nav layui-layout-right layui-bg-cyan">
+        {#            <li class="layui-nav-item">#}
+        {#                <a href="javascript:void(0);">#}
+        {#                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">#}
+        {#                    贤心#}
+        {#                </a>#}
+        {#                <dl class="layui-nav-child">#}
+        {#                    <dd><a href="">基本资料</a></dd>#}
+        {#                    <dd><a href="">安全设置</a></dd>#}
+        {#                </dl>#}
+        {#            </li>#}
+        {#            <li class="layui-nav-item"><a href="">退了</a></li>#}
+      </ul>
     </div>
-</div>
-    <a href="javascript:void(0)" class="return_top">
-        <i class="layui-icon layui-icon-top"></i>
-    </a>
+  </div>
+  <a href="javascript:void(0)" class="return_top">
+    <i class="layui-icon layui-icon-top"></i>
+  </a>
 {% endblock %}
 
 {% block footer %}
-        <footer class="my_footer" >
-        <div>
-            <a href="http://www.miitbeian.gov.cn" target="_blank">豫ICP备19007926号-1</a>
-            <span style="color: white">©2019 <a href="http://www.panglb.top/" target="_blank">panglb.top</a> </span>
-            <font color="white">Powered&nbsp;by&nbsp;<a href="https://www.djangoproject.com/" target="_blank">Django
-            </a>and&nbsp;<a href="https://www.layui.com/" target="_blank" style="color: #5FB878">&nbsp;layui</a></font>
-            <a href="{% url 'sitemap' %}" target="_blank">网站地图</a>
-        </div>
-        <div >
-            <span id="div_time" style="color: white"></span>
-            <span style="color: white" id="visit_ips"></span>
-        </div>
-        </footer>
-        <div id="soulCard" style="display: none; padding: 30px 30px">
-  <fieldset class="layui-elem-field" >
-    <legend>毒鸡汤</legend>
+  <footer class="my_footer">
+    <div>
+      <a href="http://www.miitbeian.gov.cn" target="_blank">豫ICP备19007926号-1</a>
+      <span style="color: white">©2019 <a href="http://www.panglb.top/" target="_blank">panglb.top</a> </span>
+      <font color="white">Powered&nbsp;by&nbsp;<a href="https://www.djangoproject.com/" target="_blank">Django
+      </a>and&nbsp;<a href="https://www.layui.com/" target="_blank" style="color: #5FB878">&nbsp;layui</a></font>
+      <a href="{% url 'sitemap' %}" target="_blank">网站地图</a>
+    </div>
+    <div>
+      <span id="div_time" style="color: white"></span>
+      <span style="color: white" id="visit_ips"></span>
+    </div>
+  </footer>
+  <div id="soulCard" style="display: none; padding: 30px 30px">
+    <fieldset class="layui-elem-field">
+      <legend>毒鸡汤</legend>
       <br>
       <div class="layui-field-box" id="soulTitle" style="font-size: 20px; font-weight: bolder">
       </div>
       <br>
     </fieldset>
-          <br>
-          <br>
+    <br>
+    <br>
     <div style="text-align: center;">
-       <button type="button" class="layui-btn" id="oneMore">再来一碗</button>
+      <button type="button" class="layui-btn" id="oneMore">再来一碗</button>
     </div>
-
-</div>
+  </div>
+  <div class="buy_div" style="display: none">
+    <img class="buy_image" style="height:700px;" src="{% static 'image/buy_1.jpg' %}" alt="美逛下载海报"/>
+  </div>
 {% endblock %}
 
 {% block extJS %}
-    {{ block.super }}
-    <script src="{% static 'blog/js/base_main.js' %}"></script>
-    <script>
-        $(function () {
-            $.getJSON('{% url "blog:get_onlines_ips" %}', function(data){
-                if(data['code']==='200'){
-                    $('#visit_ips').html(data['data_html'])
-                }
-            })
-        });
-       function getSoulFromServer(){
-           var soulTitle = $('#soulTitle');
-           $.get('/get_soul/', function (data) {
+  {{ block.super }}
+  <script src="{% static 'blog/js/base_main.js' %}"></script>
+  <script>
+      $(function () {
+          $.getJSON('{% url "blog:get_onlines_ips" %}', function (data) {
+              if (data['code'] === '200') {
+                  $('#visit_ips').html(data['data_html'])
+              }
+          })
+      });
+
+      function getSoulFromServer() {
+          var soulTitle = $('#soulTitle');
+          $.get('/get_soul/', function (data) {
               var title = data['title'];
               soulTitle.text(title)
-           });
-       }
-       layui.use(['layer'], function () {
-           $("#soul").on('click', function () {
-           getSoulFromServer();
-           var layer = layui.layer;
-            layer.open({
-              type: 1,
-              content:$("#soulCard"),
-              title: ['少侠请喝掉这碗鸡汤再走！', 'background-color: #009688;text-align:center;' +
-              'font-size:16px; color: white;font-weight: bold;'],
-              id: 1,
-              area: ['700px', '360px'],
-              shadeClose: true, //点击遮罩关
           });
-        });
-       });
+      }
+
+      function getBuyImageRandom() {
+          var image_list = ['/buy_1.jpg', '/buy_2.jpg', '/buy_3.jpg', '/buy_4.jpg', '/buy_5.jpg', '/buy_6.jpg',
+              '/buy_7.jpg', '/buy_8.jpg', '/buy_9.jpg', '/buy_10.jpg', '/buy_11.jpg', '/buy_12.jpg',
+              '/buy_13.jpg', '/buy_14.jpg', '/buy_15.jpg', '/buy_16.jpg', '/buy_17.jpg', '/buy_18.jpg',
+              '/buy_19.jpg', '/buy_20.png'];
+          var imageName = image_list[parseInt(Math.random() * (image_list.length))];
+          var oImg = $('.buy_image');
+          oImg.attr('src', '{% static "image" %}' + imageName);
+      }
+
+      layui.use(['layer'], function () {
+          var layer = layui.layer;
+          $("#soul").on('click', function () {
+              getSoulFromServer();
+              layer.open({
+                  type: 1,
+                  content: $("#soulCard"),
+                  title: ['少侠请喝掉这碗鸡汤再走！', 'background-color: #009688;text-align:center;' +
+                  'font-size:16px; color: white;font-weight: bold;'],
+                  id: 1,
+                  area: ['700px', '360px'],
+                  shadeClose: true, //点击遮罩关
+              });
+          });
+          $("#buy").on('click', function () {
+              getBuyImageRandom();
+              layer.open({
+                  type: 1,
+                  title: false,
+                  closeBtn: 0,
+                  area: ['auto'],
+                  skin: 'layui-layer-nobg', //没有背景色
+                  shadeClose: true,
+                  content: $(".buy_div"),
+              })
+          })
+      });
       $('#oneMore').on('click', function () {
           getSoulFromServer();
       })
-    </script>
+  </script>
 {% endblock %}
