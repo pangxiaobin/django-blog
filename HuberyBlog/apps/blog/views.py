@@ -227,3 +227,10 @@ def get_soul(request):
     """
     soul = Soul.objects.values().order_by('?').first()
     return JsonResponse(soul)
+
+
+def sponsor(request):
+    data = {
+        'title': '支持博主 | Hubery',
+    }
+    return render(request, 'blog/sponsor.html', context=data)

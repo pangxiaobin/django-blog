@@ -15,7 +15,7 @@ from blog.tasks import increase_pv
 class PvVisitViewMiddleware(MiddlewareMixin):
     """统计在线人数和用户访问"""
     def process_request(self, request):
-        if request.path not in EXCLUDE_URL or not re.match( r'^.*xadmin.*$', request.path):
+        if request.path not in EXCLUDE_URL and not re.match(r'^.*xadmin.*$', request.path):
             ip = get_ip(request)
             online_ips = cache.get("online_ips", [])
             if online_ips:

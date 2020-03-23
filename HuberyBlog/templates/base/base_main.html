@@ -37,6 +37,7 @@
             <dd><a href="javascript:void(0);" id="buy">优惠购app下载</a></dd>
           </dl>
         </li>
+        <li class="layui-nav-item"><a href="{% url 'blog:sponsor' %}">支持博主</a></li>
       </ul>
       <ul class="layui-nav layui-layout-right layui-bg-cyan">
         {#            <li class="layui-nav-item">#}
@@ -115,7 +116,7 @@
           var image_list = ['/buy_1.jpg', '/buy_2.jpg', '/buy_3.jpg', '/buy_4.jpg', '/buy_5.jpg', '/buy_6.jpg',
               '/buy_7.jpg', '/buy_8.jpg', '/buy_9.jpg', '/buy_10.jpg', '/buy_11.jpg', '/buy_12.jpg',
               '/buy_13.jpg', '/buy_14.jpg', '/buy_15.jpg', '/buy_16.jpg', '/buy_17.jpg', '/buy_18.jpg',
-              '/buy_19.jpg', '/buy_20.png'];
+              '/buy_19.jpg', '/buy_20.jpg'];
           var imageName = image_list[parseInt(Math.random() * (image_list.length))];
           var oImg = $('.buy_image');
           oImg.attr('src', '{% static "image" %}' + imageName);

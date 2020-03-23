@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^about/$', views.about, name='about'),
     url(r'^get_online_ips/$', views.get_online_ips, name='get_onlines_ips'),
     url('^return_ip/$', views.return_ip),
+    url('^sponsor/$', views.sponsor, name='sponsor'),
 
 ]
 

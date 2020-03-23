@@ -1,0 +1,41 @@
+{% extends 'base/base_main.html' %}
+{% load static %}
+{% block content %}
+    <div class="layui-container" style="background-color: white">
+      <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>支持博主,穷不你,富不了我,却是对我莫大的鼓励</legend>
+      </fieldset>
+  <div style="padding: 20px; background-color: #F2F2F2;">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header">微信支持博主一杯咖啡</div>
+        <div class="layui-card-body" style="text-align: center">
+           <img src="{% static 'image/weixin_sponsor.jpg' %}"  style="width: 250px" alt="微信支付" >
+        </div>
+      </div>
+    </div>
+    <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header">支付宝支持一杯可乐</div>
+        <div class="layui-card-body" style="text-align: center">
+          <img src="{% static 'image/zhifubao_sponsor.jpg' %}" alt="支付宝支付" style="width: 250px">
+        </div>
+      </div>
+    </div>
+     <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header"> <a style="color: green" href="http://www.89y1b.cn/t/Qizf8Pl" target="_blank">下载返利APP</a> ,邀请码: <code>ZC3CMX9</code> </div>
+        <div class="layui-card-body" style="text-align: center">
+          <img src="{% static 'image/meiguang.png' %}" alt="支付宝支付" style="width: 250px">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend></legend>
+    </fieldset>
+  </div>
+
+{% endblock %}
