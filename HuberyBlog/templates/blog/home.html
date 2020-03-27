@@ -31,7 +31,6 @@
       max-height: 30px;
       cursor: pointer;
       margin-left: -5px;
-    {#background-color: #FF5722;#}
     }
   </style>
 {% endblock %}
@@ -78,8 +77,14 @@
               <li><a href="https://weibo.com/5049512278/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1"
                      target="_blank" title="微博"><i class="layui-icon layui-icon-login-weibo"></i></a></li>
               <li><a href="/xadmin/" target="_blank" title="后台系统"><i class="layui-icon layui-icon-console"></i></a></li>
-              <li><a href="javascript:void(0);"><img class="float-right" id="theme-img" src="{% static 'image/light.png' %}"
+              {% if request.COOKIES.toggleTheme == "dark" %}
+                   <li><a href="javascript:void(0);"><img class="float-right" id="theme-img" src="{% static 'image/night.png' %}"
                                   alt="theme-toggle" title="切换主题"></a></li>
+                {% else %}
+                <li><a href="javascript:void(0);"><img class="float-right" id="theme-img" src="{% static 'image/light.png' %}"
+                                  alt="theme-toggle" title="切换主题"></a></li>
+              {% endif %}
+
             </ul>
           </div>
         </div>
@@ -256,7 +261,6 @@
 
       // 删除暗色主题
       function removeDarkTheme() {
-          console.log($('#theme-css-dark'))
           $('#theme-css-dark').remove();
       }
 
