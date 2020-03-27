@@ -1,0 +1,160 @@
+/*
+背景色：#22303f
+卡片色：#18222d
+深色卡片色：#001d25
+字体色：#9caec7
+字体暗色：#738292
+字体亮色：#ccc
+*/
+
+body {
+    background: #22303f;
+}
+
+/*top bar*/
+.my-header {
+   background-color: #18222d !important;
+}
+.layui-bg-cyan {
+    background-color: #18222d !important;
+}
+
+.layui-nav-child {
+    background-color: #18222d !important;
+}
+
+.layui-nav-child a{
+    color: #009688 !important;
+}
+
+/*首页背景图*/
+#particles-js {
+    background-color: #22303f;
+}
+
+
+/*文章*/
+.article-border {
+    background-color: #18222d !important;
+}
+
+.blo_content {
+    color: #738292;
+}
+.my-article a {
+   color: #009688;
+}
+
+.my-article a:hover {
+    color: #FF5722;
+}
+
+
+/*个人信息*/
+.my-cart{
+    background-color: #18222d !important;
+    color: #738292;
+}
+.my-consultation a{
+    color: #ffffff99 !important;
+}
+
+/*图标*/
+.my-search, .tag_yun, .top_blog, .random_blog, .friends_blog {
+     background-color: #18222d !important;
+}
+
+.my-search input{
+    background-color: #f9f9f9d1;
+}
+
+.tag_yun a, .top_blog a, .random_blog a, .friends_blog a{
+    color: #009688 !important;
+}
+
+.tag_yun h3, .top_blog h3, .random_blog h3, .friends_blog h3{
+     color: #ffffff99;
+}
+
+.data-time #layui-laydate1 {
+    background-color: #18222d !important;
+    border: none;
+}
+
+.tag_yun a:hover, .top_blog a:hover, .random_blog a:hover, .friends_blog a:hover{
+     color: #FF5722 !important;
+}
+
+.layui-icon {
+    color: #ffffff99 !important;
+}
+
+/*分页*/
+.page {
+    background-color: #18222d !important;
+}
+.pagination li a {
+    background-color: #009688 !important;
+    color: white;
+}
+
+.pagination li a.active {
+    background-color: #FF5722 !important;
+    color: white !important;
+    border: 1px solid #009688 !important;
+}
+/*底部*/
+.my_footer {
+    background-color: #18222d !important;
+}
+
+/*热榜*/
+.layui-tab-brief {
+    background-color: #18222d !important;
+    color: #738292;;
+}
+.layui-tab-bar {
+    background-color: #009688;
+}
+
+.layui-table {
+    background-color: #18222d;
+}
+
+.layui-table a{
+    color: #009688;
+}
+
+/*归档*/
+.layui-container {
+    background-color: #18222d !important;
+    color: #738292 !important;
+}
+.layui-container h1,h2,h3,h4,h5{
+    color: #738292 !important;
+}
+
+/*留言板*/
+.layui-card {
+   background-color: #18222d !important;
+}
+
+.layui-card input, .layui-card textarea {
+    background-color: #f9f9f9d1;
+}
+
+/*支持博主*/
+body > div.layui-container > div {
+     background: #22303f !important;
+}
+.layui-card-header {
+    color: #738292 !important;
+    border: 1px solid #9e9292c2;
+}
+.layui-elem-field {
+    border-style:none !important;
+}
+
+#theme-img {
+    background-color: #FF5722 !important;
+}

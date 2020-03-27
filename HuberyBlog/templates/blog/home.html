@@ -2,228 +2,284 @@
 {% load static %}
 {% load my_tags %}
 {% block meta %}
-      {#    百度网站验证#}
-    <meta name="baidu-site-verification" content="pztzMIdK5q" />
-    {#  搜狗验证  #}
-    <meta name="sogou_site_verification" content="ObQz3swg8n"/>
+  {#    百度网站验证#}
+  <meta name="baidu-site-verification" content="pztzMIdK5q"/>
+  {#  搜狗验证  #}
+  <meta name="sogou_site_verification" content="ObQz3swg8n"/>
 {% endblock %}
 {% block extCSS %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static 'blog/css/home.css' %}">
-    <style>
-    #particles-js{
-        width: 100%;
-        height: 100%;
-        background-color: #f2f2f2;
-        background-image: url('');
-        background-size: cover;
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'blog/css/home.css' %}">
+  <style>
+    #particles-js {
+      width: 100%;
+      height: 100%;
+      background-color: #f2f2f2;
+      background-image: url('');
+      background-size: cover;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
-    </style>
+
+    #theme-img {
+      width: auto;
+      max-height: 30px;
+      cursor: pointer;
+      margin-left: -5px;
+    {#background-color: #FF5722;#}
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
-<div id="particles-js"></div>
-<div id="Layer1" style="display: none; position: fixed; z-index: 100;"></div>
-<div class="layui-container" style="margin-top: 20px">
+  <div id="particles-js"></div>
+  <div id="Layer1" style="display: none; position: fixed; z-index: 100;"></div>
+  <div class="layui-container" style="margin-top: 20px">
     <div class="layui-row layui-col-space20">
-        <!--轮播-->
-        <div class="layui-col-md8">
-            <div class="layui-carousel" id="test1">
-                <div carousel-item>
-                    {% for wheel in wheels %}
-                        <div><img src="/media/{{ wheel.image }}" alt="{{ whell.name }}" width="100%" height="100%"></div>
-                    {% endfor %}
-                </div>
-            </div>
+      <!--轮播-->
+      <div class="layui-col-md8">
+        <div class="layui-carousel" id="test1">
+          <div carousel-item>
+            {% for wheel in wheels %}
+              <div><img src="/media/{{ wheel.image }}" alt="{{ whell.name }}" width="100%" height="100%"></div>
+            {% endfor %}
+          </div>
         </div>
-        <!--个人信息-->
-        <div class="layui-col-md4">
-            <div class="my-cart">
-                <div class="my-icon">
-                    <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop">
-                        <img src="{% static 'image/my-icon.jpg' %}" alt="头像">
-                    </div>
-                    <br>
-                    <h2>Hubery</h2>
-                </div>
-                <hr>
-                <br>
-                <div class="my-info">
-                    <span>这里是Hubery的个人博客,欢迎来访~</span>
-                    <br/>
-                    <br>
-                    <br/>
-                    <ul class="my-consultation">
-                        <li><a href="https://github.com/pangxiaobin" title="github" target="_blank"><i class="iconfont layui-extend-githup" ></i></a></li>
-                        <li><i class="layui-icon layui-icon-login-wechat" onmouseover="showPic(event, '{% static "image/wechart.jpg" %}')" onmouseleave="hiddenPic()"></i></li>
-                        <li><i class="layui-icon layui-icon-login-qq" title="qq:2274858959"></i> </li>
-                        <li> <a href="https://weibo.com/5049512278/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="微博"><i class="layui-icon layui-icon-login-weibo"></i></a></li>
-                        <li> <a href="/xadmin/" target="_blank" title="后台系统"><i class="layui-icon layui-icon-console"></i></a> </li>
-                    </ul>
-                </div>
+      </div>
+      <!--个人信息-->
+      <div class="layui-col-md4">
+        <div class="my-cart">
+          <div class="my-icon">
+            <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop">
+              <img src="{% static 'image/my-icon.jpg' %}" alt="头像">
             </div>
+            <br>
+            <h2>Hubery</h2>
+          </div>
+          <hr>
+          <br>
+          <div class="my-info">
+            <span>这里是Hubery的个人博客,欢迎来访~</span>
+            <br/>
+            <br>
+            <br/>
+            <ul class="my-consultation">
+              <li><a href="https://github.com/pangxiaobin" title="github" target="_blank"><i
+                  class="iconfont layui-extend-githup"></i></a></li>
+              <li><i class="layui-icon layui-icon-login-wechat"
+                     onmouseover="showPic(event, '{% static "image/wechart.jpg" %}')" onmouseleave="hiddenPic()"></i>
+              </li>
+              <li><i class="layui-icon layui-icon-login-qq" title="qq:2274858959"></i></li>
+              <li><a href="https://weibo.com/5049512278/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1"
+                     target="_blank" title="微博"><i class="layui-icon layui-icon-login-weibo"></i></a></li>
+              <li><a href="/xadmin/" target="_blank" title="后台系统"><i class="layui-icon layui-icon-console"></i></a></li>
+              <li><a href="javascript:void(0);"><img class="float-right" id="theme-img" src="{% static 'image/light.png' %}"
+                                  alt="theme-toggle" title="切换主题"></a></li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
 
     <div class="layui-row layui-col-space20">
-        <!--文章内容-->
-        <div class="layui-col-md8">
+      <!--文章内容-->
+      <div class="layui-col-md8">
         {% load pagination_tags %}
         {% autopaginate blogs %}
-            {% for blog in blogs %}
-                <div class="item-list">
-                <div class="layui-row article-border">
-                    <div class="my-article">
-                        <div><a href="{% url 'blog:read_blog' %}?blogid={{ blog.id }}"><h2>{{ blog.title }}</h2></a></div>
-                        <!--头像 作者 时间 分类标签-->
-                        <div class="my-article-info">
-                            <a href="#"><img src="/media/{{ blog.uid.icon }}" alt="文章" style="width: 30px; height: 30px;
+        {% for blog in blogs %}
+          <div class="item-list">
+            <div class="layui-row article-border">
+              <div class="my-article">
+                <div><a href="{% url 'blog:read_blog' %}?blogid={{ blog.id }}"><h2>{{ blog.title }}</h2></a></div>
+                <!--头像 作者 时间 分类标签-->
+                <div class="my-article-info">
+                  <a href="#"><img src="/media/{{ blog.uid.icon }}" alt="文章" style="width: 30px; height: 30px;
                             border-radius: 50%; border: 1px solid black"></a>
-                            <span>作者:</span>
-                            <span>{{ blog.uid.username}}</span>
-                            <span>发布时间:</span>
-                            <span>{{ blog.create_time | date:"Y-m-d" }}</span>
-                            <span></span>
-                            <span>分类:</span>
-                            <span><a href="#">{{ blog.categoryid.name }}</a></span>
-                            <span>标签:</span>
-                            {% for tag in blog.tags.all %}
-                                <span><a href="#">{{ tag.name }}</a></span>
-                            {% endfor %}
-                        </div>
-                        <!--文章内容取签115字-->
-                        <div class="blo_content" style="font-size: 16px; line-height: 23px">
-                            {% autoescape off %}
-{#                            {{ blog.content|truncatechars_html:115 }}#}
-                                {{ blog.content|striptags|cut_char }}
-                            {% endautoescape %}
-                        </div>
-                    </div>
+                  <span>作者:</span>
+                  <span>{{ blog.uid.username }}</span>
+                  <span>发布时间:</span>
+                  <span>{{ blog.create_time | date:"Y-m-d" }}</span>
+                  <span></span>
+                  <span>分类:</span>
+                  <span><a href="#">{{ blog.categoryid.name }}</a></span>
+                  <span>标签:</span>
+                  {% for tag in blog.tags.all %}
+                    <span><a href="#">{{ tag.name }}</a></span>
+                  {% endfor %}
                 </div>
+                <!--文章内容取签115字-->
+                <div class="blo_content" style="font-size: 16px; line-height: 23px">
+                  {% autoescape off %}
+                    {#                            {{ blog.content|truncatechars_html:115 }}#}
+                    {{ blog.content|striptags|cut_char }}
+                  {% endautoescape %}
+                </div>
+              </div>
             </div>
+          </div>
+        {% endfor %}
+        <div class="page">
+          {% paginate using 'pagination/my_pagination.html' %}
+        </div>
+      </div>
+      <!--右侧信息栏-->
+      <div class="layui-col-md4">
+        <form action="{% url 'blog:haystack' %}" method="get" name="form">
+          <div class="my-search">
+            <input type="text" name="q" autocomplete="off" placeholder="请输入搜索内容" class="search-input">
+            <i class="layui-icon layui-icon-search search-btn" onclick='javascript:form.submit()'></i>
+          </div>
+        </form>
+        {#            {% search %}#}
+
+        <div class="data-time">
+          <div id="datatime"></div>
+        </div>
+
+        <div class="tag_yun">
+          <h3><i class="layui-icon layui-icon-snowflake" style="font-size: 20px; color: #1b9dec;margin-right: 5px"></i>标签云
+          </h3>
+          <hr class="layui-bg-black">
+          <div id="tagscloud">
+            {% for tag in tags %}
+              <a href="{% url 'blog:get_tags' %}?tag_id={{ tag.id }}">{{ tag.name }}&nbsp;({{ tag.blog_set.all.count }})</a>
             {% endfor %}
-            <div class="page">
-               {% paginate using 'pagination/my_pagination.html' %}
-            </div>
+          </div>
         </div>
-        <!--右侧信息栏-->
-        <div class="layui-col-md4">
-            <form action="{% url 'blog:haystack' %}" method="get" name="form" >
-                <div class="my-search" >
-                    <input type="text" name="q" autocomplete="off" placeholder="请输入搜索内容" class="search-input">
-                    <i class="layui-icon layui-icon-search search-btn" onclick='javascript:form.submit()'></i>
-                </div>
-            </form>
-{#            {% search %}#}
-
-            <div class="data-time">
-                <div id="datatime"></div>
-            </div>
-
-             <div class="tag_yun">
-                <h3><i class="layui-icon layui-icon-snowflake"style="font-size: 20px; color: #1b9dec;margin-right: 5px" ></i>标签云</h3>
-                <hr class="layui-bg-black">
-                <div id="tagscloud">
-                    {% for tag in tags %}
-                        <a href="{% url 'blog:get_tags' %}?tag_id={{ tag.id }}">{{ tag.name }}&nbsp;({{ tag.blog_set.all.count }})</a>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="top_blog">
-                <h3><i class="layui-icon layui-icon-fire"style="font-size: 20px; color: red;margin-right: 5px" ></i>阅读排行</h3>
-                <hr class="layui-bg-black">
-                <div>
-                    <ul >
-                        {% get_top_blog %}
-                    </ul>
-                </div>
-            </div>
-
-            <div class="random_blog" >
-                <h3><i class="layui-icon layui-icon-read"style="font-size: 20px;margin-right: 5px; color:#FF5722"></i>随机推荐</h3>
-                <hr class="layui-bg-black">
-                <div>
-                    <ul>
-                        {% get_random_blog %}
-                    </ul>
-                </div>
-            </div>
-
-            <div class="friends_blog" >
-                <h3><i class="layui-icon layui-icon-face-smile-fine"style="font-size: 20px;margin-right: 5px; color:#FF5722"></i>友情链接</h3>
-                <hr class="layui-bg-black">
-                <div>
-                    <ul>
-                        {% for friend_blog in friends_blog %}
-                            <li><strong><a href="{{ friend_blog.address }}" target="_blank">{{ friend_blog.name }}</a></strong></li>
-                        {% empty %}
-                            <li><a href="javascript:volid(0);" style="color: red">暂未添加</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <br>
-            <br>
+        <div class="top_blog">
+          <h3><i class="layui-icon layui-icon-fire" style="font-size: 20px; color: red;margin-right: 5px"></i>阅读排行</h3>
+          <hr class="layui-bg-black">
+          <div>
+            <ul>
+              {% get_top_blog %}
+            </ul>
+          </div>
         </div>
+
+        <div class="random_blog">
+          <h3><i class="layui-icon layui-icon-read" style="font-size: 20px;margin-right: 5px; color:#FF5722"></i>随机推荐
+          </h3>
+          <hr class="layui-bg-black">
+          <div>
+            <ul>
+              {% get_random_blog %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="friends_blog">
+          <h3><i class="layui-icon layui-icon-face-smile-fine"
+                 style="font-size: 20px;margin-right: 5px; color:#FF5722"></i>友情链接</h3>
+          <hr class="layui-bg-black">
+          <div>
+            <ul>
+              {% for friend_blog in friends_blog %}
+                <li><strong><a href="{{ friend_blog.address }}" target="_blank">{{ friend_blog.name }}</a></strong></li>
+              {% empty %}
+                <li><a href="javascript:volid(0);" style="color: red">暂未添加</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <br>
+        <br>
+      </div>
     </div>
-</div>
+  </div>
 
 {% endblock %}
 
 {% block extJS %}
-    {{ block.super }}
-    <script type="text/javascript" src="{% static 'blog/js/home.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/background.js' %}"></script>
-    <script>
-        $('.layui-nav-item').eq(0).addClass('layui-this');
-            layui.use(['carousel', 'laypage', 'laydate'], function () {
-                var carousel = layui.carousel;
-                //建造实例
-                carousel.render({
-                    elem: '#test1'
-                    , width: '100%' //设置容器宽度
-                    , arrow: 'hover' //始终显示箭头
-                });
-                // 嵌套显示日期
-                var laydate = layui.laydate;
-                laydate.render({
-                    elem: '#datatime'
-                    ,position: 'static'
-                    ,showBottom: false
-                    ,calendar: true
-                })
-        });
-        $('.my-icon > div > img ').on({
-            mouseenter: function () {
-                var othis = $(this).parent(), anim = othis.data('anim');
-                othis.addClass(anim);
-            },
-            mouseleave: function () {
-                var othis = $(this).parent(), anim = othis.data('anim');
-                othis.removeClass(anim);
-            }
-        });
-        var layer1 = $('#Layer1');
-        function showPic(e,sUrl){
-            var x,y;
-            x = e.clientX;
-            y = e.clientY;
-            layer1.css('left', x -100 +"px");
-            layer1.css('top',  y + 20 + "px");
-            layer1.append("<img border='0' src="+ sUrl+ " style='width:200px' />");
-            layer1.css('display', 'block');
-            }
+  {{ block.super }}
+  <script type="text/javascript" src="{% static 'blog/js/home.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/background.js' %}"></script>
+  <script>
+      $('.layui-nav-item').eq(0).addClass('layui-this');
+      layui.use(['carousel', 'laypage', 'laydate'], function () {
+          var carousel = layui.carousel;
+          //建造实例
+          carousel.render({
+              elem: '#test1'
+              , width: '100%' //设置容器宽度
+              , arrow: 'hover' //始终显示箭头
+          });
+          // 嵌套显示日期
+          var laydate = layui.laydate;
+          laydate.render({
+              elem: '#datatime'
+              , position: 'static'
+              , showBottom: false
+              , calendar: true
+          })
+      });
+      $('.my-icon > div > img ').on({
+          mouseenter: function () {
+              var othis = $(this).parent(), anim = othis.data('anim');
+              othis.addClass(anim);
+          },
+          mouseleave: function () {
+              var othis = $(this).parent(), anim = othis.data('anim');
+              othis.removeClass(anim);
+          }
+      });
+      var layer1 = $('#Layer1');
 
-        function hiddenPic(){
-            layer1.css('display', 'none');
-            layer1.empty();
-        }
-    </script>
+      function showPic(e, sUrl) {
+          var x, y;
+          x = e.clientX;
+          y = e.clientY;
+          layer1.css('left', x - 100 + "px");
+          layer1.css('top', y + 20 + "px");
+          layer1.append("<img border='0' src=" + sUrl + " style='width:200px' />");
+          layer1.css('display', 'block');
+      }
+
+      function hiddenPic() {
+          layer1.css('display', 'none');
+          layer1.empty();
+      }
+
+      //添加暗色主题css
+      function addDarkTheme() {
+          var link = document.createElement('link');
+          link.type = 'text/css';
+          link.id = "theme-css-dark";  // 加上id方便后面好查找到进行删除
+          link.rel = 'stylesheet';
+          link.href = '/static/css/night.css';
+          $("head").append(link);
+      }
+
+      // 删除暗色主题
+      function removeDarkTheme() {
+          console.log($('#theme-css-dark'))
+          $('#theme-css-dark').remove();
+      }
+
+      //切换主题按钮，根据cookies切换主题
+      $("#theme-img").click(function () {
+          var theme_key = "toggleTheme";
+          var theme_value = Cookies.get(theme_key);
+          if (theme_value === "dark") {
+              $("#theme-img").attr("src", "/static/image/light.png");
+              Cookies.set(theme_key, "light", {expires: 365});
+              removeDarkTheme();
+          } else {
+              $("#theme-img").attr("src", "/static/image/night.png");
+              Cookies.set(theme_key, "dark", {expires: 365});
+              addDarkTheme();
+          }
+          $.getJSON('/blog/change_theme/', {'theme': theme_value}, function (data) {
+              if(data['code'] === 200){
+                  return true
+              } else {
+                  alert(data['msg'])
+              }
+          })
+      })
+  </script>
 {% endblock %}

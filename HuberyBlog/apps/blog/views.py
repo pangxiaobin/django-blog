@@ -41,6 +41,7 @@ def home(request):
     return render(request, 'blog/home.html', context=data)
 
 
+@page_cache(60*60*24)
 def get_all_blog(request):
     """
     返回所有的博客
@@ -101,6 +102,7 @@ def read_blog(request):
     return response
 
 
+@page_cache(60*60*24)
 def get_categories(request):
     """
     返回对应分类下的所以文章
@@ -147,6 +149,7 @@ def get_tags(request):
 #     except Exception as e:
 #         print(e)
 #         return HttpResponse('发送失败')
+@page_cache(60*60*24)
 def web_nav(request):
     """
     网站导航
@@ -229,8 +232,23 @@ def get_soul(request):
     return JsonResponse(soul)
 
 
+@page_cache(60*60*24)
 def sponsor(request):
     data = {
         'title': '支持博主 | Hubery',
     }
     return render(request, 'blog/sponsor.html', context=data)
+
+
+def change_theme(request):
+    theme = request.GET.get('theme')
+    if not theme:
+        msg = 'not found theme'
+    else:
+        cache.clear()
+        msg = 'success'
+    data = {
+        'code': 200,
+        'msg': msg
+    }
+    return JsonResponse(data)

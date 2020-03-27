@@ -45,6 +45,28 @@
         document.head.appendChild(sc);
         }
     </script>
+  <script>
+    (function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https'){
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else{
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+      })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script>
+  if (typeof Cookies === 'undefined') {
+      var sc = document.createElement('script');
+      sc.src = "{% static 'js/js.cookie.js' %}";
+      document.head.appendChild(sc);
+  }
+  </script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -53,6 +75,10 @@
     {% block extCSS %}
 
     {% endblock %}
+    <!--根据cookies判断是否启用暗色主题-->
+    {% if request.COOKIES.toggleTheme == "dark" %}
+        <link rel="stylesheet" id="theme-css-dark" href="{% static 'css/night.css' %}">
+    {% endif %}
 </head>
 <body>
     {% block header %}

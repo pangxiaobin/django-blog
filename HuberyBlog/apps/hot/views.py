@@ -17,5 +17,4 @@ def hot(request):
         'title':'热点聚合',
         'hot_queryset': hot_queryset
     }
-    print(hot_queryset.values('hot_name'))
     return render(request, 'hot/hot.html', context=data)
