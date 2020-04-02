@@ -125,18 +125,11 @@ body {
     color: #009688;
 }
 
-/*归档*/
-.layui-container {
-    background-color: #18222d !important;
-    color: #738292 !important;
-}
-.layui-container h1,h2,h3,h4,h5{
-    color: #738292 !important;
-}
 
 /*留言板*/
 .layui-card {
-   background-color: #18222d !important;
+    background-color: #18222d !important;
+    color: #738292 !important;
 }
 
 .layui-card input, .layui-card textarea {
@@ -153,4 +146,39 @@ body > div.layui-container > div {
 }
 .layui-elem-field {
     border-style:none !important;
+    color: #738292 !important;;
+}
+
+/*文章*/
+body > div.layui-container > div > div.layui-col-md8 > div:nth-child(1){
+    background-color: #18222d !important;
+    color: #738292 !important;
+}
+
+.syntaxhighlighter {
+    background-color:  #d2d2d2 !important;
+}
+.gutter {
+    background-color:  #d2d2d2 !important;
+}
+
+.layui-container {
+    background-color:  #22303f !important;
+}
+
+/*关于我*/
+#write {
+    color: #738292 !important;
+    background:  #18222d !important;
+
+}
+
+/*归档*/
+.archives {
+    background-color: #18222d !important;
+    color: #738292 !important;
+}
+
+.layui-container h3{
+    color: #738292 !important;
 }
