@@ -15,6 +15,8 @@ import random
 import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from HuberyBlog.utils import check_file_path
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
@@ -24,10 +26,10 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fekukruj0n15v9e_zhe$si+^0p!p$hi0m^0fqo#tgot20))a5s'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or 'fekukruj0n15v9e_zhe$si+^0p!p$hi0m^0fqo#tgot20))a5s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG') or True
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -51,7 +53,6 @@ INSTALLED_APPS = [
     'asynchronous_send_mail',  # send_email,
     'django_celery_results',  # celery
     'haystack',  # 搜索
-    'compressor',  # 压缩css js
     'django.contrib.sitemaps',  # 站点地图
 ]
 SITE_ID = 1
@@ -98,7 +99,7 @@ WSGI_APPLICATION = 'HuberyBlog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR , 'database', 'db.sqlite3'),
     }
 }
 
@@ -119,7 +120,7 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": os.environ.get("DJANGO_LOCATION") or "redis://127.0.0.1:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "PICKLE_VERSION": -1,
@@ -194,16 +195,16 @@ PAGINATION_DEFAULT_PAGINATION = 8  # 每页显示的的数量
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_USE_SSL = True
 EMAIL_PORT = 465
-EMAIL_HOST_USER = '1456819312@qq.com'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') or '1456819312@qq.com'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # 评论和留言接收的邮箱
-DEFAULT_RECEIVE_EMAIL = '2274858959@qq.com'
+DEFAULT_RECEIVE_EMAIL = os.environ.get('DEFAULT_RECEIVE_EMAIL') or '2274858959@qq.com'
 
 
 # 配置celery
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL") or 'redis://127.0.0.1:6379/0'
 CELERY_RESULT_BACKEND = 'django-db'
 
 
@@ -274,6 +275,14 @@ BASE_HEADERS = {
 
 # 日志
 BASE_LOG_DIR = os.path.join(BASE_DIR, 'log')
+BLOG_ERROR = os.path.join(BASE_LOG_DIR, 'blog_error.log')
+BLOG_INFO = os.path.join(BASE_LOG_DIR, 'blog_info.log')
+
+MEDIA_PATH = os.path.join(BASE_DIR, MEDIA_ROOT)
+
+CHEK_FILE_PATH_LIST = [BASE_LOG_DIR , MEDIA_PATH]
+check_file_path(CHEK_FILE_PATH_LIST)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,  # 禁用已经存在的logger实例
@@ -308,7 +317,7 @@ LOGGING = {
         'default': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件，自动切
-            'filename': os.path.join(BASE_LOG_DIR, "blog_info.log"),  # 日志文件
+            'filename': BLOG_INFO,  # 日志文件
             'maxBytes': 1024 * 1024 * 50,  # 日志大小 50M
             'backupCount': 3,  # 最多备份几个
             'formatter': 'standard',
@@ -318,7 +327,7 @@ LOGGING = {
         'error': {
             'level': 'ERROR',
             'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件，自动切
-            'filename': os.path.join(BASE_LOG_DIR, "blog_error.log"),  # 日志文件
+            'filename': BLOG_ERROR,  # 日志文件
             'maxBytes': 1024 * 1024 * 50,  # 日志大小 50M
             'backupCount': 5,
             'formatter': 'standard',

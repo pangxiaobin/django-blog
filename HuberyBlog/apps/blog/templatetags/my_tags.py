@@ -42,7 +42,7 @@ def get_top_blog():
 def get_random_blog(except_id=0):
     """获取随机推荐"""
     rand_count = 10
-    rand_blogs = Blog.objects.exclude(id=rand_count).order_by('?')[:rand_count]
+    rand_blogs = Blog.objects.exclude(id=except_id).order_by('?')[:rand_count]
     data_html = ''
     for blog in rand_blogs:
         data_html += ' <li><strong><a href="/blog/read/?blogid={}">{}</a></strong>' \
