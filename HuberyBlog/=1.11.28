@@ -1,0 +1,4 @@
+Looking in indexes: https://pypi.douban.com/simple/
+Requirement already satisfied: django in /home/hubery/.virtualenvs/huberyBlog/lib/python3.5/site-packages (2.2.12)
+Requirement already satisfied: pytz in /home/hubery/.virtualenvs/huberyBlog/lib/python3.5/site-packages (from django) (2018.9)
+Requirement already satisfied: sqlparse in /home/hubery/.virtualenvs/huberyBlog/lib/python3.5/site-packages (from django) (0.3.1)

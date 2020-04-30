@@ -11,7 +11,7 @@ decorator==4.3.0
 defusedxml==0.5.0
 diff-match-patch==20181111
 dj-pagination==2.4.0
-Django==1.11.7
+django==1.11.28
 django-appconf==1.0.3
 django-celery-results==1.0.4
 django-compressor==2.3
@@ -40,7 +40,7 @@ openpyxl==2.5.12
 parso==0.3.1
 pexpect==4.6.0
 pickleshare==0.7.5
-Pillow==5.4.1
+pillow==6.2.2
 prompt-toolkit==2.0.7
 ptyprocess==0.6.0
 Pygments==2.3.1
@@ -48,7 +48,7 @@ PyMySQL==0.9.3
 pyparsing==2.4.0
 python-dateutil==2.8.0
 pytz==2018.9
-PyYAML==3.13
+pyyaml==4.2b1
 rcssmin==1.0.6
 redis==3.2.0
 requests==2.22.0
