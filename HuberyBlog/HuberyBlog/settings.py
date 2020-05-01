@@ -279,9 +279,12 @@ BLOG_ERROR = os.path.join(BASE_LOG_DIR, 'blog_error.log')
 BLOG_INFO = os.path.join(BASE_LOG_DIR, 'blog_info.log')
 
 MEDIA_PATH = os.path.join(BASE_DIR, MEDIA_ROOT)
+if DATABASES.get('default').get('ENGINE') == 'django.db.backends.sqlite3':
+    DATABASE_PATH = os.path.join(BASE_DIR, 'database')
+    check_file_path(DATABASE_PATH)
 
-CHEK_FILE_PATH_LIST = [BASE_LOG_DIR , MEDIA_PATH]
-check_file_path(CHEK_FILE_PATH_LIST)
+CHECK_FILE_PATH_LIST = [BASE_LOG_DIR, MEDIA_PATH, ]
+check_file_path(CHECK_FILE_PATH_LIST)
 
 LOGGING = {
     'version': 1,
