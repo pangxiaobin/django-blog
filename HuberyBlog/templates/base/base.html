@@ -23,13 +23,13 @@
             document.head.appendChild(script);
         }
     </script>
-     <script src="//layui.hcwl520.com.cn/layui-v2.5.3/layui.js?v=201906040202"></script>
+     <script src="https://www.layuicdn.com/layui-v2.4.5/layui.js"></script>
 
     {#    <script type="text/javascript" src="{% static 'layui/layui.js' %}"></script>#}
     <script>
         if (typeof layui === 'undefined') {
             var sc = document.createElement('script');
-            sc.src = "{% static 'layui/layui.js' %}";
+            sc.src = "{% static 'layui/layui.all.js' %}";
             document.head.appendChild(sc);
         }
     </script>

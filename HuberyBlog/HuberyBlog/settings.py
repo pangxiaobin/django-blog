@@ -336,7 +336,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['default', 'console', ],  # 上线之后可以把'console'移除 记录一般的易出问题的点的信息
+            'handlers': ['default', 'error', 'console', ],  # 上线之后可以把'console'移除 记录一般的易出问题的点的信息
             'level': 'INFO',
             'propagate': True,  # 向不向更高级别的logger传递
         },

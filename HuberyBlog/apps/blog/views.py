@@ -74,7 +74,7 @@ def read_blog(request):
     if response is None:
         try:
             blog = Blog.objects.get(pk=blog_id)
-        except Blog.DoesNotExist:
+        except (Blog.DoesNotExist, ValueError):
             return redirect('/')
         pre_blog = Blog.objects.filter(id__lt=blog.id).order_by('-id')
         next_blog = Blog.objects.filter(id__gt=blog.id).order_by('id')

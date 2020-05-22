@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import logging
+
 from django import http
 from django.apps import apps
 from django.conf import settings
@@ -23,6 +25,9 @@ from django.http import HttpResponse
 import json
 
 from asynchronous_send_mail import send_mail
+
+logger = logging.getLogger('django')
+
 
 # 添加返回json的方法，json结构有3个参数（code:返回码,is_success:是否处理成功,message:消息内容）
 def ResponseJson(code, is_success, message):
@@ -102,6 +107,7 @@ def post_comment(request, next=None, using=None):
 
     # Check security information
     if form.security_errors():
+        logger.error({'form': form, 'security_errors': form.security_errors})
         # return CommentPostBadRequest(
         #    "The comment form failed security verification: %s" % escape(str(form.security_errors())))
         return ResponseJson(508, False, "The comment form failed security verification: %s" %
