@@ -110,11 +110,11 @@ def get_categories(request):
     :return:
     """
     category_name = request.GET.get('category_name')
-    category = Category.objects.filter(name=category_name).first()
-    if category:
-        blogs = category.blog_set.all().order_by('-create_time')
+    category = Category.objects.filter(name=category_name)
+    if category.exists():
+        blogs = category.first().blog_set.all().order_by('-create_time')
     else:
-        blogs = None
+        blogs = []
     data = {
         'title': '%s | Hubery' % category_name,
         'blogs': blogs
@@ -127,11 +127,19 @@ def get_tags(request):
     返回对应标签下的所以博客
     :param request:
     """
-    tag_id = request.GET.get('tag_id')
-    tag = Tag.objects.filter(pk=tag_id).first()
-    blogs = tag.blog_set.all()
+    try:
+        tag_id = request.GET.get('tag_id')
+    except ValueError:
+        return redirect('/')
+    tag = Tag.objects.filter(pk=tag_id)
+    if tag.exists():
+        tag_name = tag.first().name
+        blogs = tag.first().blog_set.all()
+    else:
+        tag_name = None
+        blogs = []
     data = {
-        'title': '%s | Hubery' % tag.name,
+        'title': '%s | Hubery' % tag_name,
         'blogs': blogs
     }
     return render(request, 'blog/blog_list.html', context=data)
