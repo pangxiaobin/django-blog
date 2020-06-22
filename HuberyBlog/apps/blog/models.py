@@ -50,7 +50,8 @@ class Blog(models.Model):
     """博客文章"""
     uid = models.ForeignKey(UserInfo, verbose_name='关联作者')
     title = models.CharField(max_length=128, verbose_name="标题")
-    content = UEditorField(verbose_name="博客内容", width=700, height=400, imagePath="blog/ueditor/%(basename)s_%(datetime)s.%(extname)s",
+    content = UEditorField(verbose_name="博客内容", width=700, height=400,
+                           imagePath="blog/ueditor/%(basename)s_%(datetime)s.%(extname)s",
                            filePath="blog/ueditor/%(basename)s_%(datetime)s.%(extname)s", default='')
     read_num = models.IntegerField(default=0, verbose_name="阅读次数")
     appreciate = models.IntegerField(default=0, verbose_name="点赞次数")
@@ -105,7 +106,7 @@ class Web(models.Model):
 
 
 class MessageBoard(models.Model):
-    id = models.IntegerField(default=1, primary_key=True,verbose_name='留言id')
+    id = models.IntegerField(default=1, primary_key=True, verbose_name='留言id')
     name = models.CharField(max_length=32, verbose_name='留言')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
@@ -133,7 +134,6 @@ class VisitView(models.Model):
 
 
 class FriendsBlog(models.Model):
-
     STATUS = (
         (0, '无效'),
         (1, '有效')
@@ -164,3 +164,21 @@ class Soul(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class BlockIP(models.Model):
+    """ip 黑名单"""
+    STATUS = (
+        (0, '无效'),
+        (1, '有效')
+    )
+    ip = models.GenericIPAddressField('block ip', null=True)
+    status = models.SmallIntegerField('是否有效', choices=STATUS)
+
+    class Meta:
+        verbose_name = '黑名单'
+        db_table = 'block_ip'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.ip

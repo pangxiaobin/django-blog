@@ -68,6 +68,7 @@ MIDDLEWARE = [
     'dj_pagination.middleware.PaginationMiddleware',
     'blog.pv_middleware.PvVisitViewMiddleware',  # 统计ip
     'blog.pv_middleware.CleanCacheMiddleware',  # 监听admin　清除缓存
+    'blog.pv_middleware.BlockIPMiddleware',
 ]
 
 ROOT_URLCONF = 'HuberyBlog.urls'

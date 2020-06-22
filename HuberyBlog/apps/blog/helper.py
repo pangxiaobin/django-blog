@@ -118,6 +118,19 @@ def get_ip_address(ip):
     return None
 
 
+def get_ip(request):
+    """
+    获取ip
+    :param request:
+    :return:
+    """
+    if 'HTTP_X_FORWARDED_FOR' in request.META:
+        ip = request.META.get('HTTP_X_FORWARDED_FOR')
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
 if __name__ == '__main__':
 
     ip = get_ip_address('127.0.0.1')

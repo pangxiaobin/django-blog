@@ -8,8 +8,7 @@ from django.contrib.sites.models import Site
 
 import xadmin
 from xadmin import views
-from blog.models import Blog, Wheels, Tag, Category, WebCategory, Web, MessageBoard, VisitView, FriendsBlog, Soul
-
+from blog.models import Blog, Wheels, Tag, Category, WebCategory, Web, MessageBoard, VisitView, FriendsBlog, Soul, BlockIP
 
 class BlogAdmin(object):
     """博客文章"""
@@ -82,6 +81,11 @@ class SiteAdmin(object):
     list_display = ['id', 'domain']
 
 
+class BlockIPAdmin(object):
+    """ip 黑名单"""
+    list_display = ['id', 'ip', 'status']
+
+
 class BaseSetting(object):
     enable_themes = True  # 开启自定义主题
     use_bootswatch = True
@@ -105,6 +109,7 @@ xadmin.site.register(VisitView, VisitViewAdmin)
 xadmin.site.register(FriendsBlog, FriendsBlogAdmin)
 xadmin.site.register(Soul, SoulAdmin )
 xadmin.site.register(Site, SiteAdmin)
+xadmin.site.register(BlockIP, BlockIPAdmin)
 
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)

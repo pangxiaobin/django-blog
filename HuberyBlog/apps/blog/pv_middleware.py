@@ -6,10 +6,13 @@
 # @Software: PyCharm
 import re
 from django.core.cache import cache
+from django.http import HttpResponseServerError
 from django.utils.deprecation import MiddlewareMixin
 
 from HuberyBlog.settings import EXCLUDE_URL
+from blog.helper import get_ip
 from blog.tasks import increase_pv
+from blog.models import BlockIP
 
 
 class PvVisitViewMiddleware(MiddlewareMixin):
@@ -48,14 +51,13 @@ class CleanCacheMiddleware(MiddlewareMixin):
             cache.delete(key)
 
 
-def get_ip(request):
-    """
-    获取ip
-    :param request:
-    :return:
-    """
-    if 'HTTP_X_FORWARDED_FOR' in request.META:
-        ip = request.META.get('HTTP_X_FORWARDED_FOR')
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
+class BlockIPMiddleware(MiddlewareMixin):
+
+    """拉黑ip"""
+    def process_request(self, request):
+        ip = get_ip(request)
+        ips = BlockIP.objects.filter(ip=ip, status=1)
+        if ips.exists():
+            return HttpResponseServerError()
+
+
