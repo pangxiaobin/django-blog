@@ -33,7 +33,7 @@ jedi==0.13.2
 jieba==0.39
 kiwisolver==1.1.0
 kombu==4.4.0
-lxml==4.3.3
+lxml==4.6.2
 numpy==1.16.4
 odfpy==1.4.0
 openpyxl==2.5.12
